@@ -76,6 +76,9 @@ h1 {
 p {
     margin: inherit
 }
+.card{
+    border: none;
+}
 
 @keyframes growProgressBar {
 
