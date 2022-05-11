@@ -11,18 +11,15 @@
     integrity="sha512-KfkfwYDsLkIlwQp6LFnl8zNdLGxu9YAA1QvwINks4PhcElQSvqcyVLLD9aMhXd13uQjoXtEKNosOWaZqXgel0g=="
     crossorigin="anonymous" referrerpolicy="no-referrer" />
   
-  <!--Bootstrap Icons-->
-  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.8.1/font/bootstrap-icons.css">
-
   <!--fonte do subtítulo e textos-->
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-  <link href="https://fonts.googleapis.com/css2?family=Raleway:&display=swap" rel="stylesheet">
+  <link href="https://fonts.googleapis.com/css2?family=Raleway:wght@200&display=swap" rel="stylesheet">
   
   <!--fonte do título-->
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-  <link href="https://fonts.googleapis.com/css2?family=Inter:&display=swap" rel="stylesheet">
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@200&display=swap" rel="stylesheet">
   
   
   <link rel="stylesheet" href="./style.css" />
@@ -42,7 +39,7 @@
 
       <div class="p-3 col-12 col-lg-4 text-center" id="centerSection"> <!-- cria a seção central do header-->
         <h1> Nome do Eixo </h1>
-        <h6> Clique em <i class="fa-regular fa-pen-to-square"></i> para editar as questões, em <i class="bi bi-trash"></i> para apagar e em <i class="bi bi-plus-square"></i> para adicionar novas questões.</h6>
+        <h6> Clique em <i class="fa-regular fa-pen-to-square"></i> para editar as questões</h6>
       </div>
 
       <div class="p-3 col-12 col-lg-4" id="rightSection"> <!-- cria a seção da direita -->
@@ -59,24 +56,23 @@
       <div class="container" id="list"> <!--cria um container para a seção das perguntas-->
 
 
-          <div class="row col-12 text-center align-items-center" id="questionsHeader">
+        <!-- <div class="row p-3 text-center justify-content-center" id ="questionsBox"> -->
+          <div class="row col-12 text-center justify-content-center" id="questionsHeader">
            
             <div class="col-lg-3 p-4">
-              <h4>Número</h4>
+              <h6>Número</h6>
             </div>
            
             <div class="col-lg-3 p-4">
-              <h4>Domínio</h4>
+              <h6>Domínio</h6>
             </div>
           
             <div class="col-lg-3 p-4">
-              <h4>Pergunta</h4>
+              <h6>Pergunta</h6>
             </div>
 
-            <div class="col-lg-3 p-4"> 
-              <button id="addBtn"> <!--botão add questões-->
-                <i class="bi bi-plus-square"></i>
-              </button>
+            <div class="col-lg-3 p-4">
+              <h6>Editar</h6>
             </div>
 
           </div>
@@ -89,7 +85,7 @@
 
 
 
-          <div class="row col-12 text-center align-items-center" id="questions"> <!--linha das questões-->
+          <div class="row col-12 justify-content-center text-center" id="questions"> <!--linha das questões-->
             <div class="col-lg-3 p-4">
               <h6>1</h6>
             </div>
@@ -103,11 +99,8 @@
             </div>
   
             <div class="col-lg-3 p-4">
-              <button id="editBtn"> <!--botão editar questões-->
+              <button id="editBtn">
                 <i class="fa-regular fa-pen-to-square" id="edit"></i>
-              </button>
-              <button id="trashBtn"> <!--botão apagar questões-->
-                <i class="bi bi-trash"></i>
               </button>
             </div>
 
