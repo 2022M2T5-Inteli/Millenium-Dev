@@ -10,7 +10,9 @@
     background-color: lightgray;
     border-radius: 14px;
     vertical-align: middle;
-    padding: 5%;
+    padding: 15px;
+    width: fit-content;
+    margin: auto;
 }
 
 #card-quiz {
@@ -71,6 +73,7 @@ a:hover {
 
 h1 {
     font-family: 'Inter', sans-serif;
+    margin: 5%
 }
 
 p {
@@ -208,7 +211,6 @@ div[role="progressbar100"] {
 
 div[role="progressbar100"]::before {
     counter-reset: percentage var(--value);
-    content: counter(percentage) '%';
 }
 div[role="progressbar0"] {
     margin: auto;
