@@ -13,7 +13,7 @@ if (value <= 30 && value > 0) {
 }
 if (value == 100) {
     document.getElementById(card[i]).setAttribute("role","progressbar100")
-    document.getElementById(card[i]).innerHTML="<i class='fa-solid fa-check'></i>"
+    document.getElementById(card[i]).innerHTML="<i class='fa-solid fa-check' style='font-size: 2rem;'></i>"
 }
 if (value == 0) {
     document.getElementById(card[i]).setAttribute("role","progressbar0")
