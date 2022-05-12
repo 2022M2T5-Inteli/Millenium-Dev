@@ -1,0 +1,48 @@
+h1 {
+    font-family: 'Inter', sans-serif;
+    font-size:  2.8rem;
+    padding-bottom: 1rem;
+    padding-top: 2rem;
+    text-align: center;
+}
+
+h2 {
+    font-family: 'Raleway', sans-serif;   
+    font-weight: bolder;
+    padding-top: 1rem;
+    font-size: 2rem;
+}
+
+.questionnaire {
+    text-align: center;
+    padding-top: 8rem;
+}
+
+#questionnaireIcon {
+    font-size: 7rem;
+    color: #579a99;
+}
+.dashboard {
+    text-align: center;
+    padding-top: 8rem;
+}
+
+#dashboardIcon {
+    font-size: 7rem;
+    color:#579a99;
+}
+
+.buttonVoltar {
+    padding-top: 10rem;
+    padding-right: 1rem;
+}
+
+#iconeBack {
+    border-radius: 50%;
+    padding: 15px;
+    margin-left: 22px;
+    margin-top: 35px;
+    border: #EFEFEF;
+    background-color: #EFEFEF;
+    color: #579A99;
+}
