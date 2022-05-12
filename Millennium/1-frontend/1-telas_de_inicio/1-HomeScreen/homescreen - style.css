@@ -1,0 +1,24 @@
+.row{
+    padding-top: 11rem;
+}
+
+.buttonAcessar{
+    color: #FFFFFF;
+    background-color: #579a99;
+    border-color: #579a99;
+    border-radius: 0.75rem;
+    border-style: solid;
+    font-family: 'Inter', sans-serif;
+}
+
+h1{
+    font-family: 'Inter', sans-serif;
+    font-size: 325%;
+    padding-bottom: 1rem;
+}
+
+p{
+    font-family: 'Raleway', sans-serif;
+    font-weight: bold;
+    padding-bottom: 1rem;
+}
