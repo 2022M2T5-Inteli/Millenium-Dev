@@ -1,0 +1,63 @@
+h1 {
+    font-family: 'Inter', sans-serif;
+    font-size:  3rem;
+    padding-bottom: 1rem;
+    padding-top: 2rem;
+    text-align: center;
+}
+
+h2 {
+    font-family: 'Raleway', sans-serif;   
+    font-weight: bolder;
+    padding-top: 1rem;
+}
+
+p {
+    font-size: 1rem;
+    font-family: 'Raleway', sans-serif; 
+    font-weight: 800; 
+}
+
+.buttonSouEscola {
+    padding-top: 8rem;
+    text-align: center;
+}
+
+.buttonSouRede {
+    padding-top: 8rem;
+    text-align: center;
+}
+
+.buttonSouFalconi {
+    padding-top: 8rem;
+    text-align: center;
+}
+
+.buttonVoltar {
+    padding-right: 1rem;
+}
+
+#buttonEscola {
+    font-size: 5.5rem;
+    color:#0E7E7A;
+}
+
+#buttonRede {
+    font-size: 5.5rem;
+    color:#5C78A5
+}
+
+#buttonFalconi {
+    font-size: 5.5rem;
+    color:#BA9A48
+}
+
+#iconeBack {
+    border-radius: 50%;
+    padding: 15px;
+    margin-left: 22px;
+    margin-top: 35px;
+    border: #EFEFEF;
+    background-color: #EFEFEF;
+    color: #579A99;
+}
