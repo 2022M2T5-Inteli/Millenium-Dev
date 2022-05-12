@@ -1,0 +1,46 @@
+h1 {
+    font-family: 'Inter', sans-serif;
+    font-size:  3rem;
+    padding-bottom: 1rem;
+    padding-top: 2rem;
+    text-align: center;
+}
+
+#icone {
+    border-radius: 50%;
+    padding: 15px;
+    border: #efefef;
+    background-color: #efefef;
+    color: #579a99;
+    margin-left: 23px;
+    margin-top: 35px;
+}
+
+.buttonVoltar {
+    padding-right: 1rem;
+}
+
+.buttonCadastrar {
+    padding: 5px 10px;
+    color: #FFFFFF;
+    background-color: #579a99;
+    border-color: #579a99;
+    border-radius: 12px;
+    border-style: solid;
+    font-family: 'Inter', sans-serif;
+    text-align: center;
+    margin-top: 2rem;
+}
+
+.back {
+    padding-top: 0.8rem;
+}
+
+.next {
+    padding-top: 3rem;
+    align-items: center;
+}
+
+.register {
+    padding-top: 5rem;
+}
