@@ -1,3 +1,12 @@
+h1,
+h3 {
+  font-family: "Inter", sans-serif;
+}
+
+h6 {
+  font-family: "Raleway", sans-serif;
+  font-weight: bold;
+}
 .section-card {
   box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2);
   border: none;
@@ -12,6 +21,7 @@
 #profileBox {
   background-color: #efefef;
   border-radius: 12px;
+  font-family: "Raleway", sans-serif;
 }
 
 #backButton {
