@@ -50,7 +50,7 @@ h1 {
 }
 
 .register {
-  padding-top: 5rem;
+  padding-top: 2.75rem;
 }
 
 #backButton {
@@ -74,4 +74,9 @@ a:link,
 a:hover {
   text-decoration: none;
   color: inherit;
+}
+
+h6 {
+  font-family: "Raleway", sans-serif;
+  font-weight: bold;
 }
