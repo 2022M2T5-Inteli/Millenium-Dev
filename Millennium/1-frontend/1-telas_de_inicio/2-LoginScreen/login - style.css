@@ -81,3 +81,8 @@ a:hover {
   text-decoration: none;
   color: inherit;
 }
+
+h6 {
+  font-family: "Raleway", sans-serif;
+  font-weight: bold;
+}

@@ -34,11 +34,11 @@ const sections = [
     name: "Equidade",
     questionsAmount: 6,
   },
-  {
-    id: 1,
-    name: "Gestão para resultados teste",
-    questionsAmount: 20,
-  },
+  // {
+  //   id: 1,
+  //   name: "Gestão para resultados teste",
+  //   questionsAmount: 20,
+  // },
 ];
 
 function createSectionCard(sectionId, sectionName, questionsAmount) {
