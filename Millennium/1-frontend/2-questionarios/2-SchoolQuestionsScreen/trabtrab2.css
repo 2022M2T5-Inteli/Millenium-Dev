@@ -8,10 +8,10 @@
   left:50%;
   transform: translate(-50%, -50%);
   background-color: #2B4B4C;
-  font-family:'Inter', sans-serif;
   font-size: 28px;
   color: White;
   line-height: 65px;
+  border-radius: 10px;
 }
 
 .rectangle2 {
@@ -22,10 +22,14 @@
   left:50%;
   transform: translate(-50%, -50%);
   background-color: #579a9973 ;
-  font-family:'Inter', sans-serif;
   font-size: 20px;
-  color: White;
+  color: black;
   line-height: 65px;
+  border-radius: 10px;
+}
+
+.rectangle2:hover{
+  background-color: #316867;
 }
 
 .rectangle3 {
@@ -36,11 +40,17 @@
   left:50%;
   transform: translate(-50%, -50%);
   background-color: #579a9973 ;
-  font-family:'Inter', sans-serif;
   font-size: 20px;
-  color: White;
+  color: black;
   line-height: 65px;
+  border-radius: 10px;
 }
+
+
+.rectangle3:hover{
+  background-color: #316867;
+}
+
 
 .rectangle4 {
   height: 70px;
@@ -50,11 +60,17 @@
   left:50%;
   transform: translate(-50%, -50%);
   background-color: #579a9973;
-  font-family:'Inter', sans-serif;
   font-size: 20px;
-  color: White;
+  color: black;
   line-height: 65px;
+  border-radius: 10px;
 }
+
+
+.rectangle4:hover{
+  background-color: #316867;
+}
+
 
 .rectangle5 {
   height: 70px;
@@ -64,11 +80,17 @@
   left:50%;
   transform: translate(-50%, -50%);
   background-color: #579a9973;
-  font-family:'Inter', sans-serif;
   font-size: 20px;
-  color: White;
+  color: black;
   line-height: 65px;
+  border-radius: 10px;
 }
+
+
+.rectangle5:hover{
+  background-color: #316867;
+}
+
 
 .test1{
   color:#7B123A;
@@ -78,9 +100,17 @@
   transform: translate(-50%, -50%);
   border-color: #7B123A;
   border-radius: 5px;
-  font-family:'Inter', sans-serif;
+  
 
 }
+
+.test1:hover{
+  background-color: #7b123ab1;  
+  color: black;
+}
+
+
+
 
 .test2{
   color:#BA9A48;
@@ -90,7 +120,11 @@
   transform: translate(-50%, -50%);
   border-color: #BA9A48;
   border-radius: 5px;
-  font-family:'Inter', sans-serif;
+}
+
+.test2:hover{
+  background-color: #ba9a48ac;  
+  color: black
 }
 
 .test3{
@@ -101,15 +135,18 @@
   transform: translate(-50%, -50%);
   border-color: #0E7E7A;
   border-radius: 5px;
-  font-family:'Inter', sans-serif;
+}
+
+.test3:hover{
+  background-color: #0e7e7aa8; 
+  color: black
 }
 
 .tittle{
-  font-size: 3rem;
-  font-family:'Inter', sans-serif;
-  color:#667080;
+  font-size: 1,5rem;
+  color:black;
   position: fixed;
-  top:3%;
+  top:9%;
   left:50%;
   transform: translate(-50%, -50%);
   padding-bottom: 1rem;
@@ -127,8 +164,19 @@
   transform: translate(-50%, -50%);
   line-height: 22px;
   padding: 10px;
-  border: solid 3px #7B123A;
-  font-family:'Inter', sans-serif;
+  border-radius: 10px;
+
+}
+
+.rectangle7{
+  height: 90px;
+  width: 200px;
+  position: fixed;
+  top:32%;
+  left:9.5%;
+  transform: translate(-50%, -50%);
+  line-height: 22px;
+  
 
 }
 
@@ -157,4 +205,22 @@
     color: #579a99;
     margin-left: 23px;
     margin-top: 35px;
+}
+
+#topo-tela {
+  margin-top: 1%;
+  margin-bottom: 1%;
+  margin-left: 0%;
+  margin-right: 10px;
+}
+
+
+#backButton {
+  padding: 1.2rem;
+  width: 3.4rem;
+  height: 3.4rem;
+  border-radius: 50px;
+  font-size: 1.6rem;
+  box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2);
+  transition: ease all 0.2s;
 }
