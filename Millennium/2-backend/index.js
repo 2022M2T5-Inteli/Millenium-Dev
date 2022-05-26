@@ -46,41 +46,6 @@ app.post("/redes/create", (request, response) => {
 });
 
 
-
-// ENDPOINTS API ALTERNATIVA
-
-// endpoint adicionar alternativa
-app.post("/alternativas/create", (request, response) => {
-  let db = new sqlite3.Database(DBPATH);
-  let sql = "INSERT INTO Alternativa (texto, idQuestao, pontuacao, numeroAlt, versao, idAutor) VALUES (?, ?, ?, ?, 1, ?)";
-  console.log(request.body);
-  let params = [];
-  params.push(request.body.texto);
-  params.push(request.body.idQuestao);
-  params.push(request.body.pontuacao);
-  params.push(request.body.numeroAlt);
-  params.push(request.body.idAutor);
-
-  db.all(sql, params, (err, rows) => {
-    response.statusCode = 200;
-    response.json(rows);
-  });
-  db.close();
-
-});
-
-
-
-
-
-
-
-
-
-
-
-
-
 // // returns the workExperience list
 // app.get("/workExperience", (req, res) => {
 //   res.statusCode = 200;
