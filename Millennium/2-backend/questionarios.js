@@ -19,9 +19,11 @@ app.use(express.json());
 
 // endpoints para add questoes
 
-app.get("/Eixos", (request, response) => {
+app.get("/questoes/:idEixo", (request, response) => {
   let db = new sqlite3.Database(DBPATH);
-  let sql = "SELECT * FROM Eixos = ?";
+  let sql = "SELECT * FROM Questao WHERE idEixo = ?";
+  let params = [];
+  params.push(request.params.idEixo);
   db.all(sql, [], (err, rows) => {
     response.statusCode = 200;
     response.json(rows);
@@ -31,7 +33,7 @@ app.get("/Eixos", (request, response) => {
 
 app.post("/questoesCreate", (request, response) => {
   let db = new sqlite3.Database(DBPATH);
-  let sql = "INSERT INTO Questao (texto, numeroQuestao, peso, idDominio, idAutor) VALUES(?, ?, ?, ?, ?)";
+  let sql = "INSERT INTO Questao (texto, numeroQuestao, peso, idDominio, idAutor, idEixo, versao) VALUES(?, ?, ?, ?, ?, ?, ?)";
   console.log(request.body);
   let params = [];
   params.push(request.body.texto);
@@ -39,8 +41,22 @@ app.post("/questoesCreate", (request, response) => {
   params.push(request.body.peso);
   params.push(request.body.idDominio);
   params.push(request.body.idAutor);
+  params.push(request.body.idEixo);
+  params.push(request.body.versao);
 
   db.all(sql, params, (err, rows) => {
+    response.statusCode = 200;
+    response.json(rows);
+  });
+  db.close();
+});
+ 
+app.get("/questao/:idQuestao", (request, response) => {
+  let db = new sqlite3.Database(DBPATH);
+  let sql = "SELECT * FROM Questao WHERE idQuestao = ?";
+  let params = [];
+  params.push(request.params.idEixo);
+  db.all(sql, [], (err, rows) => {
     response.statusCode = 200;
     response.json(rows);
   });
