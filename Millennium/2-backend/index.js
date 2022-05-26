@@ -45,6 +45,53 @@ app.post("/redes/create", (request, response) => {
   db.close();
 });
 
+// ENDPOINTS API USUÁRIO
+
+// api usuário escola
+
+app.get("/usuarioEscola/:AccountId", (request, response) => {
+  let db = new sqlite3.Database(DBPATH);
+  let params = [];
+  params.push(request.params.AccountId);
+  let sql = "SELECT * FROM Account WHERE id=?";
+
+  db.all(sql, params, (err, rows) => {
+    response.statusCode = 200;
+    response.json({ user: rows[0] });
+  });
+  db.close();
+});
+
+// api usuário rede
+
+app.get("/usuarioRede/:AccountId", (request, response) => {
+  let db = new sqlite3.Database(DBPATH);
+  let params = [];
+  params.push(request.params.AccountId);
+  let sql = "SELECT * FROM Account WHERE id=?";
+
+  db.all(sql, params, (err, rows) => {
+    response.statusCode = 200;
+    response.json({ user: rows[0] });
+  });
+  db.close();
+});
+
+// api usuário falconi
+
+app.get("/usuarioFalconi/:AccountId", (request, response) => {
+  let db = new sqlite3.Database(DBPATH);
+  let params = [];
+  params.push(request.params.AccountId);
+  let sql = "SELECT * FROM Account WHERE id=?";
+
+  db.all(sql, params, (err, rows) => {
+    response.statusCode = 200;
+    response.json({ user: rows[0] });
+  });
+  db.close();
+});
+
 // // returns the workExperience list
 // app.get("/workExperience", (req, res) => {
 //   res.statusCode = 200;
