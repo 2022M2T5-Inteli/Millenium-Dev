@@ -29,14 +29,48 @@ app.get("/agendas", (request, response) => {
   db.close();
 });
 
-app.post("/redes/create", (request, response) => {
+//ENDPOINT API CONTA
+
+//endpoint create account Escola
+app.post("/contaEscola/create", (request, repost) => {
   let db = new sqlite3.Database(DBPATH);
-  let sql = "INSERT INTO Rede (nome, email, chaveAcesso) VALUES(?, ?, ?)";
-  console.log(request.body);
+  let sql = "INSERT INTO Acount (nome, email, cargo, idEscola) VALUES(?, ?, ?, ?)";
+  let params = [];
+  params.push(request.body.nome);
+  params.push(request.body.email);
+  params.push(request.body.cargo);
+  params.push(request.body.idEscola);
+
+  db.all(sql, params, (err, rows) => {
+    response.statusCode = 200;
+    response.json(rows);
+  });
+  db.close();
+});
+
+//endpoint create account Rede
+app.post("/contaRede/create", (request, repost) => {
+  let db = new sqlite3.Database(DBPATH);
+  let sql = "INSERT INTO Acount (nome, email, chaveAcesso) VALUES(?, ?, ?)";
   let params = [];
   params.push(request.body.nome);
   params.push(request.body.email);
   params.push(request.body.chaveAcesso);
+
+  db.all(sql, params, (err, rows) => {
+    response.statusCode = 200;
+    response.json(rows);
+  });
+  db.close();
+});
+
+//endpoint create account Falconi
+app.post("/contaFalconi/create", (request, repost) => {
+  let db = new sqlite3.Database(DBPATH);
+  let sql = "INSERT INTO Acount (nome, email) VALUES(?, ?)";
+  let params = [];
+  params.push(request.body.nome);
+  params.push(request.body.email);
 
   db.all(sql, params, (err, rows) => {
     response.statusCode = 200;
