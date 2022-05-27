@@ -17,40 +17,57 @@ app.use(express.static("../1-frontend/"));
 // use json as middleware
 app.use(express.json());
 
-
-
-
-
 // ENDPOINTS API OPCOES
 
-// endpoint adicionar opcao
+// endpoint for adding question options
 app.post("/opcoes/create", (request, response) => {
-    let db = new sqlite3.Database(DBPATH);
-    let sql = "INSERT INTO Opcao (texto, idQuestao, pontuacao, numeroAlt, versao, idAutor) VALUES (?, ?, ?, ?, 1, ?)";
-    console.log(request.body);
+  let db = new sqlite3.Database(DBPATH);
+  let sql =
+    "INSERT INTO Alternativa (texto, idQuestao, pontuacao, numeroAlt, versao, idAutor) VALUES (?, ?, ?, ?, 1, ?)";
 
-    // cria um JSon com parâmetros que irão substituir os ?
-    let params = [];
+  // creates a list with elements that will replace the "?"
+  let params = [];
 
-    // adiciona os parâmetros ao JSon 
-    params.push(request.body.texto);
-    params.push(request.body.idQuestao);
-    params.push(request.body.pontuacao);
-    params.push(request.body.numeroAlt);
-    params.push(request.body.idAutor);
-  
-    // responde com o código se deu certo ou não
-    db.all(sql, params, (err, rows) => {
-      response.statusCode = 200;
-      response.json(rows);
-    });
-    db.close();
-  
+  // adds the elements to the list
+  params.push(request.body.texto);
+  params.push(request.body.idQuestao);
+  params.push(request.body.pontuacao);
+  params.push(request.body.numeroAlt);
+  params.push(request.body.idAutor);
+
+  // handles the api reponse status and body
+  db.all(sql, params, (err, rows) => {
+    response.statusCode = 200;
+    response.json(rows);
   });
+  db.close();
+});
 
-  
-  // starts the server
+// endpoint for updating an "option"
+app.post("/opcoes/update", (request, response) => {
+  let db = new sqlite3.Database(DBPATH);
+  let sql =
+    "INSERT INTO Alternativa (texto, idQuestao, pontuacao, numeroAlt, versao, idAutor) VALUES (?, ?, ?, ?, (SELECT (versao + 1) FROM Alternativa WHERE numeroAlt=? ORDER BY versao DESC),?);";
+
+  // params' list, replaces "?"
+  let params = [];
+
+  // add elements to the params list
+  params.push(request.body.texto);
+  params.push(request.body.idQuestao);
+  params.push(request.body.pontuacao);
+  params.push(request.body.numeroAlt);
+  params.push(request.body.numeroAlt);
+  params.push(request.body.idAutor);
+  db.all(sql, params, (err, rows) => {
+    response.statusCode = 200;
+    console.log(err);
+    response.json(rows);
+  });
+  db.close();
+});
+
+// starts the server
 app.listen(port, hostname, () => {
-    console.log(`Server running at http://${hostname}:${port}/`);
-  });
-  
+  console.log(`Server running at http://${hostname}:${port}/`);
+});
