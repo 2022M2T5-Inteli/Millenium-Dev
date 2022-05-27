@@ -45,7 +45,6 @@ app.post("/redes/create", (request, response) => {
   db.close();
 });
 
-
 // // returns the workExperience list
 // app.get("/workExperience", (req, res) => {
 //   res.statusCode = 200;
