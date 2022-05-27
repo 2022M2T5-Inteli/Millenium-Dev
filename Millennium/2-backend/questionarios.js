@@ -173,6 +173,68 @@ app.post("/questionarios/complete", (request, response) => {
   db.close();
 });
 
+// endpoint for listing a "Questionario" by id
+app.get("/questionarios/:idQuestionario", (request, response) => {
+  let db = new sqlite3.Database(DBPATH);
+  let sql = "SELECT * FROM Questionario WHERE id=?";
+
+  // params list, replaces "?"
+  let params = [];
+
+  // add elements to the params list
+  params.push(request.params.idQuestionario);
+  db.all(sql, params, (err, rows) => {
+    response.statusCode = 200;
+    response.json({ questionario: rows[0] });
+  });
+  db.close();
+});
+
+//SELECT r.id, r.idQuestao, q.texto as textoQuestao, r.idAlternativa, a.texto as textoAlternativa, q.idEixo, r.observacao, r.nota FROM Resposta r JOIN Questao q ON r.idQuestao=q.id JOIN Alternativa a ON r.idAlternativa=a.id WHERE q.idEixo =1
+
+// endpoint for listing a "Questionario" answered questions
+app.get("/questionarios/:idQuestionario/questoes", (request, response) => {
+  let db = new sqlite3.Database(DBPATH);
+  let sql =
+    "SELECT r.id, r.idQuestao, q.texto as textoQuestao, r.idAlternativa, a.texto as textoAlternativa, q.idEixo, r.observacao, r.nota FROM Resposta r JOIN Questao q ON r.idQuestao=q.id JOIN Alternativa a ON r.idAlternativa=a.id WHERE r.idQuestionario = ?";
+
+  // params list, replaces "?"
+  let params = [];
+
+  // add elements to the params list
+  params.push(request.params.idQuestionario);
+  params.push(request.params.idEixo);
+
+  db.all(sql, params, (err, rows) => {
+    response.statusCode = 200;
+    response.json({ respostas: rows });
+  });
+  db.close();
+});
+
+// endpoint for listing a "Questionario" answered questions by eixo
+app.get(
+  "/questionarios/:idQuestionario/questoes/eixo/:idEixo",
+  (request, response) => {
+    let db = new sqlite3.Database(DBPATH);
+    let sql =
+      "SELECT r.id, r.idQuestao, q.texto as textoQuestao, r.idAlternativa, a.texto as textoAlternativa, q.idEixo, r.observacao, r.nota FROM Resposta r JOIN Questao q ON r.idQuestao=q.id JOIN Alternativa a ON r.idAlternativa=a.id WHERE r.idQuestionario = ? AND q.idEixo = ? ";
+
+    // params list, replaces "?"
+    let params = [];
+
+    // add elements to the params list
+    params.push(request.params.idQuestionario);
+    params.push(request.params.idEixo);
+
+    db.all(sql, params, (err, rows) => {
+      response.statusCode = 200;
+      response.json({ respostas: rows });
+    });
+    db.close();
+  }
+);
+
 // starts the server
 app.listen(port, hostname, () => {
   console.log(`Server running at http://${hostname}:${port}/`);
