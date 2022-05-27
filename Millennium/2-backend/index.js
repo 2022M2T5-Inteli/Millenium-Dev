@@ -253,6 +253,24 @@ app.post("/opcoes/update", (request, response) => {
 
 // ENDPOINTS API Questoes
 
+// endpoint for listing questions
+app.get("/questoes", (request, response) => {
+  let db = new sqlite3.Database(DBPATH);
+  let sql = "SELECT * FROM Questao";
+
+  // params list, replaces "?"
+  let params = [];
+
+  // add elements to the params list
+  params.push(request.params.idEixo);
+  db.all(sql, params, (err, rows) => {
+    response.statusCode = 200;
+    response.json({ questoes: rows });
+  });
+  db.close();
+});
+
+
 // endpoint for adding new questions
 app.get("/questoes/:idEixo", (request, response) => {
   let db = new sqlite3.Database(DBPATH);
@@ -393,7 +411,7 @@ app.post("/questionarios/create", (request, response) => {
 // endpoint for disabling a "Questionario"
 app.post("/questionarios/complete", (request, response) => {
   let db = new sqlite3.Database(DBPATH);
-  let sql = "UPDATE Questionario SET isComplete = 0 WHERE id = ?";
+  let sql = "UPDATE Questionario SET isComplete = 1 WHERE id = ?";
 
   // params list, replaces "?"
   let params = [];
