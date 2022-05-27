@@ -17,49 +17,65 @@ app.use(express.static("../1-frontend/"));
 // use json as middleware
 app.use(express.json());
 
-// ENDPOINTS API USUÁRIO
+//ENDPOINT API CONTA
 
-// api usuário escola
-
-app.get("/usuarioEscola/:AccountId", (request, response) => {
+// endpoint create account Escola
+app.post("/contaEscola/create", (request, response) => {
   let db = new sqlite3.Database(DBPATH);
-  let params = [];
-  params.push(request.params.AccountId);
-  let sql = "SELECT * FROM Account WHERE id=?";
+  let sql =
+    "INSERT INTO Account (nome, email, cargo, idEscola) VALUES(?, ?, ?, ?)";
 
+  // add query params
+  let params = [];
+  params.push(request.body.nome);
+  params.push(request.body.email);
+  params.push(request.body.cargo);
+  params.push(request.body.idEscola);
+
+  // execute query
   db.all(sql, params, (err, rows) => {
     response.statusCode = 200;
-    response.json({ user: rows[0] });
+    response.json(rows);
   });
   db.close();
 });
 
-// api usuário rede
-
-app.get("/usuarioRede/:AccountId", (request, response) => {
+// endpoint create account Rede
+app.post("/contaRede/create", (request, response) => {
   let db = new sqlite3.Database(DBPATH);
-  let params = [];
-  params.push(request.params.AccountId);
-  let sql = "SELECT * FROM Rede WHERE id=?";
+  let sql = "INSERT INTO Rede (nome, email, chaveAcesso) VALUES(?, ?, ?)";
 
+  // add query params
+  let params = [];
+  params.push(request.body.nome);
+  params.push(request.body.email);
+
+  // pushes the chaveAcesso data
+  params.push("u&2!X,2vWMCu6$8");
+  // params.push(request.body.chaveAcesso);
+
+  // execute query
   db.all(sql, params, (err, rows) => {
     response.statusCode = 200;
-    response.json({ user: rows[0] });
+    response.json(rows);
   });
   db.close();
 });
 
-// api usuário falconi
-
-app.get("/usuarioFalconi/:AccountId", (request, response) => {
+//endpoint create account Falconi
+app.post("/contaFalconi/create", (request, response) => {
   let db = new sqlite3.Database(DBPATH);
-  let params = [];
-  params.push(request.params.AccountId);
-  let sql = "SELECT * FROM AdminFalconi WHERE id=?";
+  let sql = "INSERT INTO AdminFalconi (nome, email) VALUES(?, ?)";
 
+  // add query params
+  let params = [];
+  params.push(request.body.nome);
+  params.push(request.body.email);
+
+  // execute query
   db.all(sql, params, (err, rows) => {
     response.statusCode = 200;
-    response.json({ user: rows[0] });
+    response.json(rows);
   });
   db.close();
 });
