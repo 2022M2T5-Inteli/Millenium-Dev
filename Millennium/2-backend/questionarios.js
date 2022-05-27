@@ -103,6 +103,76 @@ app.get("/questao/:idQuestao", (request, response) => {
   db.close();
 });
 
+// ENDPOINTS API Questionarios
+
+// endpoint for retrieving "Questionarios"
+app.get("/escolas/:idEscola", (request, response) => {
+  let db = new sqlite3.Database(DBPATH);
+  let sql = "SELECT * FROM Escola WHERE codeEscola = ?";
+
+  // params list, replaces "?"
+  let params = [];
+
+  // add elements to the params list
+  params.push(request.params.idEscola);
+  db.all(sql, params, (err, rows) => {
+    response.statusCode = 200;
+    response.json({ escola: rows[0] });
+  });
+  db.close();
+});
+
+// endpoint for retrieving "Questionarios"
+app.get("/escolas/:idEscola/questionarios", (request, response) => {
+  let db = new sqlite3.Database(DBPATH);
+  let sql = "SELECT * FROM Questionario WHERE idEscola = ?";
+
+  // params list, replaces "?"
+  let params = [];
+
+  // add elements to the params list
+  params.push(request.params.idEscola);
+  db.all(sql, params, (err, rows) => {
+    response.statusCode = 200;
+    response.json({ questionarios: rows });
+  });
+  db.close();
+});
+
+// endpoint for creating a "Questionario"
+app.post("/questionarios/create", (request, response) => {
+  let db = new sqlite3.Database(DBPATH);
+  let sql = "INSERT INTO Questionario(idEscola,isComplete) VALUES(?,1)";
+
+  // params list, replaces "?"
+  let params = [];
+
+  // add elements to the params list
+  params.push(request.body.idEscola);
+  db.all(sql, params, (err, rows) => {
+    response.statusCode = 200;
+    response.json(rows);
+  });
+  db.close();
+});
+
+// endpoint for disabling a "Questionario"
+app.post("/questionarios/complete", (request, response) => {
+  let db = new sqlite3.Database(DBPATH);
+  let sql = "UPDATE Questionario SET isComplete = 0 WHERE id = ?";
+
+  // params list, replaces "?"
+  let params = [];
+
+  // add elements to the params list
+  params.push(request.body.idQuestionario);
+  db.all(sql, params, (err, rows) => {
+    response.statusCode = 200;
+    response.json(rows);
+  });
+  db.close();
+});
+
 // starts the server
 app.listen(port, hostname, () => {
   console.log(`Server running at http://${hostname}:${port}/`);
