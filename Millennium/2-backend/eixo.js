@@ -17,27 +17,28 @@ app.use(express.static("../1-frontend/"));
 // use json as middleware
 app.use(express.json());
 
-// endpoints
+// ENDPOINTS API EIXO
 
+// endpoint for listing "eixos"
 app.get("/eixos", (request, response) => {
   let db = new sqlite3.Database(DBPATH);
   let sql = "SELECT * FROM Eixo";
   db.all(sql, [], (err, rows) => {
     response.statusCode = 200;
-    response.json(rows);
+    response.json({ eixos: rows });
   });
   db.close();
 });
 
+// endpoint for creating an "eixo"
 app.post("/eixo/create", (request, response) => {
   let db = new sqlite3.Database(DBPATH);
   let sql = "INSERT INTO Eixo (nome, idAgenda) VALUES(?,?);";
-  console.log(request.body);
-  
-  // lista de parâmetros, substitui o "?"
+
+  // params list, replaces "?"
   let params = [];
 
-  // Adiciona os elementos na lista de parâmetros
+  // add elements to the params list
   params.push(request.body.nome);
   params.push(request.body.idAgenda);
 
@@ -48,86 +49,43 @@ app.post("/eixo/create", (request, response) => {
   db.close();
 });
 
-// edição de elementos
+// endpoint for updating an "eixo"
 app.post("/eixo/update", (request, response) => {
-    let db = new sqlite3.Database(DBPATH);
-    let sql = "SET INTO Eixo (nome, idAgenda) VALUES(?,?);";
-    console.log(request.body);
-    
-    // lista de parâmetros, substitui o "?"
-    let params = [];
-  
-    // Adiciona os elementos na lista de parâmetros
-    params.push(request.body.nome);
-    params.push(request.body.idAgenda);
-  
-    db.all(sql, params, (err, rows) => {
-      response.statusCode = 200;
-      response.json(rows);
-    });
-    db.close();
+  let db = new sqlite3.Database(DBPATH);
+  let sql = "UPDATE Eixo SET nome = ?, idAgenda = ? WHERE id = ?;";
+
+  // params' list, replaces "?"
+  let params = [];
+
+  // add elements to the params list
+  params.push(request.body.nome);
+  params.push(request.body.idAgenda);
+  params.push(request.body.idEixo);
+
+  db.all(sql, params, (err, rows) => {
+    response.statusCode = 200;
+    response.json(rows);
   });
+  db.close();
+});
 
+// endpoint for removing an "eixo"
+app.post("/eixo/delete", (request, response) => {
+  let db = new sqlite3.Database(DBPATH);
+  let sql = "DELETE FROM Eixo WHERE id = ?;";
 
-  // Remover eixos
-app.post("/eixo/update", (request, response) => {
-    let db = new sqlite3.Database(DBPATH);
-    let sql = "DELETE FROM Eixo (nome, idAgenda) WHERE VALUES(?,?);";
-    console.log(request.body);
-    
-    // lista de parâmetros, substitui o "?"
-    let params = [];
-  
-    // Adiciona os elementos na lista de parâmetros
-    params.push(request.body.nome);
-    params.push(request.body.idAgenda);
-  
-    db.all(sql, params, (err, rows) => {
-      response.statusCode = 200;
-      response.json(rows);
-    });
-    db.close();
+  // params' list, replaces "?"
+  let params = [];
+
+  // add elements to the params list
+  params.push(request.body.idEixo);
+
+  db.all(sql, params, (err, rows) => {
+    response.statusCode = 200;
+    response.json(rows);
   });
-
-
-    // Remover eixos
-app.post("/eixo/sort", (request, response) => {
-    let db = new sqlite3.Database(DBPATH);
-    let sql = " INTO Eixo (nome, idAgenda) VALUES(?,?);";
-    console.log(request.body);
-    
-    // lista de parâmetros, substitui o "?"
-    let params = [];
-  
-    // Adiciona os elementos na lista de parâmetros
-    params.push(request.body.nome);
-    params.push(request.body.idAgenda);
-  
-    db.all(sql, params, (err, rows) => {
-      response.statusCode = 200;
-      response.json(rows);
-    });
-    db.close();
-  });
-// // returns the workExperience list
-// app.get("/workExperience", (req, res) => {
-//   res.statusCode = 200;
-//   res.setHeader("Access-Control-Allow-Origin", "*");
-
-//   let db = new sqlite3.Database(DBPATH);
-//   let sql = "SELECT * FROM workExperience ORDER BY startDate";
-//   let params = [];
-
-//   db.all(sql, params, (err, rows) => {
-//     if (err) {
-//       throw err;
-//     }
-
-//     // response
-//     res.json({ workExperiences: rows });
-//   });
-//   db.close();
-// });
+  db.close();
+});
 
 // starts the server
 app.listen(port, hostname, () => {
