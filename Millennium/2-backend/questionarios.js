@@ -17,32 +17,66 @@ app.use(express.static("../1-frontend/"));
 // use json as middlewares
 app.use(express.json());
 
-// endpoints para add questoes
+// ENDPOINTS API Questoes
 
+// endpoint for adding new questions
 app.get("/questoes/:idEixo", (request, response) => {
   let db = new sqlite3.Database(DBPATH);
   let sql = "SELECT * FROM Questao WHERE idEixo = ?";
+
+  // params list, replaces "?"
   let params = [];
+
+  // add elements to the params list
   params.push(request.params.idEixo);
-  db.all(sql, [], (err, rows) => {
+  db.all(sql, params, (err, rows) => {
     response.statusCode = 200;
-    response.json(rows);
+    response.json({ questoes: rows });
   });
   db.close();
 });
 
-app.post("/questoesCreate", (request, response) => {
+// endpoint for creating new questions
+app.post("/questoes/create", (request, response) => {
   let db = new sqlite3.Database(DBPATH);
-  let sql = "INSERT INTO Questao (texto, numeroQuestao, peso, idDominio, idAutor, idEixo, versao) VALUES(?, ?, ?, ?, ?, ?, ?)";
-  console.log(request.body);
+  let sql =
+    "INSERT INTO Questao (texto, numeroQuestao, peso, idDominio, idAutor, idEixo, versao) VALUES(?, ?, ?, ?, ?, ?, 1)";
+
+  // params list, replaces "?"
   let params = [];
+
+  // add elements to the params list
   params.push(request.body.texto);
   params.push(request.body.numeroQuestao);
   params.push(request.body.peso);
   params.push(request.body.idDominio);
   params.push(request.body.idAutor);
   params.push(request.body.idEixo);
-  params.push(request.body.versao);
+
+  db.all(sql, params, (err, rows) => {
+    response.statusCode = 200;
+    response.json({ questoes: rows });
+  });
+  db.close();
+});
+
+// endpoint for updating a "question"
+app.post("/questao/update", (request, response) => {
+  let db = new sqlite3.Database(DBPATH);
+  let sql =
+    "INSERT INTO Questao (texto, numeroQuestao, peso, idDominio, idAutor, idEixo, versao) VALUES(?, ?, ?, ?, ?, ?,(SELECT (versao + 1) FROM Questao WHERE numeroQuestao=? ORDER BY versao DESC));";
+
+  // params' list, replaces "?"
+  let params = [];
+
+  // add elements to the params list
+  params.push(request.body.texto);
+  params.push(request.body.numeroQuestao);
+  params.push(request.body.peso);
+  params.push(request.body.idDominio);
+  params.push(request.body.idAutor);
+  params.push(request.body.idEixo);
+  params.push(request.body.numeroQuestao);
 
   db.all(sql, params, (err, rows) => {
     response.statusCode = 200;
@@ -50,38 +84,24 @@ app.post("/questoesCreate", (request, response) => {
   });
   db.close();
 });
- 
+
+// endpoint for returning a question
 app.get("/questao/:idQuestao", (request, response) => {
   let db = new sqlite3.Database(DBPATH);
-  let sql = "SELECT * FROM Questao WHERE idQuestao = ?";
+  let sql = "SELECT * FROM Questao WHERE id = ?";
+
+  // params list, replaces "?"
   let params = [];
-  params.push(request.params.idEixo);
-  db.all(sql, [], (err, rows) => {
+
+  // add elements to the params list
+  params.push(request.params.idQuestao);
+
+  db.all(sql, params, (err, rows) => {
     response.statusCode = 200;
-    response.json(rows);
+    response.json({ questao: rows[0] });
   });
   db.close();
 });
-
-// // returns the workExperience list
-// app.get("/workExperience", (req, res) => {
-//   res.statusCode = 200;
-//   res.setHeader("Access-Control-Allow-Origin", "*");
-
-//   let db = new sqlite3.Database(DBPATH);
-//   let sql = "SELECT * FROM workExperience ORDER BY startDate";
-//   let params = [];
-
-//   db.all(sql, params, (err, rows) => {
-//     if (err) {
-//       throw err;
-//     }
-
-//     // response
-//     res.json({ workExperiences: rows });
-//   });
-//   db.close();
-// });
 
 // starts the server
 app.listen(port, hostname, () => {
