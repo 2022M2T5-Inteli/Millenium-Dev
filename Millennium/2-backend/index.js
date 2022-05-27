@@ -80,6 +80,57 @@ app.post("/contaFalconi/create", (request, response) => {
   db.close();
 });
 
+
+// ENDPOINTS API USUÁRIO
+
+// api usuário escola
+
+app.get("/usuarioEscola/:AccountId", (request, response) => {
+  let db = new sqlite3.Database(DBPATH);
+  let params = [];
+  params.push(request.params.AccountId);
+  let sql = "SELECT * FROM Account WHERE id=?";
+
+  db.all(sql, params, (err, rows) => {
+    response.statusCode = 200;
+    response.json({ user: rows[0] });
+  });
+  db.close();
+});
+
+// api usuário rede
+
+app.get("/usuarioRede/:AccountId", (request, response) => {
+  let db = new sqlite3.Database(DBPATH);
+  let params = [];
+  params.push(request.params.AccountId);
+  let sql = "SELECT * FROM Rede WHERE id=?";
+
+  db.all(sql, params, (err, rows) => {
+    response.statusCode = 200;
+    response.json({ user: rows[0] });
+  });
+  db.close();
+});
+
+// api usuário falconi
+
+app.get("/usuarioFalconi/:AccountId", (request, response) => {
+  let db = new sqlite3.Database(DBPATH);
+  let params = [];
+  params.push(request.params.AccountId);
+  let sql = "SELECT * FROM AdminFalconi WHERE id=?";
+
+  db.all(sql, params, (err, rows) => {
+    response.statusCode = 200;
+    response.json({ user: rows[0] });
+  });
+  db.close();
+});
+
+
+
+
 // ENDPOINTS API EIXO
 
 // endpoint for listing "eixos"
@@ -325,7 +376,7 @@ app.get("/escolas/:idEscola/questionarios", (request, response) => {
 // endpoint for creating a "Questionario"
 app.post("/questionarios/create", (request, response) => {
   let db = new sqlite3.Database(DBPATH);
-  let sql = "INSERT INTO Questionario(idEscola,isComplete) VALUES(?,1)";
+  let sql = "INSERT INTO Questionario(idEscola,isComplete) VALUES(?,0)";
 
   // params list, replaces "?"
   let params = [];
