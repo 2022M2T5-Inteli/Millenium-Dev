@@ -190,8 +190,6 @@ app.get("/questionarios/:idQuestionario", (request, response) => {
   db.close();
 });
 
-//SELECT r.id, r.idQuestao, q.texto as textoQuestao, r.idAlternativa, a.texto as textoAlternativa, q.idEixo, r.observacao, r.nota FROM Resposta r JOIN Questao q ON r.idQuestao=q.id JOIN Alternativa a ON r.idAlternativa=a.id WHERE q.idEixo =1
-
 // endpoint for listing a "Questionario" answered questions
 app.get("/questionarios/:idQuestionario/questoes", (request, response) => {
   let db = new sqlite3.Database(DBPATH);
