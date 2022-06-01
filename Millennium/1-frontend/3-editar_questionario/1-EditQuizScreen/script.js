@@ -43,7 +43,7 @@ const sections = [
 
 function createSectionCard(sectionId, sectionName, questionsAmount) {
   let cardElement = `<div class="card col-12 col-lg-2 m-5 p-4 section-card" id="sectionCard${sectionId}">
-  <h3 class="section-name">${sectionName}</h3><i class="fa-regular fa-pen-to-square"></i></div>`;
+  <a href="../2-EditQuizScreenQuestions/EditQuizScreenQuestions.html"><h3 class="section-name">${sectionName}</h3><i class="fa-regular fa-pen-to-square"></i></a></div>`;
   return cardElement;
 }
 
