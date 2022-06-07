@@ -33,9 +33,11 @@
                     <a href="google.com"> <i class="fa-solid fa-arrow-left-long" id="icon"></i></a>
                 </div>
             </div>
-            <div class="p-3 col-12 col-lg-4 text-center" id="centerSection">
+            <div class="p-3 col-12 col-lg-4 text-center d-flex flex-column justify-content-center align-items-center"
+                id="centerSection">
                 <h1>Questionário</h1>
-                <h7>Clique nos cards para acessar o questionário</h7>
+                <h7>Clique nos cards para acessar o questionário.</h7>
+
             </div>
             <div class="p-3 col-12 col-lg-4" id="rightSection">
                 <div class="p-4 offset-lg-4 col-lg-8 d-flex flex-column justify-content-evenly align-items-center"
@@ -50,6 +52,18 @@
                     </p>
                 </div>
             </div>
+        </div>
+
+
+        <div class="row col-4 offset-4  ">
+            <div class="col-12 d-flex justify-content-start">
+                <p>Selecione a agenda a ser respondida:</p>
+            </div>
+            <select class="form-select" aria-label="Default select example">
+                <option value="1">Agenda de Gestão</option>
+                <option value="2">Agenda Educacional</option>
+                <option value="3" selected>Todas as agendas</option>
+            </select>
         </div>
         <!--Cards/botões para abrir questionarios por sessão com barra de progresso circular-->
         <div class="row text-center" id="boxes-geral">
