@@ -89,6 +89,7 @@ let questionCards = [
       },
     ],
   },
+  
 ];
 
 function createQuestionCard(
@@ -180,6 +181,8 @@ function openQuestion(questionId) {
   questionModal.toggle();
 }
 
+
+
 $(document).ready(function () {
   questionCards.forEach((question) => {
     let newQuestionCard = createQuestionCard(
@@ -191,3 +194,5 @@ $(document).ready(function () {
     $("#questionsWrapper").append(newQuestionCard);
   });
 });
+
+
