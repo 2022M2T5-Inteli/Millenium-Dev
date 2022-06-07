@@ -40,6 +40,8 @@
   cursor: pointer;
   transform: scale(1.1, 1.1);
   box-shadow: 0 6px 8px 0 rgba(0, 0, 0, 0.2);
+  background-color: #579a99;
+  color: white;
 }
 
 h1 {
