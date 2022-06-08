@@ -29,3 +29,7 @@
 
 ## 🎓 Referências
 Aqui estão as referências usadas no projeto.
+
+1. <https://github.com/iuricode/readme-template>
+2. <https://github.com/gabrieldejesus/readme-model>
+3. <https://creativecommons.org/share-your-work/>
