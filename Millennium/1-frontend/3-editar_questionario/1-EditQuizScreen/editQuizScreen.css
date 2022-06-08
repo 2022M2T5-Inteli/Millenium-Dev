@@ -19,7 +19,8 @@ h6 {
 #profileBox {
   background-color: #efefef;
   border-radius: 12px;
-  font-family: "Raleway", sans-serif;
+  font-family: "Raleway", sans-serif;  
+  padding: 16px;
 }
 
 #backButton {
