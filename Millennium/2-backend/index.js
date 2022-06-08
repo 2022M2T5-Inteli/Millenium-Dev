@@ -1,5 +1,10 @@
+const { response } = require("express");
 const express = require("express");
 const app = express();
+const cors = require("cors");
+const bodyParser = require("body-parser");
+
+const urlencodedParser = bodyParser.urlencoded({ extended: false });
 
 // server settings
 
@@ -15,12 +20,19 @@ const DBPATH = "./Database/dbFalconi.db";
 app.use(express.static("../1-frontend/"));
 
 // use json as middleware
+// app.use(
+//   cors({
+//     origin: "*",
+//   })
+// );
+
 app.use(express.json());
 
 //ENDPOINT API CONTA
 
 // endpoint create account Escola
-app.post("/contaEscola/create", (request, response) => {
+app.post("/contaEscola/create", urlencodedParser, (request, response) => {
+  response.setHeader("Access-Control-Allow-Origin", "*");
   let db = new sqlite3.Database(DBPATH);
   let sql =
     "INSERT INTO Account (nome, email, cargo, idEscola) VALUES(?, ?, ?, ?)";
@@ -41,7 +53,8 @@ app.post("/contaEscola/create", (request, response) => {
 });
 
 // endpoint create account Rede
-app.post("/contaRede/create", (request, response) => {
+app.post("/contaRede/create", urlencodedParser, (request, response) => {
+  response.setHeader("Access-Control-Allow-Origin", "*");
   let db = new sqlite3.Database(DBPATH);
   let sql = "INSERT INTO Rede (nome, email, chaveAcesso) VALUES(?, ?, ?)";
 
@@ -63,7 +76,8 @@ app.post("/contaRede/create", (request, response) => {
 });
 
 //endpoint create account Falconi
-app.post("/contaFalconi/create", (request, response) => {
+app.post("/contaFalconi/create", urlencodedParser, (request, response) => {
+  response.setHeader("Access-Control-Allow-Origin", "*");
   let db = new sqlite3.Database(DBPATH);
   let sql = "INSERT INTO AdminFalconi (nome, email) VALUES(?, ?)";
 
@@ -80,12 +94,12 @@ app.post("/contaFalconi/create", (request, response) => {
   db.close();
 });
 
-
 // ENDPOINTS API USUÁRIO
 
 // api usuário escola
 
-app.get("/usuarioEscola/:AccountId", (request, response) => {
+app.get("/usuarioEscola/:AccountId", urlencodedParser, (request, response) => {
+  response.setHeader("Access-Control-Allow-Origin", "*");
   let db = new sqlite3.Database(DBPATH);
   let params = [];
   params.push(request.params.AccountId);
@@ -100,7 +114,8 @@ app.get("/usuarioEscola/:AccountId", (request, response) => {
 
 // api usuário rede
 
-app.get("/usuarioRede/:AccountId", (request, response) => {
+app.get("/usuarioRede/:AccountId", urlencodedParser, (request, response) => {
+  response.setHeader("Access-Control-Allow-Origin", "*");
   let db = new sqlite3.Database(DBPATH);
   let params = [];
   params.push(request.params.AccountId);
@@ -115,7 +130,9 @@ app.get("/usuarioRede/:AccountId", (request, response) => {
 
 // api usuário falconi
 
-app.get("/usuarioFalconi/:AccountId", (request, response) => {
+app.get("/usuarioFalconi/:AccountId", urlencodedParser, (request, response) => {
+  response.setHeader("Access-Control-Allow-Origin", "*");
+
   let db = new sqlite3.Database(DBPATH);
   let params = [];
   params.push(request.params.AccountId);
@@ -128,15 +145,15 @@ app.get("/usuarioFalconi/:AccountId", (request, response) => {
   db.close();
 });
 
-
-
-
 // ENDPOINTS API EIXO
 
 // endpoint for listing "eixos"
-app.get("/eixos", (request, response) => {
+app.get("/eixos", urlencodedParser, (request, response) => {
+  response.setHeader("Access-Control-Allow-Origin", "*");
+
   let db = new sqlite3.Database(DBPATH);
   let sql = "SELECT * FROM Eixo";
+
   db.all(sql, [], (err, rows) => {
     response.statusCode = 200;
     response.json({ eixos: rows });
@@ -145,26 +162,35 @@ app.get("/eixos", (request, response) => {
 });
 
 // endpoint for creating an "eixo"
-app.post("/eixo/create", (request, response) => {
-  let db = new sqlite3.Database(DBPATH);
-  let sql = "INSERT INTO Eixo (nome, idAgenda) VALUES(?,?);";
+app.post(
+  "/eixo/create",
+  urlencodedParser,
+  urlencodedParser,
+  (request, response) => {
+    response.setHeader("Access-Control-Allow-Origin", "*");
 
-  // params list, replaces "?"
-  let params = [];
+    let db = new sqlite3.Database(DBPATH);
+    let sql = "INSERT INTO Eixo (nome, idAgenda) VALUES(?,?);";
 
-  // add elements to the params list
-  params.push(request.body.nome);
-  params.push(request.body.idAgenda);
+    // params list, replaces "?"
+    let params = [];
 
-  db.all(sql, params, (err, rows) => {
-    response.statusCode = 200;
-    response.json(rows);
-  });
-  db.close();
-});
+    // add elements to the params list
+    params.push(request.body.nome);
+    params.push(request.body.idAgenda);
+
+    db.all(sql, params, (err, rows) => {
+      response.statusCode = 200;
+      response.json(rows);
+    });
+    db.close();
+  }
+);
 
 // endpoint for updating an "eixo"
-app.post("/eixo/update", (request, response) => {
+app.post("/eixo/update", urlencodedParser, (request, response) => {
+  response.setHeader("Access-Control-Allow-Origin", "*");
+
   let db = new sqlite3.Database(DBPATH);
   let sql = "UPDATE Eixo SET nome = ?, idAgenda = ? WHERE id = ?;";
 
@@ -184,7 +210,9 @@ app.post("/eixo/update", (request, response) => {
 });
 
 // endpoint for removing an "eixo"
-app.post("/eixo/delete", (request, response) => {
+app.post("/eixo/delete", urlencodedParser, (request, response) => {
+  response.setHeader("Access-Control-Allow-Origin", "*");
+
   let db = new sqlite3.Database(DBPATH);
   let sql = "DELETE FROM Eixo WHERE id = ?;";
 
@@ -203,8 +231,24 @@ app.post("/eixo/delete", (request, response) => {
 
 // ENDPOINTS API OPCOES
 
+// endpoint for listing options
+app.get("/opcoes", urlencodedParser, (request, response) => {
+  response.setHeader("Access-Control-Allow-Origin", "*");
+
+  let db = new sqlite3.Database(DBPATH);
+  let sql = "SELECT * FROM Alternativa";
+
+  db.all(sql, [], (err, rows) => {
+    response.statusCode = 200;
+    response.json({ opcoes: rows });
+  });
+  db.close();
+});
+
 // endpoint for adding question options
-app.post("/opcoes/create", (request, response) => {
+app.post("/opcoes/create", urlencodedParser, (request, response) => {
+  response.setHeader("Access-Control-Allow-Origin", "*");
+
   let db = new sqlite3.Database(DBPATH);
   let sql =
     "INSERT INTO Alternativa (texto, idQuestao, pontuacao, numeroAlt, versao, idAutor) VALUES (?, ?, ?, ?, 1, ?)";
@@ -228,7 +272,9 @@ app.post("/opcoes/create", (request, response) => {
 });
 
 // endpoint for updating an "option"
-app.post("/opcoes/update", (request, response) => {
+app.post("/opcoes/update", urlencodedParser, (request, response) => {
+  response.setHeader("Access-Control-Allow-Origin", "*");
+
   let db = new sqlite3.Database(DBPATH);
   let sql =
     "INSERT INTO Alternativa (texto, idQuestao, pontuacao, numeroAlt, versao, idAutor) VALUES (?, ?, ?, ?, (SELECT (versao + 1) FROM Alternativa WHERE numeroAlt=? ORDER BY versao DESC),?);";
@@ -254,7 +300,9 @@ app.post("/opcoes/update", (request, response) => {
 // ENDPOINTS API Questoes
 
 // endpoint for listing questions
-app.get("/questoes", (request, response) => {
+app.get("/questoes", urlencodedParser, (request, response) => {
+  response.setHeader("Access-Control-Allow-Origin", "*");
+
   let db = new sqlite3.Database(DBPATH);
   let sql = "SELECT * FROM Questao";
 
@@ -270,12 +318,12 @@ app.get("/questoes", (request, response) => {
   db.close();
 });
 
-
 // endpoint for adding new questions
-app.get("/questoes/:idEixo", (request, response) => {
+app.get("/questoes/:idEixo", urlencodedParser, (request, response) => {
+  response.setHeader("Access-Control-Allow-Origin", "*");
+
   let db = new sqlite3.Database(DBPATH);
   let sql = "SELECT * FROM Questao WHERE idEixo = ?";
-
   // params list, replaces "?"
   let params = [];
 
@@ -289,7 +337,9 @@ app.get("/questoes/:idEixo", (request, response) => {
 });
 
 // endpoint for creating new questions
-app.post("/questoes/create", (request, response) => {
+app.post("/questoes/create", urlencodedParser, (request, response) => {
+  response.setHeader("Access-Control-Allow-Origin", "*");
+
   let db = new sqlite3.Database(DBPATH);
   let sql =
     "INSERT INTO Questao (texto, numeroQuestao, peso, idDominio, idAutor, idEixo, versao) VALUES(?, ?, ?, ?, ?, ?, 1)";
@@ -313,7 +363,9 @@ app.post("/questoes/create", (request, response) => {
 });
 
 // endpoint for updating a "question"
-app.post("/questao/update", (request, response) => {
+app.post("/questao/update", urlencodedParser, (request, response) => {
+  response.setHeader("Access-Control-Allow-Origin", "*");
+
   let db = new sqlite3.Database(DBPATH);
   let sql =
     "INSERT INTO Questao (texto, numeroQuestao, peso, idDominio, idAutor, idEixo, versao) VALUES(?, ?, ?, ?, ?, ?,(SELECT (versao + 1) FROM Questao WHERE numeroQuestao=? ORDER BY versao DESC));";
@@ -338,7 +390,9 @@ app.post("/questao/update", (request, response) => {
 });
 
 // endpoint for returning a question
-app.get("/questao/:idQuestao", (request, response) => {
+app.get("/questao/:idQuestao", urlencodedParser, (request, response) => {
+  response.setHeader("Access-Control-Allow-Origin", "*");
+
   let db = new sqlite3.Database(DBPATH);
   let sql = "SELECT * FROM Questao WHERE id = ?";
 
@@ -358,7 +412,9 @@ app.get("/questao/:idQuestao", (request, response) => {
 // ENDPOINTS API Questionarios
 
 // endpoint for retrieving "Questionarios"
-app.get("/escolas/:idEscola", (request, response) => {
+app.get("/escolas/:idEscola", urlencodedParser, (request, response) => {
+  response.setHeader("Access-Control-Allow-Origin", "*");
+
   let db = new sqlite3.Database(DBPATH);
   let sql = "SELECT * FROM Escola WHERE codeEscola = ?";
 
@@ -375,24 +431,32 @@ app.get("/escolas/:idEscola", (request, response) => {
 });
 
 // endpoint for retrieving "Questionarios"
-app.get("/escolas/:idEscola/questionarios", (request, response) => {
-  let db = new sqlite3.Database(DBPATH);
-  let sql = "SELECT * FROM Questionario WHERE idEscola = ?";
+app.get(
+  "/escolas/:idEscola/questionarios",
+  urlencodedParser,
+  (request, response) => {
+    response.setHeader("Access-Control-Allow-Origin", "*");
 
-  // params list, replaces "?"
-  let params = [];
+    let db = new sqlite3.Database(DBPATH);
+    let sql = "SELECT * FROM Questionario WHERE idEscola = ?";
 
-  // add elements to the params list
-  params.push(request.params.idEscola);
-  db.all(sql, params, (err, rows) => {
-    response.statusCode = 200;
-    response.json({ questionarios: rows });
-  });
-  db.close();
-});
+    // params list, replaces "?"
+    let params = [];
+
+    // add elements to the params list
+    params.push(request.params.idEscola);
+    db.all(sql, params, (err, rows) => {
+      response.statusCode = 200;
+      response.json({ questionarios: rows });
+    });
+    db.close();
+  }
+);
 
 // endpoint for creating a "Questionario"
-app.post("/questionarios/create", (request, response) => {
+app.post("/questionarios/create", urlencodedParser, (request, response) => {
+  response.setHeader("Access-Control-Allow-Origin", "*");
+
   let db = new sqlite3.Database(DBPATH);
   let sql = "INSERT INTO Questionario(idEscola,isComplete) VALUES(?,0)";
 
@@ -409,7 +473,9 @@ app.post("/questionarios/create", (request, response) => {
 });
 
 // endpoint for disabling a "Questionario"
-app.post("/questionarios/complete", (request, response) => {
+app.post("/questionarios/complete", urlencodedParser, (request, response) => {
+  response.setHeader("Access-Control-Allow-Origin", "*");
+
   let db = new sqlite3.Database(DBPATH);
   let sql = "UPDATE Questionario SET isComplete = 1 WHERE id = ?";
 
@@ -426,46 +492,60 @@ app.post("/questionarios/complete", (request, response) => {
 });
 
 // endpoint for listing a "Questionario" by id
-app.get("/questionarios/:idQuestionario", (request, response) => {
-  let db = new sqlite3.Database(DBPATH);
-  let sql = "SELECT * FROM Questionario WHERE id=?";
+app.get(
+  "/questionarios/:idQuestionario",
+  urlencodedParser,
+  (request, response) => {
+    response.setHeader("Access-Control-Allow-Origin", "*");
 
-  // params list, replaces "?"
-  let params = [];
+    let db = new sqlite3.Database(DBPATH);
+    let sql = "SELECT * FROM Questionario WHERE id=?";
 
-  // add elements to the params list
-  params.push(request.params.idQuestionario);
-  db.all(sql, params, (err, rows) => {
-    response.statusCode = 200;
-    response.json({ questionario: rows[0] });
-  });
-  db.close();
-});
+    // params list, replaces "?"
+    let params = [];
+
+    // add elements to the params list
+    params.push(request.params.idQuestionario);
+    db.all(sql, params, (err, rows) => {
+      response.statusCode = 200;
+      response.json({ questionario: rows[0] });
+    });
+    db.close();
+  }
+);
 
 // endpoint for listing a "Questionario" answered questions
-app.get("/questionarios/:idQuestionario/questoes", (request, response) => {
-  let db = new sqlite3.Database(DBPATH);
-  let sql =
-    "SELECT r.id, r.idQuestao, q.texto as textoQuestao, r.idAlternativa, a.texto as textoAlternativa, q.idEixo, r.observacao, r.nota FROM Resposta r JOIN Questao q ON r.idQuestao=q.id JOIN Alternativa a ON r.idAlternativa=a.id WHERE r.idQuestionario = ?";
+app.get(
+  "/questionarios/:idQuestionario/questoes",
+  urlencodedParser,
+  (request, response) => {
+    response.setHeader("Access-Control-Allow-Origin", "*");
 
-  // params list, replaces "?"
-  let params = [];
+    let db = new sqlite3.Database(DBPATH);
+    let sql =
+      "SELECT r.id, r.idQuestao, q.texto as textoQuestao, r.idAlternativa, a.texto as textoAlternativa, q.idEixo, r.observacao, r.nota FROM Resposta r JOIN Questao q ON r.idQuestao=q.id JOIN Alternativa a ON r.idAlternativa=a.id WHERE r.idQuestionario = ?";
 
-  // add elements to the params list
-  params.push(request.params.idQuestionario);
-  params.push(request.params.idEixo);
+    // params list, replaces "?"
+    let params = [];
 
-  db.all(sql, params, (err, rows) => {
-    response.statusCode = 200;
-    response.json({ respostas: rows });
-  });
-  db.close();
-});
+    // add elements to the params list
+    params.push(request.params.idQuestionario);
+    params.push(request.params.idEixo);
+
+    db.all(sql, params, (err, rows) => {
+      response.statusCode = 200;
+      response.json({ respostas: rows });
+    });
+    db.close();
+  }
+);
 
 // endpoint for listing a "Questionario" answered questions by eixo
 app.get(
   "/questionarios/:idQuestionario/questoes/eixo/:idEixo",
   (request, response) => {
+    response.setHeader("Access-Control-Allow-Origin", "*");
+
     let db = new sqlite3.Database(DBPATH);
     let sql =
       "SELECT r.id, r.idQuestao, q.texto as textoQuestao, r.idAlternativa, a.texto as textoAlternativa, q.idEixo, r.observacao, r.nota FROM Resposta r JOIN Questao q ON r.idQuestao=q.id JOIN Alternativa a ON r.idAlternativa=a.id WHERE r.idQuestionario = ? AND q.idEixo = ? ";
