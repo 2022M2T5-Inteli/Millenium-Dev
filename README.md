@@ -28,3 +28,4 @@
 ## 📋 Licença/License
 
 ## 🎓 Referências
+Aqui estão as referências usadas no projeto.
