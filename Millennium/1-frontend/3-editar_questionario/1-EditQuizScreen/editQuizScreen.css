@@ -1,5 +1,4 @@
-h1,
-h3 {
+h1, h3 {
   font-family: "Inter", sans-serif;
 }
 
@@ -20,7 +19,8 @@ h6 {
 #profileBox {
   background-color: #efefef;
   border-radius: 12px;
-  font-family: "Raleway", sans-serif;
+  font-family: "Raleway", sans-serif;  
+  padding: 16px;
 }
 
 #backButton {
@@ -33,21 +33,33 @@ h6 {
   transition: ease all 0.2s;
 }
 
+#backButton:hover {
+  cursor: pointer;
+  transform: scale(1.1, 1.1);
+  box-shadow: 0 6px 8px 0 rgba(0, 0, 0, 0.2);
+  background-color: #2c4b4d;
+  color: whitesmoke;
+}
+
 .section-card:hover {
   transform: scale(1.1, 1.1);
   background-color: #2b4b4c;
   color: #fff;
 }
 
-#backButton:hover {
-  cursor: pointer;
-  transform: scale(1.1, 1.1);
-  box-shadow: 0 6px 8px 0 rgba(0, 0, 0, 0.2);
-}
 
 a,
 a:link,
 a:hover {
   text-decoration: none;
   color: inherit;
+}
+
+p {
+  margin: inherit;
+  font-family: "Raleway", sans-serif;
+}
+
+.form-select{
+  font-family: "Raleway", sans-serif;
 }

@@ -22,7 +22,7 @@
   <!--jquery-->
   <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
 
-  <link rel="stylesheet" href="./style.css" />
+  <link rel="stylesheet" href="./editQuizScreen.css" />
   <script src="./script.js"></script>
   <title>Editar Questionário</title>
 </head>
@@ -38,7 +38,7 @@
       </div>
       <div class="p-3 col-12 col-lg-4 text-center" id="centerSection">
         <h1>Painel de Eixos</h1>
-        <h6>Clique nos cards para editar as questões da seção</h6>
+        <h6>Clique nos cards para editar as questões da seção.</h6>
       </div>
       <div class="p-3 col-12 col-lg-4" id="rightSection">
         <div class="p-4 offset-lg-4 col-lg-8 d-flex flex-column justify-content-evenly align-items-center"
@@ -47,13 +47,23 @@
             <i class="fa-solid fa-user"></i>
             <span>Nome de Usuário</span>
           </p>
-          <p class="m-0">
-            <i class="fa-solid fa-house"></i>
-            <span>Nome de Usuário</span>
-          </p>
         </div>
       </div>
     </div>
+
+
+    <div class="row col-4 offset-4">
+      <div class="col-12 d-flex justify-content-start">
+          <p>Selecione a agenda a ser respondida: </p>
+      </div>
+      <select class="form-select" aria-label="Default select exemple">
+          <option value="1">Agenda de Gestão</option>
+          <option value="2">Agenda Educacional</option>
+          <option value="3" selected>Todas as agendas</option>
+      </select>
+    </div>
+
+
     <div class="content row p-2 text-center justify-content-center" id="cardBox">
       <!-- <div class="card col-12 col-lg-2 m-5 p-4 section-card">
         <h3 class="section-name">Ensino</h3><i class="fa-regular fa-pen-to-square"></i>
