@@ -44,7 +44,13 @@
     <div class="modal-dialog modal-dialog-centered modal-lg">
       <div class="modal-content">
         <div class="modal-header">
-          <h5 class="modal-title col-7" id="questionModalTitle">Atrair e Interagir </h5>
+          <h5 class="modal-title col-4" id="questionModalTitle">Atrair e Interagir </h5>
+          <select class="form-select" id="questionWeightSelect" aria-label="Seletor do peso da seção">
+            <option selected>Domínio da questão</option>
+            <option value="1">Peso 1</option>
+            <option value="2">Peso 2</option>
+            <option value="3">Peso 3</option>
+          </select>
           <div class="col-4">
             <select class="form-select" id="questionWeightSelect" aria-label="Seletor do peso da seção">
               <option selected>Peso da questão</option>
@@ -96,8 +102,10 @@
                   </select>
                 </div>
               </div>
-            </div>
+            </div>       
           </div>
+          <!-- adição do botão mais -->
+         <div class=" p-9 col-12 col-lg-8 d-flex justify-content-center align-items-center" id="backButton"></div>
         </div>
         <div class="modal-footer">
           <button type="button" class="btn btn-primary">Salvar</button>
