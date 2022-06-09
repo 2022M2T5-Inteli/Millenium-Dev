@@ -329,7 +329,20 @@ app.get("/questoes/:idEixo", urlencodedParser, (request, response) => {
   params.push(request.params.idEixo);
   db.all(sql, params, (err, rows) => {
     response.statusCode = 200;
-    response.json({ questoes: rows });
+    let hashmap = {};
+    let questoesFiltered = [];
+    rows.forEach((questao) => {
+      hashmap[questao.numeroQuestao]
+        ? hashmap[questao.numeroQuestao].push(questao)
+        : (hashmap[questao.numeroQuestao] = [questao]);
+    });
+    Object.keys(hashmap).forEach((key) => {
+      let lastQuestionVersion = hashmap[key].reduce((prev, curr) => {
+        return curr.versao > prev.versao ? curr : prev;
+      });
+      questoesFiltered.push(lastQuestionVersion);
+    });
+    response.json({ questoes: questoesFiltered });
   });
   db.close();
 });
