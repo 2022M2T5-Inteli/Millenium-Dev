@@ -1,4 +1,41 @@
-var value = "edsfs";
+var API = `http://127.0.0.1:${port}`;
+var port = 5500
+
+$(document).ready(() => {
+    eixos.list();
+});
+
+
+var eixos = {
+
+    list() {
+
+        $.ajax({
+            url: API + '/eixos',
+            type: 'GET',
+            success: data => {
+                var tx = '';
+                data.eixos.forEach(element => {
+                    tx += element;
+                });
+                done(function () {
+                    console.log("igual os outros");
+                }).fail(function (msg) {
+                    console.log('FAIL');
+                }).always(function (msg) {
+                    console.log('ALWAYS');
+                });
+                console.log(`aqui!!!!${tx}`)
+            }
+        });
+
+    }
+
+};
+
+
+
+var value = "";
 var card = ["card1", "card2", "card3", "card4", "card5", "card6", "card7", "card8"]
 
 //pega o valor atual da porcentagem da barra de progresso de cada card no html
@@ -24,8 +61,7 @@ for (let i = 0; i < 8; i++) {
         document.getElementById(card[i]).setAttribute("role", "progressbar0")
     }
     var style = `--value:${value}`
-    console.log(value);
-    console.log(card[i]);
-    console.log(style)
     document.getElementById(card[i]).setAttribute("style", (style))
 }
+
+
