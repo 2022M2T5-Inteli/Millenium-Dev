@@ -413,7 +413,7 @@ app.post("/escolas/create", urlencodedParser, (request, response) => {
   response.setHeader("Access-Control-Allow-Origin", "*");
   let db = new sqlite3.Database(DBPATH);
   let sql =
-    "INSERT INTO Escola(codeEscola, nome, idRede, endereco, cidade, numeroAlunos, numeroFuncionarios) Values(?,?,?,?,?,?,?)";
+    "INSERT INTO Escola(codeEscola, nome, idRede, endereco, cidade, numeroAlunos, numeroFuncionarios) Values(?,?,?,?,?,?,?); SELECT last_insert_rowid() as codeEscola";
 
   let params = [];
   params.push(request.body.codeEscola);
@@ -425,8 +425,10 @@ app.post("/escolas/create", urlencodedParser, (request, response) => {
   params.push(request.body.numeroFuncionarios);
 
   db.all(sql, params, (err, rows) => {
-    response.statusCode = 200;
-    response.json(rows);
+    db.all("SELECT last_insert_rowid() as codeEscola", [], (_, rowFinal) => {
+      response.statusCode = 200;
+      response.json({ codeEscola: rowFinal[0].codeEscola, err });
+    });
   });
 });
 
