@@ -409,6 +409,29 @@ app.get("/questao/:idQuestao", urlencodedParser, (request, response) => {
 
 // ENDPOINTS API Questionarios
 
+app.post("/escolas/create", urlencodedParser, (request, response) => {
+  response.setHeader("Access-Control-Allow-Origin", "*");
+  let db = new sqlite3.Database(DBPATH);
+  let sql =
+    "INSERT INTO Escola(codeEscola, nome, idRede, endereco, cidade, numeroAlunos, numeroFuncionarios) Values(?,?,?,?,?,?,?);";
+
+  let params = [];
+  params.push(request.body.codeEscola);
+  params.push(request.body.nome);
+  params.push(request.body.idRede);
+  params.push(request.body.endereco);
+  params.push(request.body.cidade);
+  params.push(request.body.numeroAlunos);
+  params.push(request.body.numeroFuncionarios);
+
+  db.all(sql, params, (err, rows) => {
+    db.all("SELECT last_insert_rowid() as codeEscola", [], (_, rowFinal) => {
+      response.statusCode = 200;
+      response.json({ codeEscola: rowFinal[0].codeEscola, err });
+    });
+  });
+});
+
 // endpoint for retrieving "Questionarios"
 app.get("/escolas/:idEscola", urlencodedParser, (request, response) => {
   response.setHeader("Access-Control-Allow-Origin", "*");
