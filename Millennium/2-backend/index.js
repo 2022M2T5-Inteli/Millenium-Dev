@@ -413,7 +413,7 @@ app.post("/escolas/create", urlencodedParser, (request, response) => {
   response.setHeader("Access-Control-Allow-Origin", "*");
   let db = new sqlite3.Database(DBPATH);
   let sql =
-    "INSERT INTO Escola(codeEscola, nome, idRede, endereco, cidade, numeroAlunos, numeroFuncionarios) Values(?,?,?,?,?,?,?); SELECT last_insert_rowid() as codeEscola";
+    "INSERT INTO Escola(codeEscola, nome, idRede, endereco, cidade, numeroAlunos, numeroFuncionarios) Values(?,?,?,?,?,?,?);";
 
   let params = [];
   params.push(request.body.codeEscola);
