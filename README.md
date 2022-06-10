@@ -18,6 +18,17 @@
 - <a href="http://linkedin.com/in/rafael-katalan">Rafael Katalan</a>
 
 ## Descrição
+<br><br>
+A solução a ser desenvolvida é uma aplicação web de diagnóstico de maturidade de escolas, obtido através de um questionário no qual os gestores de escolas respondem e ao final obtém seus resultados. Assim, o questionário é voltado para escolas públicas e privadas, a fim de fornecer uma consultoria de gestão e maturidade desse ambiente.
+<br><br>
+
+<br><br>
+Ao finalizar este questionário, o diagnóstico irá apontar oportunidades de aprimoramento que a instituição pode executar para ter desempenhos melhores e favorecer tanto os alunos, quanto os próprios gestores das redes de ensino. Posto isso, a partir das respostas obtidas no questionário, o usuário será apresentado ao dashboard que demonstra os dados gráficos da sua instituição, mostrando claramente  os pontos de melhorias, pontos fortes e pontos fracos, que a escola ou rede de escolas em questão apresenta. 
+<br><br>
+
+<br><br>
+O desenvolvimento do ambiente web passa por três fases: front-end, back-end e banco de dados.
+<br><br>
 
 ## 🛠 Estrutura de pastas
 
