@@ -1,59 +1,54 @@
-const sections = [
-  {
-    id: 1,
-    name: "Ensino",
-    questionsAmount: 12,
-  },
-  {
-    id: 1,
-    name: "Pessoas",
-    questionsAmount: 8,
-  },
-  {
-    id: 1,
-    name: "Fluxo",
-    questionsAmount: 7,
-  },
-  {
-    id: 1,
-    name: "Incentivos",
-    questionsAmount: 9,
-  },
-  {
-    id: 1,
-    name: "Infraestrutura e TI",
-    questionsAmount: 3,
-  },
-  {
-    id: 1,
-    name: "Gestão para resultados",
-    questionsAmount: 5,
-  },
-  {
-    id: 1,
-    name: "Equidade",
-    questionsAmount: 6,
-  },
-  // {
-  //   id: 1,
-  //   name: "Gestão para resultados teste",
-  //   questionsAmount: 20,
-  // },
-];
+var eixos = [];
 
 function createSectionCard(sectionId, sectionName, questionsAmount) {
-  let cardElement = `<div class="card col-12 col-lg-2 m-5 p-4 section-card" id="sectionCard${sectionId}">
+  let cardElement = `<div class="card col-12 col-lg-2 m-5 p-4 section-card" id="sectionCard${sectionId}" onclick="setEixoAndRedirect(${sectionId},'${sectionName}')">
   <h3 class="section-name">${sectionName}</h3><i class="fa-regular fa-pen-to-square"></i></div>`;
   return cardElement;
 }
 
-$(document).ready(function () {
-  sections.forEach((section) => {
-    let newSectionCard = createSectionCard(
-      section.id,
-      section.name,
-      section.questionsAmount
-    );
+function createCardEixos() {
+  eixos.forEach((eixo) => {
+    let newSectionCard = createSectionCard(eixo.id, eixo.nome, eixo.idAgenda);
     $("#cardBox").append(newSectionCard);
   });
+}
+
+function setEixoAndRedirect(idEixo, nomeEixo) {
+  sessionStorage.setItem("currentEixoId", idEixo);
+  sessionStorage.setItem("currentEixoNome", nomeEixo);
+  window.location.href =
+    "../2-EditQuizScreenQuestions/EditQuizScreenQuestions.html";
+}
+
+$(document).ready(function () {
+  usuarioFalconi.dados(1);
+  listarEixos.list();
 });
+
+// ajax listar dados usuário falconi
+var usuarioFalconi = {
+  dados(idUsuarioFalconi) {
+    $.ajax({
+      type: "GET",
+      url: "http://127.0.0.1:80/usuarioFalconi/" + idUsuarioFalconi,
+      success: function (resultado) {
+        document.getElementById("nomeUsuario").textContent =
+          resultado.user.nome;
+      },
+    });
+  },
+};
+
+// ajax listar eixos
+var listarEixos = {
+  list() {
+    $.ajax({
+      type: "GET",
+      url: "http://127.0.0.1:80/eixos/",
+      success: function (resultado) {
+        eixos = resultado.eixos;
+        createCardEixos();
+      },
+    });
+  },
+};
