@@ -1,6 +1,8 @@
 let usuarioFalconiId = sessionStorage.getItem("usuarioFalconiId") || 1;
 let currentIdEixo = sessionStorage.getItem("currentEixoId") || 1;
 let currentIdDominio = sessionStorage.getItem("currentDominioId") || 1;
+let currentEixoNome =
+  sessionStorage.getItem("currentEixoNome") || "Perguntas do eixo";
 
 let questionCards = [];
 let currentQuestion = {};
@@ -144,6 +146,7 @@ function openQuestion(questionId) {
 }
 
 $(document).ready(function () {
+  $("#pageTitle").text(currentEixoNome);
   usuarioFalconi.list(usuarioFalconiId);
   questoes.list(currentIdEixo);
 });
