@@ -1,17 +1,33 @@
+// Carrega dados do sessionStorage em variáveis
 let usuarioFalconiId = sessionStorage.getItem("usuarioFalconiId") || 1;
 let currentIdEixo = sessionStorage.getItem("currentEixoId") || 1;
 let currentIdDominio = sessionStorage.getItem("currentDominioId") || 1;
 let currentEixoNome =
   sessionStorage.getItem("currentEixoNome") || "Perguntas do eixo";
 
+// Variável responsável por guardar todas as
+// questões da página
 let questionCards = [];
+
+// Após a abertura do modal editar Pergunta,
+// guarda o objeto da pergunta nesta variável
 let currentQuestion = {};
+
+// Guarda novas opções, criadas dentro de
+// uma pergunta
 let createNewOptions = [];
+
+// Guarda uma lista de opções a serem removidas
 let questionsToBeRemoved = [];
 
+// Inicializa o modal do bootstrap em uma variável
+// para podermos alterar os estados dele posteriormente
 let questionModal = new bootstrap.Modal(
   document.getElementById("questionModal")
 );
+
+// Retorna um elemento HTML contendo informações de uma questão
+// em forma de linha
 function createQuestionCard(
   questionId,
   questionNumber,
@@ -47,19 +63,22 @@ function createQuestionCard(
   return newQuestionCard;
 }
 
+// Carrega o modal de editar questão
 function setQuestionModal(questionObj) {
   let radioButtons = [];
 
-  // sets the modal content according
-  // to the question object
+  // Define o conteúdo do modal de acordo
+  // com o objeto da questão
   $("#questionNumberText").text(questionObj.numeroQuestao + ".");
   $("#questionModalTitle").text(questionObj.idDominio);
   $("#questionModalText").text(questionObj.texto);
   $("#questionWeightSelect").prop("selectedIndex", questionObj.peso);
   $("#questionDominioSelect").prop("selectedIndex", questionObj.idDominio);
 
-  // add the question options
+  // Adiciona as opçõoes da questão
   const questionOptionsList = questionObj.opcoes || [];
+
+  // Cria um elemento HTML para cada opcão
   questionOptionsList.forEach((questionOption) => {
     console.log(questionOption);
     let radioButton = `<div class="p-2 d-flex" id="option${questionOption.id}Container">
@@ -86,7 +105,12 @@ function setQuestionModal(questionObj) {
     radioButtons.push(radioButton);
   });
 
+  // Adiciona todas as opções ao corpo do modal
   $("#optionsBody").empty().append(radioButtons);
+
+  /* Mapeia a lista de opções, alterando o
+    peso de um elemento select, de acordo com o peso do
+    objeto opcão */
   questionOptionsList.forEach((questionOption) => {
     $(`#flexRadioOption${questionOption.id}Select`)
       .val(questionOption.pontuacao)
@@ -94,6 +118,7 @@ function setQuestionModal(questionObj) {
   });
 }
 
+// Remove um elemento Questão da lista de questões
 function removeQuestionCard(questionId) {
   questionCards = questionCards.filter((questionCard) => {
     return questionCard.id != questionId;
@@ -101,10 +126,14 @@ function removeQuestionCard(questionId) {
   $(`#question${questionId}`).remove();
 }
 
+// Altera o estado de exibição do modal editar
+// questões
 function toggleModal() {
   questionModal.toggle();
 }
 
+// Carrega os dados de uma questão, por id,
+// e utiliza o modal editar questão para exibi-los
 function openQuestion(questionId) {
   let questionObj = questionCards.filter((obj) => {
     return obj.id == questionId;
@@ -145,12 +174,15 @@ function openQuestion(questionId) {
   });
 }
 
+// Ao carregar a página, lista os dados do usuário
+// E carrega a lista de questões
 $(document).ready(function () {
   $("#pageTitle").text(currentEixoNome);
   usuarioFalconi.list(usuarioFalconiId);
   questoes.list(currentIdEixo);
 });
 
+// Objeto reponsável por requisições Questoes
 var questoes = {
   list(eixoId) {
     $.ajax({
@@ -232,6 +264,7 @@ var questoes = {
   },
 };
 
+// Objeto responsável por requisições usuarioFalconi
 var usuarioFalconi = {
   list(idUsuarioFalconi) {
     $.ajax({
@@ -279,11 +312,13 @@ var opcoesQuestion = {
   },
 };
 
-// clears the currentQuestion variable when the modal is closed
+// Limpa o objeto currentQuestion quando o modal editar Questão
+// é fechado
 function clearCurrentQuestion() {
   currentQuestion = {};
 }
 
+// Adiciona uma nova opção ao corpo do modal editar Questão
 function addNewRawOption() {
   let newOption = {
     id: createNewOptions.length,
@@ -313,6 +348,8 @@ function addNewRawOption() {
   $("#optionsBody").append(radioButton);
 }
 
+// Função responsável por atualizar os dados das opções
+// de uma pergunta
 function updateCurrentQuestionOptions() {
   currentQuestion.opcoes.forEach((opcao) => {
     let texto = $(`#questionOption${opcao.id}Text`).text();
@@ -328,6 +365,7 @@ function updateCurrentQuestionOptions() {
   });
 }
 
+// Função responsável por remover uma opção do modal editar Questão
 function removeOption(optionId, optionName) {
   let shouldRemove = confirm(
     `Você tem certeza de que deseja remover a opção "${optionName}"?`
@@ -344,6 +382,8 @@ function removeOption(optionId, optionName) {
   }
 }
 
+// Função responsável por remover uma opção recem criada,
+// do modal editar Questão
 function removeNewOption(optionId, optionName) {
   let shouldRemove = confirm(
     `Você tem certeza de que deseja remover a opção "${optionName}"?`
@@ -356,6 +396,7 @@ function removeNewOption(optionId, optionName) {
   }
 }
 
+// Desativa uma Pergunta
 function removeQuestion(numeroQuestao) {
   let shouldRemove = confirm(
     `Você tem certeza de que deseja remover a questão "${numeroQuestao}"?`
@@ -365,6 +406,7 @@ function removeQuestion(numeroQuestao) {
   }
 }
 
+// Cria uma nova Pergunta
 function createNewQuestion() {
   let shouldCreate = confirm(`Deseja criar uma nova pergunta?`);
   shouldCreate &&
@@ -377,6 +419,7 @@ function createNewQuestion() {
     );
 }
 
+// Redireciona a página para um caminho definido
 function redirect(page) {
   window.location.replace(page);
 }
