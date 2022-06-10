@@ -234,7 +234,7 @@ app.get("/opcoes", urlencodedParser, (request, response) => {
   response.setHeader("Access-Control-Allow-Origin", "*");
 
   let db = new sqlite3.Database(DBPATH);
-  let sql = "SELECT * FROM Alternativa";
+  let sql = "SELECT * FROM Alternativa WHERE ativada=1";
 
   db.all(sql, [], (err, rows) => {
     response.statusCode = 200;
@@ -249,22 +249,20 @@ app.post("/opcoes/create", urlencodedParser, (request, response) => {
 
   let db = new sqlite3.Database(DBPATH);
   let sql =
-    "INSERT INTO Alternativa (texto, idQuestao, pontuacao, numeroAlt, versao, idAutor) VALUES (?, ?, ?, ?, 1, ?)";
+    "INSERT INTO Alternativa (texto, idQuestao, pontuacao, numeroAlt, versao, idAutor) VALUES (?,  (SELECT id FROM Questao WHERE numeroQuestao = ? ORDER BY id DESC), ?, (SELECT (numeroAlt + 1) FROM Alternativa ORDER BY numeroAlt DESC), 1, ?)";
 
   // creates a list with elements that will replace the "?"
   let params = [];
 
   // adds the elements to the list
   params.push(request.body.texto);
-  params.push(request.body.idQuestao);
+  params.push(request.body.numeroQuestao);
   params.push(request.body.pontuacao);
-  params.push(request.body.numeroAlt);
   params.push(request.body.idAutor);
-
   // handles the api reponse status and body
   db.all(sql, params, (err, rows) => {
     response.statusCode = 200;
-    response.json(rows);
+    response.json({ rows });
   });
   db.close();
 });
@@ -275,21 +273,43 @@ app.post("/opcoes/update", urlencodedParser, (request, response) => {
 
   let db = new sqlite3.Database(DBPATH);
   let sql =
-    "INSERT INTO Alternativa (texto, idQuestao, pontuacao, numeroAlt, versao, idAutor) VALUES (?, ?, ?, ?, (SELECT (versao + 1) FROM Alternativa WHERE numeroAlt=? ORDER BY versao DESC),?);";
+    "INSERT INTO Alternativa (texto, idQuestao, pontuacao, numeroAlt, versao, idAutor) VALUES (?, (SELECT id FROM Questao WHERE numeroQuestao = ? ORDER BY id DESC), ?, ?, (SELECT (versao + 1) FROM Alternativa WHERE numeroAlt=? ORDER BY versao DESC),?);";
 
   // params' list, replaces "?"
   let params = [];
 
   // add elements to the params list
   params.push(request.body.texto);
-  params.push(request.body.idQuestao);
+  params.push(request.body.numeroQuestao);
   params.push(request.body.pontuacao);
   params.push(request.body.numeroAlt);
   params.push(request.body.numeroAlt);
   params.push(request.body.idAutor);
+
   db.all(sql, params, (err, rows) => {
     response.statusCode = 200;
-    console.log(err);
+    response.json(rows);
+  });
+  db.close();
+});
+
+// endpoint for disabling options
+app.post("/opcoes/disable", urlencodedParser, (request, response) => {
+  response.setHeader("Access-Control-Allow-Origin", "*");
+
+  let db = new sqlite3.Database(DBPATH);
+  let sql = "UPDATE Alternativa SET ativada=0 WHERE numeroAlt=?;";
+
+  // params' list, replaces "?"
+  let params = [];
+
+  // add elements to the params list
+  params.push(request.body.numeroAlt);
+  db.all(sql, params, (err, rows) => {
+    response.statusCode = 200;
+    if (err) {
+      throw new Error(err);
+    }
     response.json(rows);
   });
   db.close();
@@ -302,7 +322,7 @@ app.get("/questoes", urlencodedParser, (request, response) => {
   response.setHeader("Access-Control-Allow-Origin", "*");
 
   let db = new sqlite3.Database(DBPATH);
-  let sql = "SELECT * FROM Questao";
+  let sql = "SELECT * FROM Questao WHERE ativada=1";
 
   // params list, replaces "?"
   let params = [];
@@ -321,7 +341,7 @@ app.get("/questoes/:idEixo", urlencodedParser, (request, response) => {
   response.setHeader("Access-Control-Allow-Origin", "*");
 
   let db = new sqlite3.Database(DBPATH);
-  let sql = "SELECT * FROM Questao WHERE idEixo = ?";
+  let sql = "SELECT * FROM Questao WHERE idEixo = ? AND ativada=1";
   // params list, replaces "?"
   let params = [];
 
@@ -332,6 +352,18 @@ app.get("/questoes/:idEixo", urlencodedParser, (request, response) => {
     let hashmap = {};
     let questoesFiltered = [];
     rows.forEach((questao) => {
+      // questao.opcoes = [
+      //   {
+      //     id: 1,
+      //     nome: "minha opção",
+      //     peso: 1,
+      //   },
+      //   {
+      //     id: 2,
+      //     nome: "minha opção 2",
+      //     peso: 2,
+      //   },
+      // ];
       hashmap[questao.numeroQuestao]
         ? hashmap[questao.numeroQuestao].push(questao)
         : (hashmap[questao.numeroQuestao] = [questao]);
@@ -342,6 +374,7 @@ app.get("/questoes/:idEixo", urlencodedParser, (request, response) => {
       });
       questoesFiltered.push(lastQuestionVersion);
     });
+
     response.json({ questoes: questoesFiltered });
   });
   db.close();
@@ -353,14 +386,14 @@ app.post("/questoes/create", urlencodedParser, (request, response) => {
 
   let db = new sqlite3.Database(DBPATH);
   let sql =
-    "INSERT INTO Questao (texto, numeroQuestao, peso, idDominio, idAutor, idEixo, versao) VALUES(?, ?, ?, ?, ?, ?, 1)";
+    "INSERT INTO Questao (texto, numeroQuestao, peso, idDominio, idAutor, idEixo, versao) VALUES(?, (SELECT (numeroQuestao + 1) FROM Questao ORDER BY numeroQuestao DESC), ?, ?, ?, ?, 1)";
 
   // params list, replaces "?"
   let params = [];
 
   // add elements to the params list
   params.push(request.body.texto);
-  params.push(request.body.numeroQuestao);
+  // params.push(request.body.numeroQuestao);
   params.push(request.body.peso);
   params.push(request.body.idDominio);
   params.push(request.body.idAutor);
@@ -400,6 +433,28 @@ app.post("/questao/update", urlencodedParser, (request, response) => {
   db.close();
 });
 
+// endpoint for disabling a "question"
+app.post("/questoes/disable", urlencodedParser, (request, response) => {
+  response.setHeader("Access-Control-Allow-Origin", "*");
+
+  let db = new sqlite3.Database(DBPATH);
+  let sql = "UPDATE Questao SET ativada=0 WHERE numeroQuestao=?;";
+
+  // params' list, replaces "?"
+  let params = [];
+
+  // add elements to the params list
+  params.push(request.body.numeroQuestao);
+  db.all(sql, params, (err, rows) => {
+    response.statusCode = 200;
+    if (err) {
+      throw new Error(err);
+    }
+    response.json(rows);
+  });
+  db.close();
+});
+
 // endpoint for returning a question
 app.get("/questao/:idQuestao", urlencodedParser, (request, response) => {
   response.setHeader("Access-Control-Allow-Origin", "*");
@@ -416,6 +471,40 @@ app.get("/questao/:idQuestao", urlencodedParser, (request, response) => {
   db.all(sql, params, (err, rows) => {
     response.statusCode = 200;
     response.json({ questao: rows[0] });
+  });
+  db.close();
+});
+
+// endpoint for returning a question's options
+app.get("/questao/:idQuestao/opcoes", urlencodedParser, (request, response) => {
+  response.setHeader("Access-Control-Allow-Origin", "*");
+
+  let db = new sqlite3.Database(DBPATH);
+  let sql = "SELECT * FROM Alternativa WHERE idQuestao = ? AND ativada=1";
+
+  // params list, replaces "?"
+  let params = [];
+
+  // add elements to the params list
+  params.push(request.params.idQuestao);
+
+  db.all(sql, params, (err, rows) => {
+    response.statusCode = 200;
+    let hashmap = {};
+    let opcoesFiltered = [];
+    rows.forEach((opcao) => {
+      hashmap[opcao.numeroAlt]
+        ? hashmap[opcao.numeroAlt].push(opcao)
+        : (hashmap[opcao.numeroAlt] = [opcao]);
+    });
+    Object.keys(hashmap).forEach((key) => {
+      let lastOpcaoVersion = hashmap[key].reduce((prev, curr) => {
+        return curr.versao > prev.versao ? curr : prev;
+      });
+      opcoesFiltered.push(lastOpcaoVersion);
+    });
+
+    response.json({ opcoes: opcoesFiltered });
   });
   db.close();
 });
