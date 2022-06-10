@@ -14,7 +14,7 @@ button {
 #profileBox {
   background-color: #efefef;
   border-radius: 12px;
-  font-family: "Raleway", sans-serif;  
+  font-family: "Raleway", sans-serif;
   padding: 16px;
 }
 
@@ -94,6 +94,30 @@ a:hover {
   border-radius: 10px;
 }
 
+.operation-button {
+  width: 1.4rem;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  height: 1.4rem;
+  border-radius: 1rem;
+  background-color: #df1b1b;
+  transition: ease all 0.2s;
+  cursor: pointer;
+  color: white;
+  margin-right: 10px;
+  box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.1);
+
+}
+
+.add-button {
+  background-color: #0E7E7A;
+}
+
+.operation-button:hover {
+  transform: scale(1.2, 1.2);
+}
+
 .questions {
   background-color: #accccb;
   border-radius: 10px;
@@ -120,7 +144,7 @@ a:hover {
   margin-right: 2rem;
 }
 
-#questionModalTitle{
+#questionModalTitle {
   margin-right: 10rem;
   margin-left: 2rem;
   width: 15rem;
@@ -129,15 +153,14 @@ a:hover {
   font-weight: lighter;
 }
 
-#questionModalText{
+#questionModalText {
   margin-left: 0.5rem;
   margin-bottom: 0;
   border-color: #2c4b4d;
-  border-style:dotted;
+  border-style: dotted;
   padding: 0.5rem;
   padding-top: 0.7rem;
 }
-
 
 h4 {
   margin: 0;

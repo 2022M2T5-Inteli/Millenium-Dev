@@ -32,7 +32,6 @@
   <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
 
   <link rel="stylesheet" href="./EditQuizScreenQuestions.css" />
-  <script src="./script.js"></script>
   <title>Editar Questionário Questões Lista</title>
 </head>
 
@@ -44,7 +43,7 @@
     <div class="modal-dialog modal-dialog-centered modal-lg">
       <div class="modal-content">
         <div class="modal-header">
-          <select class="form-select" id="questionModalTitle" aria-label="Seletor do domínio da questão">
+          <select class="form-select" id="questionDominioSelect" aria-label="Seletor do domínio da questão">
             <option selected>Domínio da questão</option>
             <option value="1">Atrair e Interagir</option>
             <option value="2">Sistema de Gestão</option>
@@ -58,6 +57,7 @@
               <option value="1">Peso 1</option>
               <option value="2">Peso 2</option>
               <option value="3">Peso 3</option>
+              <option value="4">Peso 4</option>
             </select>
           </div>
           <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
@@ -71,44 +71,61 @@
               capacitação? Como é feito o levantamento de competências e conhecimentos faltantes para treinamentos?</p>
           </div>
           <!-- alternativas disponíveis para a questão -->
-          <div class="p-5" id="optionsBody">
-            <div class="form-check p-2">
-              <input class="form-check-input" type="radio" name="flexRadioDefault" id="flexRadioDefault1">
-              <label class="form-check-label" contenteditable="true">
-                <p>Default radio</p>
-              </label>
-              <div class="row">
-                <div class="col-3">
-                  <select class="form-select" aria-label=".form-select-sm example">
-                    <option selected>Pontos</option>
-                    <option value="1">1 ponto</option>
-                    <option value="2">2 pontos</option>
-                    <option value="3">3 pontos</option>
-                  </select>
+          <div class="p-5" id="optionsContainer">
+            <div id="optionsBody">
+              <div class="p-2 d-flex">
+                <div class="operation-button" id="removeOption0"><i class="fa-solid fa-minus"></i></div>
+                <div class="col-11">
+                  <input class="form-check-input" type="radio" name="flexRadioDefault" id="flexRadioDefault1">
+                  <label class="form-check-label" contenteditable="true">
+                    <p>Default radio</p>
+                  </label>
+
+                  <div class="row">
+                    <div class="col-3">
+                      <select class="form-select" aria-label=".form-select-sm example">
+                        <option selected>Pontos</option>
+                        <option value="1">1 ponto</option>
+                        <option value="2">2 pontos</option>
+                        <option value="3">3 pontos</option>
+                      </select>
+                    </div>
+                  </div>
+                </div>
+              </div>
+              <div class="p-2 d-flex">
+                <div class="operation-button" id="removeOption0"><i class="fa-solid fa-minus"></i></div>
+                <div class="col-11">
+                  <input class="form-check-input" type="radio" name="flexRadioDefault" id="flexRadioDefault1">
+                  <label class="form-check-label" contenteditable="true">
+                    <p>Default radio</p>
+                  </label>
+
+                  <div class="row">
+                    <div class="col-3">
+                      <select class="form-select" aria-label=".form-select-sm example">
+                        <option selected>Pontos</option>
+                        <option value="1">1 ponto</option>
+                        <option value="2">2 pontos</option>
+                        <option value="3">3 pontos</option>
+                      </select>
+                    </div>
+                  </div>
                 </div>
               </div>
             </div>
-            <div class="form-check p-2">
-              <input class="form-check-input" type="radio" name="flexRadioDefault" id="flexRadioDefault1">
-              <label class="form-check-label" contenteditable="true">
-                <p>Default radio</p>
-              </label>
-              <div class="row">
-                <div class="col-3">
-                  <select class="form-select" aria-label=".form-select-sm example">
-                    <option selected>Pontos</option>
-                    <option value="1">1 ponto</option>
-                    <option value="2">2 pontos</option>
-                    <option value="3">3 pontos</option>
-                  </select>
-                </div>
-              </div>
+            <div class="p-2 mt-2 d-flex">
+              <div class="operation-button add-button" id="addNewOption" onclick="addNewRawOption()"><i
+                  class="fa-solid fa-plus"></i></div>
+              Adicionar Nova Opção
             </div>
           </div>
+
         </div>
         <div class="modal-footer">
-          <button type="button" class="btn btn-primary">Salvar</button>
-          <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cancelar</button>
+          <button type="button" class="btn btn-primary" id="questionSaveButton">Salvar</button>
+          <button type="button" class="btn btn-secondary" data-bs-dismiss="modal"
+            onclick="clearCurrentQuestion()">Cancelar</button>
         </div>
       </div>
     </div>
@@ -120,13 +137,14 @@
       <!-- cria rows para os 3 conteúdos do header -->
       <div class="p-3 col-12 col-lg-4 justify-content-center justify-content-lg-start d-flex" id="leftSection">
         <!-- seção da esquerda -->
-        <div class="d-flex justify-content-center align-items-center" id="backButton">
+        <div class="d-flex justify-content-center align-items-center" id="backButton" onclick="redirect('../1-EditQuizScreen/editQuizScreen.html')">
           <!-- seta voltar -->
-          <a href="google.com"> <i class="fa-solid fa-arrow-left-long"></i></a> <!-- ícone da seta -->
+          <i class="fa-solid fa-arrow-left-long"></i> <!-- ícone da seta -->
         </div>
       </div>
 
-      <div class="p-3 col-12 col-lg-4 text-center d-flex flex-column justify-content-center align-items-center" id="centerSection">
+      <div class="p-3 col-12 col-lg-4 text-center d-flex flex-column justify-content-center align-items-center"
+        id="centerSection">
         <!-- cria a seção central do header-->
         <h1> Nome do Eixo </h1>
         <h6> Clique em <i class="fa-regular fa-pen-to-square"></i> para editar as questões, em <i
@@ -136,12 +154,11 @@
 
       <div class="p-3 col-12 col-lg-4" id="rightSection">
         <!-- cria a seção da direita -->
-        <div class="offset-lg-4 col-lg-8 d-flex flex-column justify-content-evenly align-items-center"
-          id="profileBox">
+        <div class="offset-lg-4 col-lg-8 d-flex flex-column justify-content-evenly align-items-center" id="profileBox">
           <!-- cria a caixa de perfil -->
           <p class="m-0">
             <i class="fa-solid fa-user"></i>
-            <span>Nome de Usuário</span>
+            <span id="userNameDisplay">Nome de Usuário</span>
           </p>
         </div>
       </div>
@@ -156,7 +173,7 @@
       <div class="row col-12 text-center align-items-center" id="questionsHeader">
 
         <div class="col-lg-3 p-4">
-          <h4>Número</h4>
+          <h4>Número de Identificação</h4>
         </div>
 
         <div class="col-lg-3 p-4">
@@ -168,7 +185,7 @@
         </div>
 
         <div class="col-lg-3 p-4">
-          <button id="addBtn" onclick="createQuestionModal()" >
+          <button id="addBtn" onclick="createNewQuestion()">
             <!--botão add questões-->
             <i class="bi bi-plus-square"></i>
           </button>
@@ -204,6 +221,7 @@
 
 
 
+  <script src="./script.js"></script>
 
 
 </body>
