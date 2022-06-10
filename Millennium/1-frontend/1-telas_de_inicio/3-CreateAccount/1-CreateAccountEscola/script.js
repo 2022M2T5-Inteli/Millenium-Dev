@@ -67,6 +67,8 @@ function proximoClick() {
   insertItemInSessionStorage("nome", nome);
   insertItemInSessionStorage("email", email);
   insertItemInSessionStorage("cargo", cargo);
+  window.location.replace("./cadastroEscola.html");
+  
 }
 //criar uma função para o botão cadastrar
 function cadastroClick() {
