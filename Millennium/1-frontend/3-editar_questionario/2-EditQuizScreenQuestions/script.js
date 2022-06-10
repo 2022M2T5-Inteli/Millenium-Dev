@@ -1,6 +1,6 @@
-let usuarioFalconiId = 1;
-let currentIdEixo = 1;
-let currentIdDominio = 1;
+let usuarioFalconiId = sessionStorage.getItem("usuarioFalconiId") || 1;
+let currentIdEixo = sessionStorage.getItem("currentEixoId") || 1;
+let currentIdDominio = sessionStorage.getItem("currentDominioId") || 1;
 
 let questionCards = [];
 let currentQuestion = {};
@@ -16,7 +16,7 @@ function createQuestionCard(
   questionDomain,
   question
 ) {
-  let newQuestionCard = `<div class="row col-12 text-center align-items-center m-2 questions" id="question${questionId}">
+  let newQuestionCard = `<div class="row col-12 text-center align-items-center m-2 questions" id="question${questionNumber}">
   <!--linha das questões-->
   <div class="col-lg-3 p-4">
     <h6>${questionNumber}</h6>
@@ -115,26 +115,28 @@ function openQuestion(questionId) {
     success: (opcoesResponse) => {
       currentQuestion.opcoes = opcoesResponse.opcoes;
 
-      $("#questionSaveButton").click(() => {
-        updateCurrentQuestionOptions();
-        currentQuestion.texto =
-          document.getElementById("questionModalText").textContent;
-        currentQuestion.peso = document.getElementById(
-          "questionWeightSelect"
-        ).value;
-        currentQuestion.idDominio = document.getElementById(
-          "questionDominioSelect"
-        ).value;
-        questoes.update(
-          currentQuestion.texto,
-          currentQuestion.numeroQuestao,
-          currentQuestion.peso,
-          currentQuestion.idDominio,
-          usuarioFalconiId,
-          currentIdEixo,
-          currentQuestion.opcoes
-        );
-      });
+      $("#questionSaveButton")
+        .unbind()
+        .click(() => {
+          updateCurrentQuestionOptions();
+          currentQuestion.texto =
+            document.getElementById("questionModalText").textContent;
+          currentQuestion.peso = document.getElementById(
+            "questionWeightSelect"
+          ).value;
+          currentQuestion.idDominio = document.getElementById(
+            "questionDominioSelect"
+          ).value;
+          questoes.update(
+            currentQuestion.texto,
+            currentQuestion.numeroQuestao,
+            currentQuestion.peso,
+            currentQuestion.idDominio,
+            usuarioFalconiId,
+            currentIdEixo,
+            currentQuestion.opcoes
+          );
+        });
       setQuestionModal(currentQuestion);
       toggleModal();
     },
@@ -153,6 +155,7 @@ var questoes = {
       url: "http://localhost:80/questoes/" + eixoId,
       success: (response) => {
         questionCards = response.questoes;
+        $("#questionsWrapper").empty();
         questionCards.forEach((question) => {
           let newQuestionCard = createQuestionCard(
             question.id,
@@ -172,6 +175,7 @@ var questoes = {
       data: { texto, peso, idDominio, idAutor, idEixo },
     }).done(() => {
       alert("Sucesso!");
+      questoes.list(currentIdEixo);
       // toggleModal();
     });
   },
@@ -201,7 +205,13 @@ var questoes = {
           );
         });
         alert("Questão Salva com Sucesso!");
+        questionCards = [];
+        currentQuestion = {};
+        createNewOptions = [];
+        questionsToBeRemoved = [];
+        questoes.list(currentIdEixo);
         toggleModal();
+        // questoes.list(currentIdEixo);
       },
     });
   },
@@ -211,6 +221,8 @@ var questoes = {
       url: "http://localhost:80/questoes/disable",
       data: { numeroQuestao },
     }).done(() => {
+      console.log(`#question${numeroQuestao}`);
+      $(`#question${numeroQuestao}`).remove();
       alert("Questão Removida!");
       // toggleModal();
     });
@@ -360,6 +372,10 @@ function createNewQuestion() {
       usuarioFalconiId,
       currentIdEixo
     );
+}
+
+function redirect(page) {
+  window.location.replace(page);
 }
 
 // confirm("Are you sure to execute this action?");

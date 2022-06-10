@@ -73,51 +73,52 @@
           <!-- alternativas disponíveis para a questão -->
           <div class="p-5" id="optionsContainer">
             <div id="optionsBody">
-            <div class="p-2 d-flex">
-              <div class="operation-button" id="removeOption0"><i class="fa-solid fa-minus"></i></div>
-              <div class="col-11">
-                <input class="form-check-input" type="radio" name="flexRadioDefault" id="flexRadioDefault1">
-                <label class="form-check-label" contenteditable="true">
-                  <p>Default radio</p>
-                </label>
+              <div class="p-2 d-flex">
+                <div class="operation-button" id="removeOption0"><i class="fa-solid fa-minus"></i></div>
+                <div class="col-11">
+                  <input class="form-check-input" type="radio" name="flexRadioDefault" id="flexRadioDefault1">
+                  <label class="form-check-label" contenteditable="true">
+                    <p>Default radio</p>
+                  </label>
 
-                <div class="row">
-                  <div class="col-3">
-                    <select class="form-select" aria-label=".form-select-sm example">
-                      <option selected>Pontos</option>
-                      <option value="1">1 ponto</option>
-                      <option value="2">2 pontos</option>
-                      <option value="3">3 pontos</option>
-                    </select>
+                  <div class="row">
+                    <div class="col-3">
+                      <select class="form-select" aria-label=".form-select-sm example">
+                        <option selected>Pontos</option>
+                        <option value="1">1 ponto</option>
+                        <option value="2">2 pontos</option>
+                        <option value="3">3 pontos</option>
+                      </select>
+                    </div>
+                  </div>
+                </div>
+              </div>
+              <div class="p-2 d-flex">
+                <div class="operation-button" id="removeOption0"><i class="fa-solid fa-minus"></i></div>
+                <div class="col-11">
+                  <input class="form-check-input" type="radio" name="flexRadioDefault" id="flexRadioDefault1">
+                  <label class="form-check-label" contenteditable="true">
+                    <p>Default radio</p>
+                  </label>
+
+                  <div class="row">
+                    <div class="col-3">
+                      <select class="form-select" aria-label=".form-select-sm example">
+                        <option selected>Pontos</option>
+                        <option value="1">1 ponto</option>
+                        <option value="2">2 pontos</option>
+                        <option value="3">3 pontos</option>
+                      </select>
+                    </div>
                   </div>
                 </div>
               </div>
             </div>
-            <div class="p-2 d-flex">
-              <div class="operation-button" id="removeOption0"><i class="fa-solid fa-minus"></i></div>
-              <div class="col-11">
-                <input class="form-check-input" type="radio" name="flexRadioDefault" id="flexRadioDefault1">
-                <label class="form-check-label" contenteditable="true">
-                  <p>Default radio</p>
-                </label>
-
-                <div class="row">
-                  <div class="col-3">
-                    <select class="form-select" aria-label=".form-select-sm example">
-                      <option selected>Pontos</option>
-                      <option value="1">1 ponto</option>
-                      <option value="2">2 pontos</option>
-                      <option value="3">3 pontos</option>
-                    </select>
-                  </div>
-                </div>
-              </div>
+            <div class="p-2 mt-2 d-flex">
+              <div class="operation-button add-button" id="addNewOption" onclick="addNewRawOption()"><i
+                  class="fa-solid fa-plus"></i></div>
+              Adicionar Nova Opção
             </div>
-          </div>
-          <div class="p-2 mt-2 d-flex">
-            <div class="operation-button add-button" id="addNewOption" onclick="addNewRawOption()"><i class="fa-solid fa-plus"></i></div>
-            Adicionar Nova Opção
-          </div>
           </div>
 
         </div>
@@ -136,9 +137,9 @@
       <!-- cria rows para os 3 conteúdos do header -->
       <div class="p-3 col-12 col-lg-4 justify-content-center justify-content-lg-start d-flex" id="leftSection">
         <!-- seção da esquerda -->
-        <div class="d-flex justify-content-center align-items-center" id="backButton">
+        <div class="d-flex justify-content-center align-items-center" id="backButton" onclick="redirect('../1-EditQuizScreen/editQuizScreen.html')">
           <!-- seta voltar -->
-          <a href="google.com"> <i class="fa-solid fa-arrow-left-long"></i></a> <!-- ícone da seta -->
+          <i class="fa-solid fa-arrow-left-long"></i> <!-- ícone da seta -->
         </div>
       </div>
 
