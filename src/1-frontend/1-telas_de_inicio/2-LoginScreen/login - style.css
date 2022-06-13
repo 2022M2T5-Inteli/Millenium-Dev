@@ -1,0 +1,90 @@
+.input {
+  margin: 0;
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  text-align: center;
+  padding-top: 10rem;
+}
+
+#buttonVoltar {
+  padding-right: 1rem;
+}
+
+.buttonEntrar {
+  padding-top: 100px;
+}
+
+.buttonLogin {
+  color: #ffffff;
+  background-color: #579a99;
+  border-color: #579a99;
+  border-radius: 12px;
+  border-style: solid;
+  font-family: "Inter", sans-serif;
+  padding: 5px 10px;
+}
+
+#backButton {
+  padding: 1.2rem;
+  width: 3.4rem;
+  height: 3.4rem;
+  border-radius: 50px;
+  font-size: 1.6rem;
+  box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2);
+  transition: ease all 0.2s;
+}
+
+#backButton:hover {
+  cursor: pointer;
+  transform: scale(1.1, 1.1);
+  box-shadow: 0 6px 8px 0 rgba(0, 0, 0, 0.2);
+  background-color: #579a99;
+  color: white;
+}
+
+h1 {
+  font-family: "Inter", sans-serif;
+  font-size: 3rem;
+  text-align: center;
+  padding-bottom: 1rem;
+  padding-top: 2rem;
+}
+
+p {
+  text-align: center;
+  font-size: small;
+  font-family: "Inter", sans-serif;
+  padding-top: 10px;
+}
+
+#floatingInput {
+  width: 20rem;
+}
+
+#iconeBack {
+  border-radius: 50%;
+  padding: 15px;
+  margin-top: 35px;
+  margin-left: 22px;
+  border: #efefef;
+  background-color: #efefef;
+  color: #579a99;
+}
+
+#iconEnvelope {
+  color: #579a99;
+}
+
+a,
+a:link,
+a:hover {
+  text-decoration: none;
+  color: inherit;
+}
+
+h6 {
+  font-family: "Raleway", sans-serif;
+  font-weight: bold;
+}

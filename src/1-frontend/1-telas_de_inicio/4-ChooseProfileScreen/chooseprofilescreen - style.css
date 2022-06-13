@@ -1,0 +1,125 @@
+h1 {
+  font-family: "Inter", sans-serif;
+  font-size: 3rem;
+  text-align: center;
+}
+
+h2 {
+  font-family: "Raleway", sans-serif;
+  font-weight: bolder;
+  padding-top: 1rem;
+}
+
+p {
+  font-size: 1rem;
+  font-family: "Raleway", sans-serif;
+  font-weight: 800;
+}
+
+h6 {
+  font-family: "Raleway", sans-serif;
+  font-weight: bold;
+}
+
+.buttonSouEscola {
+  padding-top: 8rem;
+  text-align: center;
+  color: #0e7e7a;
+}
+
+.buttonSouRede {
+  padding-top: 8rem;
+  text-align: center;
+  color: #5c78a5;
+}
+
+.buttonSouFalconi {
+  padding-top: 8rem;
+  text-align: center;
+  color: #ba9a48;
+}
+
+.buttonVoltar {
+  padding-right: 1rem;
+}
+
+#buttonEscola {
+  font-size: 5.5rem;
+}
+
+#buttonEscola:hover {
+  color: white;
+}
+
+#buttonRede {
+  font-size: 5.5rem;
+}
+
+#buttonRede:hover {
+  color: white;
+}
+
+#buttonFalconi {
+  font-size: 5.5rem;
+}
+
+#buttonFalconi:hover {
+  color: white;
+}
+
+#buttons {
+  margin: 2%;
+  -webkit-box-shadow: 0px 0px 15px -5px rgba(0, 0, 0, 0.69);
+  box-shadow: 0px 0px 10px -5px rgba(0, 0, 0, 0.69);
+  transition: ease all 0.2s;
+  padding-top: 5%;
+  margin-top: 10%;
+  height: 80%;
+  border-radius: 1rem;
+}
+
+#buttons:hover {
+  /* background-color: #d7d7d7; */
+  transform: scale(0.98, 0.98);
+  box-shadow: 0px 0px 8px -5px rgba(0, 0, 0, 0.5);
+}
+
+.buttonSouEscola:hover {
+  background-color: #0e7e7a;
+  color: white;
+}
+
+.buttonSouRede:hover {
+  background-color: #5c78a5;
+  color: white;
+}
+
+.buttonSouFalconi:hover {
+  background-color: #ba9a48;
+  color: white;
+}
+
+#backButton {
+  padding: 1.2rem;
+  width: 3.4rem;
+  height: 3.4rem;
+  border-radius: 50px;
+  font-size: 1.6rem;
+  box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2);
+  transition: ease all 0.2s;
+}
+
+#backButton:hover {
+  cursor: pointer;
+  transform: scale(1.1, 1.1);
+  box-shadow: 0 6px 8px 0 rgba(0, 0, 0, 0.2);
+  background-color: #579a99;
+  color: white;
+}
+
+a,
+a:link,
+a:hover {
+  text-decoration: none;
+  color: inherit;
+}
