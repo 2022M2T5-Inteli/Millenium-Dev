@@ -1,11 +1,12 @@
 $(document).ready(() => {
-  // contaEscola.create("lu", "lu", "lu", 1);
+  // Adiciona a função cadastroClick ao botão de cadastro
   $("#cadastroButton").click((e) => {
     e.preventDefault();
     cadastroClick();
   });
 });
 
+// Objeto responsável pelas requisições da conta usuário Escola
 var contaEscola = {
   create(nome, email, cargo, idEscola) {
     console.log(nome, email, cargo, idEscola);
@@ -24,6 +25,7 @@ var contaEscola = {
   },
 };
 
+// Objeto responsável pelas requisições de uma entidade Escola
 var Escola = {
   create(
     codeEscola,
@@ -59,7 +61,8 @@ var Escola = {
   },
 };
 
-//criar uma função para o botão cadastrar
+// Criar uma função para o botão proximo
+// Pega os valores do input e salva na sessionStorage do navegador
 function proximoClick() {
   var nome = document.getElementById("floatingInputName").value;
   var email = document.getElementById("floatingInputEmail").value;
@@ -67,8 +70,9 @@ function proximoClick() {
   insertItemInSessionStorage("nome", nome);
   insertItemInSessionStorage("email", email);
   insertItemInSessionStorage("cargo", cargo);
+  window.location.replace("./cadastroEscola.html");
 }
-//criar uma função para o botão cadastrar
+// Criar uma função para o botão cadastrar
 function cadastroClick() {
   var nome = getItemFromSessionStorage("nome");
   var email = getItemFromSessionStorage("email");
@@ -97,11 +101,15 @@ function cadastroClick() {
   );
 }
 
-//funções auxiliares
+// Funções auxiliares
+
+// Retorna um item da sesionStorage
 function getItemFromSessionStorage(key) {
   var item = sessionStorage.getItem(key);
   return item;
 }
+
+// Salva um item na sessionStorage
 function insertItemInSessionStorage(key, dados) {
   sessionStorage.setItem(key, dados);
 }
