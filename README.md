@@ -28,8 +28,6 @@ O desenvolvimento do ambiente web passa por três fases: front-end, back-end e b
 ## 🛠 Estrutura de pastas
 <b>README.MD</b>: Arquivo que serve como guia e explicação geral sobre o projeto. O mesmo que você está lendo agora.
 
-Há também 4 pastas que seguem da seguinte forma:
-
 <b>documentos</b>: Aqui estarão todos os documentos do projeto, mas principalmente o <b>WAD (Web Application Document)/Documentação do Sistema</b>. Há uma pasta <b>antigos</b> onde estarão todas as versões antigas da documentação.
 
 <b>imagens</b>: Algumas imagens da aplicação e logos prontos para serem utilizados e visualizados.
