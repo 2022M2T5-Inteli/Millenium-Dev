@@ -1,6 +1,6 @@
 const express = require("express");
-// const bodyParser = require("body-parser");
-// const urlencodedParser = bodyParser.urlencoded({ extended: false });
+const bodyParser = require("body-parser");
+const urlencodedParser = bodyParser.urlencoded({ extended: false });
 
 // Server configuration
 const app = express();
@@ -20,12 +20,12 @@ const questionariosRoute = require("./routes/v1/questionarios");
 app.use(express.json());
 
 // Application Paths
-app.use("/usuarios", usuariosRoute);
-app.use("/eixos", eixosRoute);
-app.use("/opcoes", opcoesRoute);
-app.use("/questoes", questoesRoute);
-app.use("/escolas", escolasRoute);
-app.use("/questionarios", questionariosRoute);
+app.use("/usuarios", urlencodedParser, usuariosRoute);
+app.use("/eixos", urlencodedParser, eixosRoute);
+app.use("/opcoes", urlencodedParser, opcoesRoute);
+app.use("/questoes", urlencodedParser, questoesRoute);
+app.use("/escolas", urlencodedParser, escolasRoute);
+app.use("/questionarios", urlencodedParser, questionariosRoute);
 
 // Server Application
 app.listen(PORT, HOSTNAME, () => {
