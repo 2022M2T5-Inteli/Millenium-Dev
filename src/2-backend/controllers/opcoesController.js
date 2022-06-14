@@ -41,23 +41,32 @@ exports.updateOpcao = (request, response) => {
   response.setHeader("Access-Control-Allow-Origin", "*");
 
   let db = new sqlite3.Database(DBPATH);
-  let sql =
+  let sqlUpdate = "UPDATE Alternativa SET ativada=0 WHERE id=?;";
+  let sqlInsert =
     "INSERT INTO Alternativa (texto, idQuestao, pontuacao, numeroAlt, versao, idAutor) VALUES (?, (SELECT id FROM Questao WHERE numeroQuestao = ? ORDER BY id DESC), ?, ?, (SELECT (versao + 1) FROM Alternativa WHERE numeroAlt=? ORDER BY versao DESC),?);";
 
   // params' list, replaces "?"
-  let params = [];
+  let paramsUpdate = [];
+  let paramsInsert = [];
 
-  // add elements to the params list
-  params.push(request.body.texto);
-  params.push(request.body.numeroQuestao);
-  params.push(request.body.pontuacao);
-  params.push(request.body.numeroAlt);
-  params.push(request.body.numeroAlt);
-  params.push(request.body.idAutor);
+  // add elements to the Update params list
+  paramsUpdate.push(request.body.id);
 
-  db.all(sql, params, (err, rows) => {
-    response.statusCode = 200;
-    response.json(rows);
+  // adds the elements to the list
+  paramsInsert.push(request.body.texto);
+  paramsInsert.push(request.body.numeroQuestao);
+  paramsInsert.push(request.body.pontuacao);
+  paramsInsert.push(request.body.numeroAlt);
+  paramsInsert.push(request.body.numeroAlt);
+  paramsInsert.push(request.body.idAutor);
+  // handles the api reponse status and body
+  db.all(sqlUpdate, paramsUpdate, (err, _) => {
+    if (!err) {
+      db.all(sqlInsert, paramsInsert, (err, rows) => {
+        response.statusCode = 200;
+        response.json({ rows });
+      });
+    }
   });
   db.close();
 };

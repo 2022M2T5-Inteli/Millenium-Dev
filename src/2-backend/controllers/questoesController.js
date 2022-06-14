@@ -131,24 +131,33 @@ exports.updateQuestao = (request, response) => {
   response.setHeader("Access-Control-Allow-Origin", "*");
 
   let db = new sqlite3.Database(DBPATH);
-  let sql =
+  let sqlUpdate = "UPDATE Questao SET ativada=0 WHERE id=?";
+  let sqlInsert =
     "INSERT INTO Questao (texto, numeroQuestao, peso, idDominio, idAutor, idEixo, versao) VALUES(?, ?, ?, ?, ?, ?,(SELECT (versao + 1) FROM Questao WHERE numeroQuestao=? ORDER BY versao DESC));";
 
   // params' list, replaces "?"
-  let params = [];
+  let paramsUpdate = [];
+  let paramsInsert = [];
 
-  // add elements to the params list
-  params.push(request.body.texto);
-  params.push(request.body.numeroQuestao);
-  params.push(request.body.peso);
-  params.push(request.body.idDominio);
-  params.push(request.body.idAutor);
-  params.push(request.body.idEixo);
-  params.push(request.body.numeroQuestao);
+  // add elements to the Update params list
+  paramsUpdate.push(request.body.id);
 
-  db.all(sql, params, (err, rows) => {
-    response.statusCode = 200;
-    response.json(rows);
+  // add elements to the Insert params list
+  paramsInsert.push(request.body.texto);
+  paramsInsert.push(request.body.numeroQuestao);
+  paramsInsert.push(request.body.peso);
+  paramsInsert.push(request.body.idDominio);
+  paramsInsert.push(request.body.idAutor);
+  paramsInsert.push(request.body.idEixo);
+  paramsInsert.push(request.body.numeroQuestao);
+
+  db.all(sqlUpdate, paramsUpdate, (err, _) => {
+    if (!err) {
+      db.all(sqlInsert, paramsInsert, (err, rows) => {
+        response.statusCode = 200;
+        response.json(rows);
+      });
+    }
   });
   db.close();
 };
