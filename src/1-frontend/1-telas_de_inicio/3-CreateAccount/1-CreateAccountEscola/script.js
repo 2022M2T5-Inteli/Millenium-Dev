@@ -12,7 +12,7 @@ var contaEscola = {
     console.log(nome, email, cargo, idEscola);
     $.ajax({
       type: "POST",
-      url: "http://localhost:80/contaEscola/create",
+      url: API_BASE_URL + "/usuarios/escola/create",
       data: { nome, email, cargo, idEscola },
       success: function (resultado) {
         alert("Conta criada com sucesso!");
@@ -39,7 +39,7 @@ var Escola = {
   ) {
     $.ajax({
       type: "POST",
-      url: "http://localhost:80/escolas/create",
+      url: API_BASE_URL + "/escolas/create",
       data: {
         codeEscola: codeEscola,
         nome: nome,

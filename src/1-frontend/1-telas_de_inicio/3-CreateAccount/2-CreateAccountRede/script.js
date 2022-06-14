@@ -4,14 +4,14 @@ var contaRede = {
   create(nome, email) {
     $.ajax({
       type: "POST",
-      url: "http://localhost:80/contaRede/create",
+      url: API_BASE_URL + "/usuarios/rede/create",
       data: { nome: nome, email: email },
       success: function (resultado) {
         alert("Conta criada com Sucesso!");
       },
-      error: function(err) {
+      error: function (err) {
         alert("Erro ao criar a conta!");
-      }
+      },
     });
   },
 };

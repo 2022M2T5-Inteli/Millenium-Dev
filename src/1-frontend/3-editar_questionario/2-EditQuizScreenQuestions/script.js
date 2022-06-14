@@ -142,7 +142,7 @@ function openQuestion(questionId) {
   console.log(questionObj);
   $.ajax({
     type: "GET",
-    url: `http://localhost:80/questao/${currentQuestion.id}/opcoes`,
+    url: API_BASE_URL + `/questoes/questao/${currentQuestion.id}/opcoes`,
     success: (opcoesResponse) => {
       currentQuestion.opcoes = opcoesResponse.opcoes;
 
@@ -187,7 +187,7 @@ var questoes = {
   list(eixoId) {
     $.ajax({
       type: "GET",
-      url: "http://localhost:80/questoes/" + eixoId,
+      url: API_BASE_URL + "/questoes/eixo/" + eixoId,
       success: (response) => {
         questionCards = response.questoes;
         $("#questionsWrapper").empty();
@@ -206,7 +206,7 @@ var questoes = {
   create(texto, peso, idDominio, idAutor, idEixo) {
     $.ajax({
       type: "POST",
-      url: "http://localhost:80/questoes/create",
+      url: API_BASE_URL + "/questoes/create",
       data: { texto, peso, idDominio, idAutor, idEixo },
     }).done(() => {
       alert("Sucesso!");
@@ -217,7 +217,7 @@ var questoes = {
   update(texto, numeroQuestao, peso, idDominio, idAutor, idEixo, opcoes) {
     $.ajax({
       type: "POST",
-      url: "http://localhost:80/questao/update",
+      url: API_BASE_URL + "/questoes/update",
       data: { texto, numeroQuestao, peso, idDominio, idAutor, idEixo },
       success: (response) => {
         console.log(texto);
@@ -253,7 +253,7 @@ var questoes = {
   disable(numeroQuestao) {
     $.ajax({
       type: "POST",
-      url: "http://localhost:80/questoes/disable",
+      url: API_BASE_URL + "/questoes/disable",
       data: { numeroQuestao },
     }).done(() => {
       console.log(`#question${numeroQuestao}`);
@@ -269,7 +269,7 @@ var usuarioFalconi = {
   list(idUsuarioFalconi) {
     $.ajax({
       type: "GET",
-      url: "http://localhost:80/usuarioFalconi/" + idUsuarioFalconi,
+      url: API_BASE_URL + "/usuarios/falconi/" + idUsuarioFalconi,
       success: (response) => {
         document.getElementById("userNameDisplay").textContent =
           response.user.nome;
@@ -283,7 +283,7 @@ var opcoesQuestion = {
     console.log(texto, numeroQuestao, pontuacao, numeroAlt, idEixo, idAutor);
     $.ajax({
       type: "POST",
-      url: "http://localhost:80/opcoes/update",
+      url: API_BASE_URL + "/opcoes/update",
       data: { texto, numeroQuestao, pontuacao, numeroAlt, idEixo, idAutor },
     }).done(() => {
       console.log(texto);
@@ -293,7 +293,7 @@ var opcoesQuestion = {
   create(texto, numeroQuestao, pontuacao, idAutor) {
     $.ajax({
       type: "POST",
-      url: "http://localhost:80/opcoes/create",
+      url: API_BASE_URL + "/opcoes/create",
       data: { texto, numeroQuestao, pontuacao, idAutor },
     }).done(() => {
       console.log(texto);
@@ -303,7 +303,7 @@ var opcoesQuestion = {
   disable(numeroAlt) {
     $.ajax({
       type: "POST",
-      url: "http://localhost:80/opcoes/disable",
+      url: API_BASE_URL + "/opcoes/disable",
       data: { numeroAlt },
     }).done(() => {
       alert("Option Disabled!");
