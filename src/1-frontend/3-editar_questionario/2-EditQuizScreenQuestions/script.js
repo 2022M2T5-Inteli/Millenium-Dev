@@ -165,7 +165,8 @@ function openQuestion(questionId) {
             currentQuestion.idDominio,
             usuarioFalconiId,
             currentIdEixo,
-            currentQuestion.opcoes
+            currentQuestion.opcoes,
+            currentQuestion.id
           );
         });
       setQuestionModal(currentQuestion);
@@ -214,11 +215,28 @@ var questoes = {
       // toggleModal();
     });
   },
-  update(texto, numeroQuestao, peso, idDominio, idAutor, idEixo, opcoes) {
+  update(
+    texto,
+    numeroQuestao,
+    peso,
+    idDominio,
+    idAutor,
+    idEixo,
+    opcoes,
+    idQuestao
+  ) {
     $.ajax({
       type: "POST",
       url: API_BASE_URL + "/questoes/update",
-      data: { texto, numeroQuestao, peso, idDominio, idAutor, idEixo },
+      data: {
+        texto,
+        numeroQuestao,
+        peso,
+        idDominio,
+        idAutor,
+        idEixo,
+        id: idQuestao,
+      },
       success: (response) => {
         console.log(texto);
         opcoes.forEach((opcao) => {
@@ -228,7 +246,8 @@ var questoes = {
             opcao.pontuacao,
             opcao.numeroAlt,
             idEixo,
-            idAutor
+            idAutor,
+            opcao.id
           );
         });
         createNewOptions.forEach((opcao) => {
@@ -279,12 +298,28 @@ var usuarioFalconi = {
 };
 
 var opcoesQuestion = {
-  update(texto, numeroQuestao, pontuacao, numeroAlt, idEixo, idAutor) {
-    console.log(texto, numeroQuestao, pontuacao, numeroAlt, idEixo, idAutor);
+  update(texto, numeroQuestao, pontuacao, numeroAlt, idEixo, idAutor, idOpcao) {
+    console.log(
+      texto,
+      numeroQuestao,
+      pontuacao,
+      numeroAlt,
+      idEixo,
+      idAutor,
+      idOpcao
+    );
     $.ajax({
       type: "POST",
       url: API_BASE_URL + "/opcoes/update",
-      data: { texto, numeroQuestao, pontuacao, numeroAlt, idEixo, idAutor },
+      data: {
+        texto,
+        numeroQuestao,
+        pontuacao,
+        numeroAlt,
+        idEixo,
+        idAutor,
+        id: idOpcao,
+      },
     }).done(() => {
       console.log(texto);
       // toggleModal();
