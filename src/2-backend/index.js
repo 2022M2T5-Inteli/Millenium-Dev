@@ -5,7 +5,7 @@ const urlencodedParser = bodyParser.urlencoded({ extended: false });
 // Server configuration
 const app = express();
 
-const HOSTNAME = "127.0.0.1";
+const HOSTNAME = "0.0.0.0";
 const PORT = 5000;
 
 // Routes import

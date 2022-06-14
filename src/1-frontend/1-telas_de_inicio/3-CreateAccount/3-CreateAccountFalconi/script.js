@@ -7,7 +7,7 @@ var contaFalconi = {
   create(nome, email) {
     $.ajax({
       type: "POST",
-      url: "http://localhost:80/contaFalconi/create",
+      url: API_BASE_URL + "/usuarios/falconi/create",
       data: { nome: nome, email: email },
       success: function (resultado) {
         alert("Conta criada com sucesso!");

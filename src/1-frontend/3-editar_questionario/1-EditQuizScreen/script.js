@@ -38,7 +38,7 @@ var usuarioFalconi = {
   dados(idUsuarioFalconi) {
     $.ajax({
       type: "GET",
-      url: "http://127.0.0.1:80/usuarioFalconi/" + idUsuarioFalconi,
+      url: API_BASE_URL + "/usuarios/falconi/" + idUsuarioFalconi,
       success: function (resultado) {
         document.getElementById("nomeUsuario").textContent =
           resultado.user.nome;
@@ -52,7 +52,7 @@ var listarEixos = {
   list() {
     $.ajax({
       type: "GET",
-      url: "http://127.0.0.1:80/eixos/",
+      url: API_BASE_URL + "/eixos/list",
       success: function (resultado) {
         eixos = resultado.eixos;
         createCardEixos();

@@ -20,10 +20,10 @@ router.get("/escola/:usuarioId", getUsuarioEscola);
 router.get("/rede/:usuarioId", getUsuarioRede);
 
 // POST requests
-router.post("/falconi", createUsuarioFalconi);
+router.post("/falconi/create", createUsuarioFalconi);
 
-router.post("/escola", createUsuarioEscola);
+router.post("/escola/create", createUsuarioEscola);
 
-router.post("/rede", createUsuarioRede);
+router.post("/rede/create", createUsuarioRede);
 
 module.exports = router;
