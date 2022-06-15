@@ -118,7 +118,6 @@ exports.createLoginRede = (request, response) => {
 
   // add query params
   let params = [];
-  params.push(request.body.name);
   params.push(request.body.email);
 
   // execute query
