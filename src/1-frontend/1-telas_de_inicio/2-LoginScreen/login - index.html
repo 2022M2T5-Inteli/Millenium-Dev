@@ -12,6 +12,7 @@
         crossorigin="anonymous"></script>
 
     <link href="login - style.css" rel="stylesheet">
+    <script src="login - script.js"></script>
     
     <!--fonte do subtítulo e textos-->
     <link rel="preconnect" href="https://fonts.googleapis.com">
@@ -27,6 +28,10 @@
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.1.1/css/all.min.css"
     integrity="sha512-KfkfwYDsLkIlwQp6LFnl8zNdLGxu9YAA1QvwINks4PhcElQSvqcyVLLD9aMhXd13uQjoXtEKNosOWaZqXgel0g=="
     crossorigin="anonymous" referrerpolicy="no-referrer" />
+
+    <!--Modais de alerta-->
+    <script src="https://cdn.jsdelivr.net/npm/sweetalert2@10.10.1/dist/sweetalert2.all.min.js"></script>
+    <link rel='stylesheet' href='https://cdn.jsdelivr.net/npm/sweetalert2@10.10.1/dist/sweetalert2.min.css'>
     
 </head>
 
@@ -55,7 +60,7 @@
                 <input type="email" class="form-control" id="floatingInput" placeholder="name@example.com">
                 <a href="google.com"> <p>Não tem uma conta?</p></a>
                 <div class="buttonEntrar">
-                </div><input type="button" class="buttonLogin" value="Entrar">
+                </div><input type="button" class="buttonLogin" id="buttonEntrar" value="Entrar" onclick="buttonEntrar()">
             </div>
         </div>
     </div>
