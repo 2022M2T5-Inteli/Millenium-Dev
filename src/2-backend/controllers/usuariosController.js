@@ -114,7 +114,7 @@ exports.createUsuarioFalconi = (request, response) => {
 exports.createLoginRede = (request, response) => {
   response.setHeader("Acces-Control-Allow-Origin","*");
   let db = new sqlite3.Database(DBPATH);
-  let sql = "SELECT * FROM  Rede (nome, email, chaveAcesso) VALUES(?, ?, ?)";
+  let sql = "SELECT nome, id FROM  Rede WHERE email = ?";
 
   // add query params
   let params = [];
