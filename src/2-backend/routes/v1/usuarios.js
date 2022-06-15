@@ -10,6 +10,7 @@ const {
   createUsuarioEscola,
   createUsuarioRede,
   createUsuarioFalconi,
+  createLoginRede,
 } = require("../../controllers/usuariosController");
 
 // GET requests
@@ -25,5 +26,7 @@ router.post("/falconi/create", createUsuarioFalconi);
 router.post("/escola/create", createUsuarioEscola);
 
 router.post("/rede/create", createUsuarioRede);
+
+router.post("/rede/login", createLoginRede);
 
 module.exports = router;

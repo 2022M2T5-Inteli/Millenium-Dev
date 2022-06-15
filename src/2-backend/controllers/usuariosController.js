@@ -1,3 +1,5 @@
+const { request } = require("express");
+
 const sqlite3 = require("sqlite3").verbose();
 const DBPATH = "./Database/mainDB.db";
 
@@ -98,6 +100,25 @@ exports.createUsuarioFalconi = (request, response) => {
   // add query params
   let params = [];
   params.push(request.body.nome);
+  params.push(request.body.email);
+
+  // execute query
+  db.all(sql, params, (err, rows) => {
+    response.statusCode = 200;
+    response.json(rows);
+  });
+  db.close();
+};
+
+
+exports.createLoginRede = (request, response) => {
+  response.setHeader("Acces-Control-Allow-Origin","*");
+  let db = new sqlite3.Database(DBPATH);
+  let sql = "SELECT * FROM  Rede (nome, email, chaveAcesso) VALUES(?, ?, ?)";
+
+  // add query params
+  let params = [];
+  params.push(request.body.name);
   params.push(request.body.email);
 
   // execute query
