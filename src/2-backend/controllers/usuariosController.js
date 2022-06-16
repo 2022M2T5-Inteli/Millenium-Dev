@@ -126,3 +126,39 @@ exports.loginRede = (request, response) => {
   });
   db.close();
 };
+
+exports.AdminFalconi = (request, response) => {
+  response.setHeader("Acces-Control-Allow-Origin","*");
+  let db = new sqlite3.Database(DBPATH);
+  let sql = "SELECT nome, id FROM AdminFalconi WHERE email= ?"
+  // add query params
+  let params = [];
+  params.push(request.body.email);
+
+  // execute query
+  db.all(sql, params, (err, rows) => {
+    response.statusCode = 200;
+    response.json(rows);
+
+  });
+  db.close();
+};
+
+
+exports.Account = (request, response) => {
+  response.setHeader("Acces-Control-Allow-Origin","*");
+  let db = new sqlite3.Database(DBPATH);
+  let sql = "SELECT nome, id FROM Account WHERE email= ?"
+  // add query params
+  let params = [];
+  params.push(request.body.email);
+
+  // execute query
+  db.all(sql, params, (err, rows) => {
+    response.statusCode = 200;
+    response.json(rows);
+
+  });
+  db.close();
+};
+
