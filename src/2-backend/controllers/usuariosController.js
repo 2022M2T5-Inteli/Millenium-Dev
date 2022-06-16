@@ -1,4 +1,3 @@
-const { request } = require("express");
 
 const sqlite3 = require("sqlite3").verbose();
 const DBPATH = "./Database/mainDB.db";
