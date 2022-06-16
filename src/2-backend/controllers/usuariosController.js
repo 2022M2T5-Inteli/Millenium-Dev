@@ -122,7 +122,7 @@ exports.loginRede = (request, response) => {
   // execute query
   db.all(sql, params, (err, rows) => {
     response.statusCode = 200;
-    response.json(rows);
+    response.json({data:rows[0]});
   });
   db.close();
 };
