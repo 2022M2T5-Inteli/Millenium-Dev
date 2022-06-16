@@ -145,10 +145,10 @@ exports.AdminFalconi = (request, response) => {
 };
 
 
-exports.Account = (request, response) => {
+exports.loginEscola = (request, response) => {
   response.setHeader("Acces-Control-Allow-Origin","*");
   let db = new sqlite3.Database(DBPATH);
-  let sql = "SELECT nome, id FROM Account WHERE email= ?"
+  let sql = "SELECT nome, id, idEscola FROM Account WHERE email= ?"
   // add query params
   let params = [];
   params.push(request.body.email);
@@ -156,7 +156,7 @@ exports.Account = (request, response) => {
   // execute query
   db.all(sql, params, (err, rows) => {
     response.statusCode = 200;
-    response.json(rows);
+    response.json({data:rows[0]});
 
   });
   db.close();
