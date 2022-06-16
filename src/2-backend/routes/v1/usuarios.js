@@ -11,8 +11,8 @@ const {
   createUsuarioRede,
   createUsuarioFalconi,
   loginRede,
-  AdminFalconi,
-  Account,
+  loginFalconi,
+  loginEscola,
 } = require("../../controllers/usuariosController");
 
 // GET requests
