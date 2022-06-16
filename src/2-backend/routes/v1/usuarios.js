@@ -31,9 +31,9 @@ router.post("/rede/create", createUsuarioRede);
 
 router.post("/rede/login", loginRede);
 
-router.post("/falconi/admin", AdminFalconi);
+router.post("/falconi/login", loginFalconi);
 
-router.post("/account/create", Account);
+router.post("/escola/login", loginEscola);
 
 
 module.exports = router;
