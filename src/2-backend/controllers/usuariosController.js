@@ -126,7 +126,7 @@ exports.loginRede = (request, response) => {
   db.close();
 };
 
-exports.AdminFalconi = (request, response) => {
+exports.loginFalconi = (request, response) => {
   response.setHeader("Acces-Control-Allow-Origin","*");
   let db = new sqlite3.Database(DBPATH);
   let sql = "SELECT nome, id FROM AdminFalconi WHERE email= ?"
@@ -137,7 +137,7 @@ exports.AdminFalconi = (request, response) => {
   // execute query
   db.all(sql, params, (err, rows) => {
     response.statusCode = 200;
-    response.json(rows);
+    response.json({data: rows[0]});
 
   });
   db.close();
