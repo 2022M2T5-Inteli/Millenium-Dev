@@ -1,61 +1,53 @@
 var port = 80
 var API = `http://127.0.0.1:${port}`;
+var idQuestionario = 1
 var card = [];
 var nQuest = [];
-var nResp = [];
-let LER = {};
-let LE = {};
+
 
 $(document).ready(() => {
-    questao.list2();
+    //questionario.list2();
     eixos.list();
+    progress.list2()
 
 });
 
 
-
-var questao = {
+var progress = {
     list2() {
-        console.log("qqrco")
-        $.ajax({
-            url: API + '/questoes',
-            type: 'GET',
+    $.ajax({
+        url: API + `/questionarios/${idQuestionario}/questoes/eixo/${eixo}`,
+        type: 'GET',
 
-            success: data => {
+        success: data => {
 
-                data.questoes.forEach(element => {
+            console.log("funciona"+eixo);
 
-                    nQuest.push(element.idEixo);
-                });
-                for (let i = 0; i < nQuest.length; i++) {
-                    LE[nQuest[i]] ? LE[nQuest[i]] += 1 : LE[nQuest[i]] = 1
+
+            data.questoes.forEach(element => {
+                var done = Number();
+                var allQ = Number();
+                if (element.idAlternativa = "") {
+                    allQ += 1
+                }
+                else {
+                    allQ += 1;
+                    done += 1
                 };
+                progressEixo = 100 * done / allQ;
+                console.log(progressoEixo)
+                error: data => {
+                    console.log(data);
+                };
+            });
+        },
+        error: data => {
+            console.log()
+        }
+    });
+}}
+        
 
-                $.ajax({
-
-                    url: API + `/questionarios/1/questoes`,
-                    type: 'GET',
-
-                    success: dt => {
-                        dt.respostas.forEach(element => {
-
-                            nResp.push(element.idEixo);
-                        });
-                        for (let i = 0; i < nResp.length; i++) {
-                            LER[nResp[i]] ? LER[nResp[i]] += 1 : LER[nResp[i]] = 1
-                        };
-                    }
-                })
-
-            },
-            error: data => {
-                console.log(data);
-            }
-        })
-
-    }
-
-};
 
 var qEixo = {}
 
@@ -67,16 +59,11 @@ var eixos = {
             url: API + '/eixos',
             type: 'GET',
             success: data => {
-                
+                var progressEixo = Number();
                 var tx = '';
                 data.eixos.forEach(element => {
                     let eixo = (element.id);
-                    console.log("Eixo:"+eixo);
-                    console.log(LER);
-                    console.log(LER.eixo)
-                    
-                    let pr = Number(LER[eixo]);
-                    let p = Number(LE[eixo])
+                    console.log("Eixo:" + eixo);
                     card.push(`card${element.id}`)
                     document.getElementById("boxes-geral").innerHTML += `<div class="card col-12 col-lg-3">
                     <div class="row" id="card-quiz" type="button">
@@ -86,7 +73,7 @@ var eixos = {
                             </div>
                             <div class="col-12">
                                 <div id="circular-progress">
-                                    <div id="card${element.id}" role="progressbar" aria-valuenow="${0}" aria-valuemin="0"
+                                    <div id="card${element.id}" role="progressbar" aria-valuenow="${progressEixo}" aria-valuemin="0"
                                         aria-valuemax="100" style="--value:75">
                                     </div>
                                 </div>
