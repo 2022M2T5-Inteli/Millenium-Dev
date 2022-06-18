@@ -118,14 +118,13 @@ const listQuestionarioRespostasByEixo = async (questionarioId, eixoId) => {
 const processQuestionarioResultado = async (questionarioId) => {
   let db = await Database.open(DBPATH);
   let sql =
-    "SELECT e.id as idEixo, e.nome as nomeEixo, q.idDominio, d.nome as nomeDominio, e.idAgenda,a.nome as nomeAgenda,a.isConsolidated as hasConsolidatedGrade, q.peso, r.nota FROM Resposta r JOIN Questao q ON r.idQuestao=q.id JOIN Dominio d ON q.idDominio=d.id JOIN Eixo e ON d.idEixo=e.id JOIN Agenda a ON e.idAgenda = a.id WHERE r.idQuestionario = ?";
+    "SELECT e.id as idEixo, e.nome as nomeEixo, e.maxGrade, q.idDominio, d.nome as nomeDominio, e.idAgenda,a.nome as nomeAgenda,a.isConsolidated as hasConsolidatedGrade, q.peso, r.nota FROM Resposta r JOIN Questao q ON r.idQuestao=q.id JOIN Dominio d ON q.idDominio=d.id JOIN Eixo e ON d.idEixo=e.id JOIN Agenda a ON e.idAgenda = a.id WHERE r.idQuestionario = ?";
   let params = [];
   params.push(questionarioId);
 
   // verifies if the questionario exists
   await getQuestionarioById(questionarioId);
   const gradedRespostas = await db.all(sql, params);
-  console.log(gradedRespostas);
   const formatedResultado = {
     agenda: {},
   };
@@ -140,8 +139,8 @@ const processQuestionarioResultado = async (questionarioId) => {
         eixo: {},
       };
       if (resultado.hasConsolidatedGrade) {
+        formatedResultado.agenda[idAgenda].pontuacao = 0.0;
         formatedResultado.agenda[idAgenda].nota = 0.0;
-        formatedResultado.agenda[idAgenda].notaFinal = 0.0;
         formatedResultado.agenda[idAgenda].divisionFactor = 0;
       }
     }
@@ -149,8 +148,10 @@ const processQuestionarioResultado = async (questionarioId) => {
     if (!formatedResultado.agenda[idAgenda].eixo[idEixo]) {
       formatedResultado.agenda[idAgenda].eixo[idEixo] = {
         nome: nomeEixo,
+        pontuacao: 0.0,
         nota: 0.0,
-        notaFinal: 0.0,
+        maxGrade: resultado.maxGrade,
+        oportunidade: 0.0,
         divisionFactor: 0,
         dominio: {},
       };
@@ -159,66 +160,70 @@ const processQuestionarioResultado = async (questionarioId) => {
     if (!formatedResultado.agenda[idAgenda].eixo[idEixo].dominio[idDominio]) {
       formatedResultado.agenda[idAgenda].eixo[idEixo].dominio[idDominio] = {
         nome: nomeDominio,
+        pontuacao: 0.0,
         nota: 0.0,
-        notaFinal: 0.0,
         divisionFactor: 0,
         idAgenda,
       };
     }
 
     // result formatting
-    formatedResultado.agenda[idAgenda].eixo[idEixo].dominio[idDominio].nota +=
-      resultado.nota * resultado.peso;
+    formatedResultado.agenda[idAgenda].eixo[idEixo].dominio[
+      idDominio
+    ].pontuacao += resultado.nota * resultado.peso;
     formatedResultado.agenda[idAgenda].eixo[idEixo].dominio[
       idDominio
     ].divisionFactor += resultado.peso;
-    formatedResultado.agenda[idAgenda].eixo[idEixo].nota +=
+    formatedResultado.agenda[idAgenda].eixo[idEixo].pontuacao +=
       resultado.nota * resultado.peso;
     formatedResultado.agenda[idAgenda].eixo[idEixo].divisionFactor +=
       resultado.peso;
-    // formatedResultado.agenda[idAgenda].nota += resultado.nota;
-    // formatedResultado.agenda[idAgenda].divisionFactor += 1;
-    // formatedResultado.dominio.push(resultado);
 
-    formatedResultado.agenda[idAgenda].eixo[idEixo].dominio[
-      idDominio
-    ].notaFinal =
-      formatedResultado.agenda[idAgenda].eixo[idEixo].dominio[idDominio].nota /
+    formatedResultado.agenda[idAgenda].eixo[idEixo].dominio[idDominio].nota =
+      formatedResultado.agenda[idAgenda].eixo[idEixo].dominio[idDominio]
+        .pontuacao /
       formatedResultado.agenda[idAgenda].eixo[idEixo].dominio[idDominio]
         .divisionFactor;
-    formatedResultado.agenda[idAgenda].eixo[idEixo].notaFinal =
-      formatedResultado.agenda[idAgenda].eixo[idEixo].nota /
+    formatedResultado.agenda[idAgenda].eixo[idEixo].nota =
+      formatedResultado.agenda[idAgenda].eixo[idEixo].pontuacao /
       formatedResultado.agenda[idAgenda].eixo[idEixo].divisionFactor;
+    formatedResultado.agenda[idAgenda].eixo[idEixo].oportunidade =
+      formatedResultado.agenda[idAgenda].eixo[idEixo].maxGrade -
+      formatedResultado.agenda[idAgenda].eixo[idEixo].nota;
   });
   Object.keys(formatedResultado.agenda).forEach((agenda) => {
-    if (formatedResultado.agenda[agenda].hasConsolidatedGrade) {
-      Object.keys(formatedResultado.agenda[agenda].eixo).forEach((eixo) => {
+    Object.keys(formatedResultado.agenda[agenda].eixo).forEach((eixo) => {
+      if (formatedResultado.agenda[agenda].hasConsolidatedGrade) {
         Object.keys(
           formatedResultado.agenda[agenda].eixo[eixo].dominio
         ).forEach((dominio) => {
+          const dominioNota =
+            formatedResultado.agenda[agenda].eixo[eixo].dominio[dominio].nota;
+          const maxGrade = formatedResultado.agenda[agenda].eixo[eixo].maxGrade;
+          formatedResultado.agenda[agenda].eixo[eixo].dominio[
+            dominio
+          ].oportunidade = maxGrade - dominioNota;
           formatedResultado.agenda[agenda].divisionFactor += 1;
-          formatedResultado.agenda[agenda].nota +=
-            formatedResultado.agenda[agenda].eixo[eixo].dominio[
-              dominio
-            ].notaFinal;
-          formatedResultado.agenda[agenda].notaFinal =
-            formatedResultado.agenda[agenda].nota /
-            formatedResultado.agenda[agenda].divisionFactor;
-          formatedResultado.agenda[agenda].notaFinal =
-            formatedResultado.agenda[agenda].notaFinal.toFixed(1);
 
+          formatedResultado.agenda[agenda].pontuacao += dominioNota;
+          formatedResultado.agenda[agenda].nota =
+            formatedResultado.agenda[agenda].pontuacao /
+            formatedResultado.agenda[agenda].divisionFactor;
+          formatedResultado.agenda[agenda].nota =
+            formatedResultado.agenda[agenda].nota.toFixed(1);
           // remove keys that are not used anymore
-          formatedResultado.agenda[agenda].eixo[eixo].dominio[dominio].nota =
-            undefined;
+          formatedResultado.agenda[agenda].eixo[eixo].dominio[
+            dominio
+          ].pontuacao = undefined;
           formatedResultado.agenda[agenda].eixo[eixo].dominio[
             dominio
           ].divisionFactor = undefined;
         });
-
-        formatedResultado.agenda[agenda].eixo[eixo].nota = undefined;
-        formatedResultado.agenda[agenda].eixo[eixo].divisionFactor = undefined;
-      });
-    }
+      } else {
+      }
+      formatedResultado.agenda[agenda].eixo[eixo].pontuacao = undefined;
+      formatedResultado.agenda[agenda].eixo[eixo].divisionFactor = undefined;
+    });
   });
   return { resultado: formatedResultado };
 };
