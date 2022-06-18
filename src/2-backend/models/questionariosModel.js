@@ -225,7 +225,7 @@ const processQuestionarioResultado = async (questionarioId) => {
       formatedResultado.agenda[agenda].eixo[eixo].divisionFactor = undefined;
     });
   });
-  return { resultado: formatedResultado };
+  return formatedResultado;
 };
 
 module.exports = {
