@@ -72,6 +72,7 @@ exports.listQuestionarioRespostas = async (request, response) => {
   } catch (err) {
     responseMessage.code = 500;
     responseMessage.message = err.message;
+    responseMessage.stack = err.stack;
   }
   response.statusCode = responseMessage.code;
   response.json(responseMessage);
@@ -107,6 +108,7 @@ exports.getQuestionarioResultado = async (request, response) => {
   } catch (err) {
     responseMessage.code = 500;
     responseMessage.message = err.message;
+    responseMessage.stack = err.stack;
   }
   response.statusCode = responseMessage.code;
   response.json(responseMessage);
