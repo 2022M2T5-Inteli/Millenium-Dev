@@ -5,6 +5,7 @@ const {
   getQuestionarioById,
   listQuestionarioRespostas,
   listQuestionarioRespostasByEixo,
+  processQuestionarioResultado,
 } = require("../models/questionariosModel");
 
 const sqlite3 = require("sqlite3").verbose();
@@ -87,6 +88,22 @@ exports.listQuestionarioRespostasByEixo = async (request, response) => {
     responseMessage.respostas = listRespostas.respostas;
     responseMessage.answeredQuestions = listRespostas.answeredQuestions;
     responseMessage.unansweredQuestions = listRespostas.unansweredQuestions;
+  } catch (err) {
+    responseMessage.code = 500;
+    responseMessage.message = err.message;
+  }
+  response.statusCode = responseMessage.code;
+  response.json(responseMessage);
+};
+
+exports.getQuestionarioResultado = async (request, response) => {
+  response.setHeader("Access-Control-Allow-Origin", "*");
+  const responseMessage = { message: "success", code: 200, resultado: {} };
+  try {
+    const resultado = await processQuestionarioResultado(
+      request.params.idQuestionario
+    );
+    responseMessage.resultado = resultado;
   } catch (err) {
     responseMessage.code = 500;
     responseMessage.message = err.message;
