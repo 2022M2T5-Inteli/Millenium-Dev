@@ -31,7 +31,24 @@
 </head>
 
 <body>
-    <div class="container-fluid">
+
+
+      <!-- Nav bar-->
+    <nav class="navbar navbar-expand-lg fixed-top" id="mainNav">
+      <div class="container px-4" id="navBox">
+          <a class="navbar-brand d-flex justify-content-center align-items-center" href="#page-top" id="navTitle">Dr. Edu by Falconi</a>
+          <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarResponsive" aria-controls="navbarResponsive" aria-expanded="false" aria-label="Toggle navigation"><span class="navbar-toggler-icon"></span></button>
+          <div class="collapse navbar-collapse" id="navbarResponsive">
+            <ul class="navbar-nav ms-auto">
+              <li class="nav-item"><a class="nav-link d-flex justify-content-center align-items-center" href="#sobre">Sobre</a></li>
+              <li class="nav-item"><a class="nav-link d-flex justify-content-center align-items-center" href="#millennium">O Millennium</a></li>
+              <li class="nav-item"><a class="nav-link d-flex justify-content-center align-items-center" href="#acesse">Acessar</a></li>
+            </ul>
+          </div>
+      </div>
+    </nav>
+
+    <div class="container-fluid" id="acesse">
       <button onclick="goToTop()" id="topButton"><i class="fa-solid fa-arrow-up"></i></button>
       <header>
         <h1 id="drEdu">Dr. Edu</h1>
@@ -46,8 +63,9 @@
           <input type="button" class="buttonAcessar" value="Acessar   -->">
         </div>
       </div>
-      <div class="container-fluid row center justify-content-center">
+      <div class="container-fluid row center justify-content-center" id="sobre">
         <h2>Como funciona?</h2>
+        <p>Explicação sobre o que é o projeto, sobre o que é o questionário e afins</p>
         <hr class="solid">
         <div class="col-md-4">
           <div class="first card" id="manual">
@@ -69,8 +87,9 @@
         </div>
       </div>
       </div>
-      <div class="container-fluid row center justify-content-center">
-        <h2>Quem somos</h2>
+      <div class="container-fluid row center justify-content-center" id="millennium">
+        <h2>Conheça o time!</h2>
+        <p>Explicação sobre o Inteli e o time Millennium</p>
         <hr class="solid">
         <div class="col-md-3">
           <div class="arthur card" id="team">

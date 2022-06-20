@@ -5,24 +5,30 @@ body {
 img {
   width: 250px;
   border-radius: 10px;
+  margin-left: 4rem;
 }
 
 h1 {
   font-family: "Inter", sans-serif;
   /* font-size: 325%; */
   padding-bottom: 1rem;
+  color:#826a2d;
+  font-weight: bold;
 }
 
 p {
   font-family: "Raleway", sans-serif;
   font-weight: bold;
   padding-bottom: 1rem;
+  color:#ba9a48;
 }
 
 h2 {
   font-family: "Inter", sans-serif;
   font-size: 1.3cm;
   padding-bottom: 5px;
+  color:#826a2d;
+  font-weight: bold;
 }
 
 footer {
@@ -44,7 +50,7 @@ header {
   z-index: 99; 
   border: none;
   outline: none; 
-  background-color: #579a99 ; 
+  background-color: #826a2d ; 
   color: white; 
   cursor: pointer;
   padding: 15px;
@@ -53,11 +59,15 @@ header {
   width: 3.4rem;
   height: 3.4rem;
   transition: ease all 0.2s;
+  box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2);
+
 }
 
 #topButton:hover {
   background-color: #ba9a48;
   transform: scale(1.1,1.1);
+  box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2);
+
 
 }
 
@@ -112,9 +122,9 @@ header {
 }
 
 .buttonAcessar {
-  color: #ffffff;
-  background-color: #579a99;
-  border-color: #579a99;
+  color: #826a2d;
+  background-color: whitesmoke;
+  border-style: none;
   border-radius: 12px;
   border-style: none;
   padding: 0.9rem 1.9rem;
@@ -122,12 +132,17 @@ header {
   font-weight: bold;
   transition: ease all 0.2s;
   float: right;
+  box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2);
+
 }
 
 .buttonAcessar:hover {
   background-color: #ba9a48;
   font-weight: bold;
+  color:#fcfbf9;
   transform: scale(1.1,1.1);
+  box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2);
+
 }
 
 #pageTitle {
@@ -153,4 +168,47 @@ header {
 
 #logoFalconi {
   width: 150px;
+}
+
+
+#mainNav{
+  background-color:#ba9a48;
+  padding: 0%;
+  height: 5rem;
+}
+
+.nav-link{
+  color: #fcfbf9;
+  height: 5rem;
+  align-content: center;
+  width: 11rem;
+  text-justify: auto;
+  font-size: large;
+  font-weight: bold;
+  font-family: "Raleway";
+
+
+}
+
+.nav-link:hover{
+  color:#ba9a48;
+  background-color:bisque;
+}
+
+#navBox{
+  padding: 0%;
+}
+
+#navLogo{
+  width: 5rem;
+}
+
+#navTitle{
+  color: #fcfbf9;
+  height: 5rem;
+  width: 11rem;
+  text-justify: auto;
+  font-size: x-large;
+  font-weight: bold;
+  font-family: "Raleway";
 }
