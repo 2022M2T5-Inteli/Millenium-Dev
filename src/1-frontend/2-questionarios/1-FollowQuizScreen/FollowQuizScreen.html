@@ -60,10 +60,8 @@
             <div class="col-12 d-flex justify-content-start">
                 <p>Selecione a agenda a ser respondida:</p>
             </div>
-            <select class="form-select" aria-label="Default select example">
-                <option value="1">Agenda de Gestão</option>
-                <option value="2">Agenda Educacional</option>
-                <option value="3" selected>Todas as agendas</option>
+            <select id="select-agenda" class="form-select" aria-label="Default select example" onchange="eixos.list()">
+                <option value="0" selected>Todas as agendas</option>
             </select>
         </div>
         <!--Cards/botões para abrir questionarios por sessão com barra de progresso circular-->

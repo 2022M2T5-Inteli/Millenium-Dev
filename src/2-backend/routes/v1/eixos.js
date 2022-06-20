@@ -2,6 +2,7 @@ const express = require("express");
 
 // Router Controllers
 const {
+  listEixosByAgenda,
   listEixos,
   eixoCreate,
   eixoUpdate,
@@ -12,7 +13,8 @@ const router = express.Router();
 // controller
 
 // GET requests
-router.get("/list", listEixos);
+router.get("/list/:idAgenda", listEixosByAgenda);
+router.get("/list", listEixos)
 
 
 // POST requests
