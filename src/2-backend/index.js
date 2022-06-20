@@ -15,6 +15,7 @@ const opcoesRoute = require("./routes/v1/opcoes");
 const questoesRoute = require("./routes/v1/questoes");
 const escolasRoute = require("./routes/v1/escolas");
 const questionariosRoute = require("./routes/v1/questionarios");
+const respostasRoute = require("./routes/v1/respostas");
 
 // Application middlewares
 app.use(express.json());
@@ -26,6 +27,7 @@ app.use("/opcoes", urlencodedParser, opcoesRoute);
 app.use("/questoes", urlencodedParser, questoesRoute);
 app.use("/escolas", urlencodedParser, escolasRoute);
 app.use("/questionarios", urlencodedParser, questionariosRoute);
+app.use("/respostas", urlencodedParser, respostasRoute)
 
 // Server Application
 app.listen(PORT, HOSTNAME, () => {

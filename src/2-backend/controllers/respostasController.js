@@ -1,17 +1,20 @@
 const sqlite3 = require("sqlite3").verbose();
 const DBPATH = "./Database/mainDB.db";
 
-exports.questionarioResposta = (request, response) => {
+exports.createResposta = (request, response) => {
     response.setHeader("Access-Control-Allow-Origin", "*");
   
-    let db = new sqlite3.Database(DBPATH);
-    "SELECT From Resposta(idQuestao, idPergunta, idOpcao, observacao) Values(?,?,?,?);";
+   let db = new sqlite3.Database(DBPATH);
+   let sql = "UPDATE resposta SET observacao = ?, idAlternativa = ?  WHERE idQuestao= ?;";
   
     // params list, replaces "?"
     let params = [];
-  
+     
     // add elements to the params list
-    params.push(request.body.questionarioResposta);
+    params.push(request.body.observacao);
+    params.push(request.body.idAlternativa);
+    params.push(request.body.idQuestao);
+    
     db.all(sql, params, (err, rows) => {
       response.statusCode = 200;
       response.json(rows);
