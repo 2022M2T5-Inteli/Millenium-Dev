@@ -13,7 +13,7 @@
 - <a href="http://linkedin.com/in/emanuel-45b637185">Emanuel Costa</a>
 - <a href="http://linkedin.com/in/gabrio-lina-17ba60205">Gábrio Lina</a>
 - <a href="http://linkedin.com/in/giovanna-rodrigues-araujo">Giovanna Rodrigues</a>
-- <a href="https://www.linkedin.com/in/l%C3%ADvia-bonotto-9064641a3/">Lívia Mattoso Bonotto</a>
+- <a href="https://www.linkedin.com/in/l%C3%ADvia-bonotto-9064641a3/">Lívia Mattoso Bonotto Cabral</a>
 - <a href="https://www.linkedin.com/in/luanadinamarcaparra/">Luana Dinamarca Parra</a> 
 - <a href="http://linkedin.com/in/rafael-katalan">Rafael Katalan</a>
 
