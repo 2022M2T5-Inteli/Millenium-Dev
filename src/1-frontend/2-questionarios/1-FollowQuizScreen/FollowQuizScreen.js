@@ -8,10 +8,33 @@ var nQuest = [];
 $(document).ready(() => {
     //questionario.list2();
     eixos.list();
+    agendas.list3()
 
 });
 
+var agendas = {
 
+    async list3() {
+
+        $.ajax({
+            url: API + '/agendas/list',
+            type: 'GET',
+            success: data => {
+                data.agendas.forEach(async (element) => {
+                    let idAgenda = (element.id);
+                    let nomeAgenda = (element.nome);
+                    document.getElementById("select-agenda").innerHTML +=`<option value="${idAgenda}">${nomeAgenda}</option>`;
+                });
+
+            },
+            error: data => {
+                console.log(data)
+            }
+        });
+
+    }
+
+};
 var progress = {
     async list2(eixo) {
         let progressEixo = 0
@@ -46,9 +69,12 @@ var qEixo = {}
 var eixos = {
 
     async list() {
-
-        $.ajax({
-            url: API + '/eixos/list',
+        let agenda = document.getElementById("select-agenda").value;
+        document.getElementById("boxes-geral").innerHTML = ""
+        if (agenda == 0){
+            $.ajax({
+            
+            url: API + `/eixos/list`,
             type: 'GET',
             success: data => {
                 data.eixos.forEach(async (element) => {
@@ -98,14 +124,67 @@ var eixos = {
             error: data => {
                 console.log(data)
             }
-        });
+        })}
+        else{
+            $.ajax({
+            
+                url: API + `/eixos/list/${agenda}`,
+                type: 'GET',
+                success: data => {
+                    data.eixos.forEach(async (element) => {
+                        let eixo = (element.id);
+                        progress.list2(eixo);
+                        let progressEixo = ((await progress.list2(eixo)));
+                        console.log("r" + progressEixo);
+                        let card = (`card${element.id}`);
+                        document.getElementById("boxes-geral").innerHTML += `<div class="card col-12 col-lg-3">
+                        <div class="row" id="card-quiz" type="button">
+                            <a href="https://www.google.com.br">
+                                <div class="col-12">
+                                    <p><strong>${element.nome}</strong></p>
+                                </div>
+                                <div class="col-12">
+                                    <div id="circular-progress">
+                                        <div id="card${element.id}" role="progressbar" aria-valuenow="${progressEixo}" aria-valuemin="0"
+                                            aria-valuemax="100" style="--value:0">
+                                        </div>
+                                    </div>
+                                </div>
+                            </a>
+                        </div>`;
+                        value = document.getElementById(card).getAttribute("aria-valuenow")
+                        if (value > 70 && value < 100) {
+                            document.getElementById(card).setAttribute("role", "progressbar1")
+                        }
+                        if (value <= 70 && value > 30) {
+                            document.getElementById(card).setAttribute("role", "progressbar")
+                        }
+                        if (value <= 30 && value > 0) {
+                            document.getElementById(card).setAttribute("role", "progressbar3")
+                        }
+                        if (value == 100) {
+                            document.getElementById(card).setAttribute("role", "progressbar100")
+                            document.getElementById(card).innerHTML = "<i class='fa-solid fa-check' style='font-size: 2rem;'></i>"
+                        }
+                        if (value == 0) {
+                            document.getElementById(card).setAttribute("role", "progressbar0")
+                        }
+                        var style = `--value:${value}`
+                        document.getElementById(card).setAttribute("style", (style))
+    
+                    });
+    
+                },
+                error: data => {
+                    console.log(data)
+                }
+            })
+
+        }
 
     }
 
 };
-
-
-
 var value = "";
 
 
