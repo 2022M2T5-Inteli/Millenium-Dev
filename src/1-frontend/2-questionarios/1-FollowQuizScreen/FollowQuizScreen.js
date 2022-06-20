@@ -84,8 +84,8 @@ var eixos = {
                     console.log("r" + progressEixo);
                     let card = (`card${element.id}`);
                     document.getElementById("boxes-geral").innerHTML += `<div class="card col-12 col-lg-3">
-                    <div class="row" id="card-quiz" type="button">
-                        <a href="https://www.google.com.br">
+                    <div class="row" id="card-quiz" type="button" onclick="saveEixo(${element.id})">
+                        <a href="../2-SchoolQuestionsScreen/newTrab.html">
                             <div class="col-12">
                                 <p><strong>${element.nome}</strong></p>
                             </div>
@@ -138,7 +138,7 @@ var eixos = {
                         console.log("r" + progressEixo);
                         let card = (`card${element.id}`);
                         document.getElementById("boxes-geral").innerHTML += `<div class="card col-12 col-lg-3">
-                        <div class="row" id="card-quiz" type="button">
+                        <div class="row" id="card-quiz" type="button" onclick="${element.id}">
                             <a href="https://www.google.com.br">
                                 <div class="col-12">
                                     <p><strong>${element.nome}</strong></p>
@@ -186,6 +186,11 @@ var eixos = {
 
 };
 var value = "";
+
+function saveEixo(id){
+    var eixoEscolhido = id;
+    sessionStorage.setItem("idEixo", eixoEscolhido)
+}
 
 
 //pega o valor atual da porcentagem da barra de progresso de cada card no html
