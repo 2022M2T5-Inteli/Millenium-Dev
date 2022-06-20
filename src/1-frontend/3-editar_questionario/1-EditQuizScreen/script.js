@@ -3,7 +3,7 @@ var eixos = [];
 // Cria um elemento Card e retorna o HTML deste elemento
 function createSectionCard(sectionId, sectionName, questionsAmount) {
   let cardElement = `<div class="card col-12 col-lg-2 m-5 p-4 section-card" id="sectionCard${sectionId}" onclick="setEixoAndRedirect(${sectionId},'${sectionName}')">
-  <h3 class="section-name">${sectionName}</h3><i class="fa-regular fa-pen-to-square"></i></div>`;
+  <h3 class="section-name">${sectionName}</h3> <div><i class="fa-regular fa-pen-to-square"></i> <i class="bi bi-trash"></i></div> </div>`;
   return cardElement;
 }
 
