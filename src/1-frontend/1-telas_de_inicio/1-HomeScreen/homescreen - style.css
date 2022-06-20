@@ -1,15 +1,39 @@
 body {
-  background: #ffefba; /* fallback for old browsers */
-  background: -webkit-linear-gradient(
-    to right,
-    #ffffff,
-    rgb(177, 153, 92)
-  ); /* Chrome 10-25, Safari 5.1-6 */
-  background: linear-gradient(
-    to right,
-    #ffffff,
-    rgb(177, 153, 92)
-  ); /* W3C, IE 10+/ Edge, Firefox 16+, Chrome 26+, Opera 12+, Safari 7+ */
+  background: #fcfbf9;
+}
+
+img {
+  width: 250px;
+  border-radius: 10px;
+}
+
+h1 {
+  font-family: "Inter", sans-serif;
+  /* font-size: 325%; */
+  padding-bottom: 1rem;
+}
+
+p {
+  font-family: "Raleway", sans-serif;
+  font-weight: bold;
+  padding-bottom: 1rem;
+}
+
+h2 {
+  font-family: "Inter", sans-serif;
+  font-size: 1.3cm;
+  padding-bottom: 5px;
+}
+
+footer {
+  background-color: #ba9a48;
+  margin-top: 50px;
+  padding: 20px;
+}
+
+header {
+  background-color: #fcfbf9;
+  box-shadow: 0 1em 1em -1em rgba(0, 0, 0, .25) #ba9a48;
 }
 
 #topButton {
@@ -54,14 +78,9 @@ body {
 #drEdu {
   font-size: 3rem;
   text-align: left;
-  padding-top: 2rem;
-  padding-left: 2rem;
-  font-weight: 700;
-}
-
-img {
-  width: 250px;
-  border-radius: 10px;
+  padding-top: 0.5rem;
+  font-weight: 550;
+  font-family: "Raleway";
 }
 
 #team {
@@ -111,18 +130,6 @@ img {
   transform: scale(1.1,1.1);
 }
 
-h1 {
-  font-family: "Inter", sans-serif;
-  /* font-size: 325%; */
-  padding-bottom: 1rem;
-}
-
-p {
-  font-family: "Raleway", sans-serif;
-  font-weight: bold;
-  padding-bottom: 1rem;
-}
-
 #pageTitle {
   font-size: 4rem;
   text-align: right;
@@ -131,12 +138,6 @@ p {
 #pageText {
   font-size: 1.6rem;
   text-align: right;
-}
-
-h2 {
-  font-family: "Inter", sans-serif;
-  font-size: 1.3cm;
-  padding-bottom: 5px;
 }
 
 #names {
@@ -149,17 +150,6 @@ h2 {
   padding-bottom: 10px;
   font-size: 1.5rem;
 }
-
-footer {
-  background-color: #ba9a48;
-  margin-top: 50px;
-  padding: 20px;
-}
-
-/* .padding-0 {
-  /* padding-right: 0;
-  padding-left: 0;
-} */
 
 #logoFalconi {
   width: 150px;
