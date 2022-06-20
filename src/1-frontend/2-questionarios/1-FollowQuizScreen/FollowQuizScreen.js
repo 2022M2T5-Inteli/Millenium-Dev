@@ -93,27 +93,6 @@ var eixos = {
                     document.getElementById(card).setAttribute("style", (style))
 
                 });
-                for (let i = 0; i < card.length; i++) {
-                    value = document.getElementById(card[i]).getAttribute("aria-valuenow")
-                    if (value > 70 && value < 100) {
-                        document.getElementById(card[i]).setAttribute("role", "progressbar1")
-                    }
-                    if (value <= 70 && value > 30) {
-                        document.getElementById(card[i]).setAttribute("role", "progressbar")
-                    }
-                    if (value <= 30 && value > 0) {
-                        document.getElementById(card[i]).setAttribute("role", "progressbar3")
-                    }
-                    if (value == 100) {
-                        document.getElementById(card[i]).setAttribute("role", "progressbar100")
-                        document.getElementById(card[i]).innerHTML = "<i class='fa-solid fa-check' style='font-size: 2rem;'></i>"
-                    }
-                    if (value == 0) {
-                        document.getElementById(card[i]).setAttribute("role", "progressbar0")
-                    }
-                    var style = `--value:${value}`
-                    document.getElementById(card[i]).setAttribute("style", (style))
-                }
 
             },
             error: data => {
