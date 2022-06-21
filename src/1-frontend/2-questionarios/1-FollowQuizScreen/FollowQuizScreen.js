@@ -5,11 +5,12 @@ var nQuest = [];
 
 
 $(document).ready(() => {
+    agendas.list3();
     //questionario.list2();
     eixos.list();
-    agendas.list3();
+    
     //questionario.list(sessionStorage.getItem("idEscola"))
-    questionario.list(1)
+    //questionario.list(1)
 });
 
 var questionario = {
@@ -29,6 +30,12 @@ var questionario = {
                 console.log("erro" + idQuestionario)
             },
         })
+        var idQuestionario = 0
+        data.questionarios.forEach(element => {
+            idQuestionario = element.id
+            console.log("success" + idQuestionario)
+        })
+        return idQuestionario
     }
 }
 
@@ -59,23 +66,30 @@ var progress = {
     async list2(eixo) {
         let progressEixo = 0
         const data = await $.ajax({
-            url: API + `/questionarios/questionario/${0}/respostas/eixo/${eixo}`,
+            url: API + `/questionarios/questionario/${await questionario.list(sessionStorage.getItem("idEscola"))}/respostas/eixo/${eixo}`,
             type: 'GET',
 
         });
+
+        var done = Number();
+        var allQ = Number();
+
         data.respostas.forEach(element => {
-            var done = Number();
-            var allQ = Number();
-            if (element.idAlternativa = "") {
-                allQ += 1
+            
+            console.log(element)
+            if (element.idAlternativa == "" || element.idAlternativa == null) {
+                allQ += 1;
+                console.log(element)
             }
             else {
-                allQ += 1;
-                done += 1
+                console.log("hello");
+                done += 1;
+                allQ += 1        
             };
-            progressEixo = 100 * done / allQ;
-            console.log(progressEixo);
+           
+            console.log("progresso"+progressEixo);
         })
+        progressEixo = 100 * done / allQ;
         return progressEixo
         console.log(data)
         return 0
@@ -111,8 +125,8 @@ var eixos = {
                             </div>
                             <div class="col-12">
                                 <div id="circular-progress">
-                                    <div id="card${element.id}" role="progressbar" aria-valuenow="${progressEixo}" aria-valuemin="0"
-                                        aria-valuemax="100" style="--value:0">
+                                    <div id="card${element.id}" role="progressbar" aria-valuenow="${Math.round(progressEixo)}" aria-valuemin="0"
+                                        aria-valuemax="100" style="--value:">
                                     </div>
                                 </div>
                             </div>
