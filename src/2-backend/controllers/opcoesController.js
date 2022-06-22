@@ -14,6 +14,22 @@ exports.listOpcoes = (request, response) => {
   db.close();
 };
 
+exports.listOpcoesByQuestao = (request, response) => {
+  response.setHeader("Access-Control-Allow-Origin", "*");
+
+  let db = new sqlite3.Database(DBPATH);
+  let sql = "SELECT * FROM Alternativa WHERE ativada=1 AND idQuestao = ?";
+
+  let params = [];
+  params.push(request.params.idQuestao);
+
+  db.all(sql, params, (err, rows) => {
+    response.statusCode = 200;
+    response.json({ opcoes: rows });
+  });
+  db.close();
+};
+
 exports.createOpcao = (request, response) => {
   response.setHeader("Access-Control-Allow-Origin", "*");
 

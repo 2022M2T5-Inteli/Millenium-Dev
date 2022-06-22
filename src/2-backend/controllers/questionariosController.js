@@ -28,17 +28,23 @@ exports.createQuestionario = async (request, response) => {
 };
 
 exports.setQuestionarioAsComplete = async (request, response) => {
+  console.log("hjgaioguoeyguo");
   response.setHeader("Access-Control-Allow-Origin", "*");
   const responseMessage = { message: "success", code: 200 };
   try {
-    await closeQuestionario(request.body.idQuestionario);
+    if(request.body.id != undefined){
+    await closeQuestionario(request.body.id);
+    console.log("antes");}
+    else{throw new Error(500)}
   } catch (err) {
     responseMessage.message = err.message;
+    responseMessage.stack = err.stack;
     responseMessage.code = 500;
   }
   response.statusCode = responseMessage.code;
   response.json({ message: responseMessage.message });
 };
+
 
 exports.listQuestionarios = (request, response) => {
   response.json({ message: "Not Implemented!" });
