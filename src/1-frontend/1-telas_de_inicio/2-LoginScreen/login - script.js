@@ -29,9 +29,8 @@ show(result);
 
 
 
-
   var loginScreen = {
-    list(loginId) {
+    loginEscola(loginId) {
       $.ajax({
         type: "POST",
         url:  API_BASE_URL + "/escola/login/" + loginId,
@@ -47,12 +46,7 @@ show(result);
         },
       });
     },
-  };
-  
-
-
-  var loginScreen = {
-    list(loginId) {
+    loginRede(loginId) {
       $.ajax({
         type: "POST",
         url:  API_BASE_URL + "/rede/login/" + loginId,
@@ -68,11 +62,7 @@ show(result);
         },
       });
     },
-  };
-  
-
-  var loginScreen = {
-    list(loginId) {
+    loginFalconi(loginId) {
       $.ajax({
         type: "POST",
         url:  API_BASE_URL + "/Falconi/login/" + loginId,
@@ -89,4 +79,4 @@ show(result);
       });
     },
   };
-   
+  
