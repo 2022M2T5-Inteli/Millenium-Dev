@@ -1,11 +1,11 @@
 body {
-  background: #fcfbf9;
+  background: #ffffff;
 }
 
 img {
   width: 250px;
   border-radius: 10px;
-  margin-left: 4rem;
+  margin: 0;
 }
 
 h1 {
@@ -43,7 +43,6 @@ header {
 }
 
 #topButton {
-  /* display: none; */
   position: fixed;
   bottom: 20px; 
   right: 30px; 
@@ -67,8 +66,6 @@ header {
   background-color: #ba9a48;
   transform: scale(1.1,1.1);
   box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2);
-
-
 }
 
 .row {
@@ -117,7 +114,7 @@ header {
 
 #cardsTitle {
   padding-top: 15px;
-  margin: 0cm;
+  margin: 0;
   font-size: 1.5rem;
 }
 
@@ -133,7 +130,6 @@ header {
   transition: ease all 0.2s;
   float: right;
   box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2);
-
 }
 
 .buttonAcessar:hover {
@@ -142,7 +138,6 @@ header {
   color:#fcfbf9;
   transform: scale(1.1,1.1);
   box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2);
-
 }
 
 #pageTitle {
@@ -186,8 +181,6 @@ header {
   font-size: large;
   font-weight: bold;
   font-family: "Raleway";
-
-
 }
 
 .nav-link:hover{

@@ -15,6 +15,13 @@ h6 {
   font-weight: bold;
 }
 
+a,
+a:link,
+a:hover {
+  text-decoration: none;
+  color: inherit;
+}
+
 #button {
   text-align: center;
   -webkit-box-shadow: 0px 0px 15px -5px rgba(0, 0, 0, 0.69);
@@ -55,11 +62,4 @@ h6 {
   box-shadow: 0 6px 8px 0 rgba(0, 0, 0, 0.2);
   background-color: #579a99;
   color: white;
-}
-
-a,
-a:link,
-a:hover {
-  text-decoration: none;
-  color: inherit;
 }

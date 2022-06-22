@@ -13,7 +13,7 @@
 
     <link href="login - style.css" rel="stylesheet">
     <script src="login - script.js"></script>
-    
+
     <!--fonte do subtítulo e textos-->
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
@@ -23,48 +23,69 @@
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400&display=swap" rel="stylesheet">
-    
+
     <!--Bootstrap/FontAwesome Icons-->
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.1.1/css/all.min.css"
-    integrity="sha512-KfkfwYDsLkIlwQp6LFnl8zNdLGxu9YAA1QvwINks4PhcElQSvqcyVLLD9aMhXd13uQjoXtEKNosOWaZqXgel0g=="
-    crossorigin="anonymous" referrerpolicy="no-referrer" />
+        integrity="sha512-KfkfwYDsLkIlwQp6LFnl8zNdLGxu9YAA1QvwINks4PhcElQSvqcyVLLD9aMhXd13uQjoXtEKNosOWaZqXgel0g=="
+        crossorigin="anonymous" referrerpolicy="no-referrer" />
 
     <!--Modais de alerta-->
     <script src="https://cdn.jsdelivr.net/npm/sweetalert2@10.10.1/dist/sweetalert2.all.min.js"></script>
     <link rel='stylesheet' href='https://cdn.jsdelivr.net/npm/sweetalert2@10.10.1/dist/sweetalert2.min.css'>
-    
 </head>
 
 <body>
-
-<div class="container-fluid">
-    <!-- cria um container para a página -->
-    <div class=" header row p-5 ">
-        <!-- cria rows para os 3 conteúdos do header -->
-        <div class="p-3 col-12 col-lg-4 justify-content-center justify-content-lg-start d-flex" id="leftSection">
-            <!-- seção da esquerda -->
-            <div class="d-flex justify-content-center align-items-center" id="backButton">
-            <!-- seta voltar -->
-            <a href="google.com"> <i class="fa-solid fa-arrow-left-long"></i></a> <!-- ícone da seta -->
+    <!-- Container -->
+    <div class="container-fluid">
+        <div class=" header row p-5 ">
+            <!-- rows para os 3 conteúdos do header -->
+            <div class="p-3 col-12 col-lg-4 justify-content-center justify-content-lg-start d-flex" id="leftSection">
+                <!-- seção da esquerda -->
+                <div class="d-flex justify-content-center align-items-center" id="backButton">
+                    <!-- seta voltar -->
+                    <a href="../1-HomeScreen/homescreen - index.html"> <i class="fa-solid fa-arrow-left-long"></i></a> 
+                </div>
             </div>
-        </div>
-        <!-- seção do meio -->
-        <div class="p-3 col-12 col-lg-4 text-center" id="centerSection">
-            <h1>Login</h1>
-            <h6>Preencha seus dados para logar</h6>
-        </div>
-        <!-- seção do meio -->
-        <div class="col-sm-4 login">
-            <div class="input">
-                <i class="fa-solid fa-envelope" id="iconEnvelope"></i>
-                <input type="email" class="form-control" id="floatingInput" placeholder="name@example.com">
-                <a href="google.com"> <p>Não tem uma conta?</p></a>
-                <div class="buttonEntrar">
-                </div><input type="button" class="buttonLogin" id="buttonEntrar" value="Entrar" onclick="buttonEntrar()">
+            <!-- título e subtítulo -->
+            <div class="p-3 col-12 col-lg-4 text-center" id="centerSection">
+                <h1>Login</h1>
+                <h6>Preencha seus dados para logar</h6>
+            </div>
+            <!-- seção do meio -->
+            <div class="col-sm-4 login">
+                <div class="input d-flex flex-column justify-content-center align-items-center">
+                    <i class="fa-solid fa-envelope" id="iconEnvelope"></i>
+                    <input type="email" class="form-control" id="floatingInput" placeholder="name@example.com">
+                    <!-- botões de rádio para selecionar perfil-->
+                    <div class="m-3">
+                        <div class="form-check form-check-inline">
+                            <input class="form-check-input" type="radio" name="inlineRadioOptions" id="inlineRadio1"
+                                value="escola">
+                            <label class="form-check-label" for="inlineRadio1">Sou Escola</label>
+                        </div>
+                        <div class="form-check form-check-inline">
+                            <input class="form-check-input" type="radio" name="inlineRadioOptions" id="inlineRadio2"
+                                value="rede">
+                            <label class="form-check-label" for="inlineRadio2">Sou Rede</label>
+                        </div>
+                        <div class="form-check form-check-inline">
+                            <input class="form-check-input" type="radio" name="inlineRadioOptions" id="inlineRadio3"
+                                value="falconi">
+                            <label class="form-check-label" for="inlineRadio3">Sou Falconi</label>
+                        </div>
+                    </div>
+                    <!-- acessar a página de escolher perfil-->
+                    <a href="../4-ChooseProfileScreen/chooseprofilescreen - index.html">
+                        <p>Não tem uma conta?</p>
+                    </a>
+                    <!-- acessar o perfil do usuário -->
+                    <div class="buttonEntrar">
+                    </div><input type="button" class="buttonLogin" id="buttonEntrar" value="Entrar"
+                        onclick="buttonEntrar()">
+                </div>
             </div>
         </div>
     </div>
-</div>
 
 </body>
 

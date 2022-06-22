@@ -1,5 +1,5 @@
 const express = require("express");
-const { postCreateDominio } = require("../../controllers/dominiosController");
+const { postCreateDominio, postDeleteDominio } = require("../../controllers/dominiosController");
 
 const router = express.Router();
 
@@ -7,5 +7,12 @@ const router = express.Router();
 
 // POST Requests
 router.post("/create", postCreateDominio);
+router.post("/delete", postDeleteDominio);
 
 module.exports = router;
+
+
+
+
+
+
