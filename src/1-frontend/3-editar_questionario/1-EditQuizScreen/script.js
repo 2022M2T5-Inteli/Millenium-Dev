@@ -60,3 +60,41 @@ var listarEixos = {
     });
   },
 };
+
+function criarEixoButton() {
+  Swal.fire({
+    title: "Insira o nome do eixo:",
+    input: "text",
+    inputAttributes: {
+      autocapitalize: "off",
+    },
+    showCancelButton: true,
+    confirmButtonText: "Criar",
+    cancelButtonText: "Cancelar",
+    showLoaderOnConfirm: true,
+    preConfirm: (nomeEixo) => {
+      console.log(nomeEixo);
+      return "yesssssss!";
+      // return fetch(`//api.github.com/users/${login}`)
+      //   .then((response) => {
+      //     if (!response.ok) {
+      //       throw new Error(response.statusText);
+      //     }
+      //     return response.json();
+      //   })
+      //   .catch((error) => {
+      //     Swal.showValidationMessage(`Request failed: ${error}`);
+      //   });
+    },
+    allowOutsideClick: () => !Swal.isLoading(),
+  }).then((result) => {
+    console.log(result, "resultaddoooodfodoashdakjsdhkahsd");
+    if (result.isConfirmed) {
+      console.log(result.value);
+      //   Swal.fire({
+      //     title: `${result.value.login}'s avatar`,
+      //     imageUrl: result.value.avatar_url,
+      //   });
+    }
+  });
+}
