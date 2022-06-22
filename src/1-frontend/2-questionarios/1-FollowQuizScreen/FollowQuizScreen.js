@@ -1,132 +1,235 @@
+var port = 5000
+var API = `http://127.0.0.1:${port}`;
 var card = [];
 var nQuest = [];
-var nResp = [];
-let LER = {};
-let LE = {};
+
 
 $(document).ready(() => {
-  questao.list2();
-  eixos.list();
+    agendas.list3();
+    //questionario.list2();
+    eixos.list();
+    
+    //questionario.list(sessionStorage.getItem("idEscola"))
+    //questionario.list(1)
 });
 
-var questao = {
-  list2() {
-    console.log("qqrco");
-    $.ajax({
-      url: API_BASE_URL + "/questoes/list",
-      type: "GET",
+var questionario = {
+    async list(idEscola) {
+        console.log("nem ajax"+idEscola)
+        const data = await $.ajax({
+            url: API + `/escolas/escola/${idEscola}/questionariosAbertos`,
+            type: 'GET',
+            success: data => {
+                data.questionarios.forEach(element => {
+                    let idQuestionario = element.id
+                    console.log("success" + idQuestionario)
+                    return idQuestionario
+                })
+            },
+            error: data => {
+                console.log("erro" + idQuestionario)
+            },
+        })
+        var idQuestionario = 0
+        data.questionarios.forEach(element => {
+            idQuestionario = element.id
+            console.log("success" + idQuestionario)
+        })
+        return idQuestionario
+    }
+}
 
-      success: (data) => {
-        data.questoes.forEach((element) => {
-          nQuest.push(element.idEixo);
-        });
-        for (let i = 0; i < nQuest.length; i++) {
-          LE[nQuest[i]] ? (LE[nQuest[i]] += 1) : (LE[nQuest[i]] = 1);
-        }
+var agendas = {
+
+    async list3() {
 
         $.ajax({
-          url: API_BASE_URL + `/questionarios/questionario/1/respostas`,
-          type: "GET",
+            url: API + '/agendas/list',
+            type: 'GET',
+            success: data => {
+                data.agendas.forEach(async (element) => {
+                    let idAgenda = (element.id);
+                    let nomeAgenda = (element.nome);
+                    document.getElementById("select-agenda").innerHTML += `<option value="${idAgenda}">${nomeAgenda}</option>`;
+                });
 
-          success: (dt) => {
-            dt.respostas.forEach((element) => {
-              nResp.push(element.idEixo);
-            });
-            for (let i = 0; i < nResp.length; i++) {
-              LER[nResp[i]] ? (LER[nResp[i]] += 1) : (LER[nResp[i]] = 1);
+            },
+            error: data => {
+                console.log(data)
             }
-          },
         });
-      },
-      error: (data) => {
-        console.log(data);
-      },
-    });
-  },
-};
 
-var qEixo = {};
+    }
+
+};
+var progress = {
+    async list2(eixo) {
+        let progressEixo = 0
+        const data = await $.ajax({
+            url: API + `/questionarios/questionario/${await questionario.list(sessionStorage.getItem("idEscola"))}/respostas/eixo/${eixo}`,
+            type: 'GET',
+
+        });
+
+        var done = Number();
+        var allQ = Number();
+
+        data.respostas.forEach(element => {
+            
+            console.log(element)
+            if (element.idAlternativa == "" || element.idAlternativa == null) {
+                allQ += 1;
+                console.log(element)
+            }
+            else {
+                console.log("hello");
+                done += 1;
+                allQ += 1        
+            };
+           
+            console.log("progresso"+progressEixo);
+        })
+        progressEixo = 100 * done / allQ;
+        return progressEixo
+        console.log(data)
+        return 0
+    }
+}
+
+
+
+var qEixo = {}
 
 var eixos = {
-  list() {
-    $.ajax({
-      url: API_BASE_URL + "/eixos/list",
-      type: "GET",
-      success: (data) => {
-        var tx = "";
-        data.eixos.forEach((element) => {
-          let eixo = element.id;
-          console.log("Eixo:" + eixo);
-          console.log(LER);
-          console.log(LER.eixo);
 
-          let pr = Number(LER[eixo]);
-          let p = Number(LE[eixo]);
-          card.push(`card${element.id}`);
-          document.getElementById(
-            "boxes-geral"
-          ).innerHTML += `<div class="card col-12 col-lg-3">
-                    <div class="row" id="card-quiz" type="button">
-                        <a href="https://www.google.com.br">
+    async list() {
+        let agenda = document.getElementById("select-agenda").value;
+        document.getElementById("boxes-geral").innerHTML = ""
+        if (agenda == 0) {
+            $.ajax({
+
+                url: API + `/eixos/list`,
+                type: 'GET',
+                success: data => {
+                    data.eixos.forEach(async (element) => {
+                        let eixo = (element.id);
+                        progress.list2(eixo);
+                        let progressEixo = ((await progress.list2(eixo)));
+                        console.log("r" + progressEixo);
+                        let card = (`card${element.id}`);
+                        document.getElementById("boxes-geral").innerHTML += `<div class="card col-12 col-lg-3">
+                    <div class="row" id="card-quiz" type="button" onclick="saveEixo(${element.id})">
+                        <a href="../2-SchoolQuestionsScreen/newTrab.html">
                             <div class="col-12">
                                 <p><strong>${element.nome}</strong></p>
                             </div>
                             <div class="col-12">
                                 <div id="circular-progress">
-                                    <div id="card${
-                                      element.id
-                                    }" role="progressbar" aria-valuenow="${0}" aria-valuemin="0"
-                                        aria-valuemax="100" style="--value:75">
+                                    <div id="card${element.id}" role="progressbar" aria-valuenow="${Math.round(progressEixo)}" aria-valuemin="0"
+                                        aria-valuemax="100" style="--value:">
                                     </div>
                                 </div>
                             </div>
                         </a>
                     </div>`;
-        });
-        for (let i = 0; i < card.length; i++) {
-          value = document
-            .getElementById(card[i])
-            .getAttribute("aria-valuenow");
-          if (value > 70 && value < 100) {
-            document
-              .getElementById(card[i])
-              .setAttribute("role", "progressbar1");
-          }
-          if (value <= 70 && value > 30) {
-            document
-              .getElementById(card[i])
-              .setAttribute("role", "progressbar");
-          }
-          if (value <= 30 && value > 0) {
-            document
-              .getElementById(card[i])
-              .setAttribute("role", "progressbar3");
-          }
-          if (value == 100) {
-            document
-              .getElementById(card[i])
-              .setAttribute("role", "progressbar100");
-            document.getElementById(card[i]).innerHTML =
-              "<i class='fa-solid fa-check' style='font-size: 2rem;'></i>";
-          }
-          if (value == 0) {
-            document
-              .getElementById(card[i])
-              .setAttribute("role", "progressbar0");
-          }
-          var style = `--value:${value}`;
-          document.getElementById(card[i]).setAttribute("style", style);
-        }
-      },
-      error: (data) => {
-        console.log(data);
-      },
-    });
-  },
-};
+                        value = document.getElementById(card).getAttribute("aria-valuenow")
+                        if (value > 70 && value < 100) {
+                            document.getElementById(card).setAttribute("role", "progressbar1")
+                        }
+                        if (value <= 70 && value > 30) {
+                            document.getElementById(card).setAttribute("role", "progressbar")
+                        }
+                        if (value <= 30 && value > 0) {
+                            document.getElementById(card).setAttribute("role", "progressbar3")
+                        }
+                        if (value == 100) {
+                            document.getElementById(card).setAttribute("role", "progressbar100")
+                            document.getElementById(card).innerHTML = "<i class='fa-solid fa-check' style='font-size: 2rem;'></i>"
+                        }
+                        if (value == 0) {
+                            document.getElementById(card).setAttribute("role", "progressbar0")
+                        }
+                        var style = `--value:${value}`
+                        document.getElementById(card).setAttribute("style", (style))
 
+                    });
+
+                },
+                error: data => {
+                    console.log(data)
+                }
+            })
+        }
+        else {
+            $.ajax({
+
+                url: API + `/eixos/list/${agenda}`,
+                type: 'GET',
+                success: data => {
+                    data.eixos.forEach(async (element) => {
+                        let eixo = (element.id);
+                        progress.list2(eixo);
+                        let progressEixo = ((await progress.list2(eixo)));
+                        console.log("r" + progressEixo);
+                        let card = (`card${element.id}`);
+                        document.getElementById("boxes-geral").innerHTML += `<div class="card col-12 col-lg-3">
+                        <div class="row" id="card-quiz" type="button" onclick="${element.id}">
+                            <a href="https://www.google.com.br">
+                                <div class="col-12">
+                                    <p><strong>${element.nome}</strong></p>
+                                </div>
+                                <div class="col-12">
+                                    <div id="circular-progress">
+                                        <div id="card${element.id}" role="progressbar" aria-valuenow="${progressEixo}" aria-valuemin="0"
+                                            aria-valuemax="100" style="--value:0">
+                                        </div>
+                                    </div>
+                                </div>
+                            </a>
+                        </div>`;
+                        value = document.getElementById(card).getAttribute("aria-valuenow")
+                        if (value > 70 && value < 100) {
+                            document.getElementById(card).setAttribute("role", "progressbar1")
+                        }
+                        if (value <= 70 && value > 30) {
+                            document.getElementById(card).setAttribute("role", "progressbar")
+                        }
+                        if (value <= 30 && value > 0) {
+                            document.getElementById(card).setAttribute("role", "progressbar3")
+                        }
+                        if (value == 100) {
+                            document.getElementById(card).setAttribute("role", "progressbar100")
+                            document.getElementById(card).innerHTML = "<i class='fa-solid fa-check' style='font-size: 2rem;'></i>"
+                        }
+                        if (value == 0) {
+                            document.getElementById(card).setAttribute("role", "progressbar0")
+                        }
+                        var style = `--value:${value}`
+                        document.getElementById(card).setAttribute("style", (style))
+
+                    });
+
+                },
+                error: data => {
+                    console.log(data)
+                }
+            })
+
+        }
+
+    }
+
+};
 var value = "";
+
+function saveEixo(id) {
+    var eixoEscolhido = id;
+    sessionStorage.setItem("idEixo", eixoEscolhido)
+}
+
 
 //pega o valor atual da porcentagem da barra de progresso de cada card no html
 //e verifica em qual intervalo ela esta. Muda a "role" do card conforme o
 //intervalo identificado para que seja atribuido um estilo especifico para o card no CSS
+
+
