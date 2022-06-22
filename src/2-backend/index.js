@@ -5,8 +5,12 @@ const urlencodedParser = bodyParser.urlencoded({ extended: false });
 // Server configuration
 const app = express();
 
-const HOSTNAME = "0.0.0.0";
+const HOSTNAME = "127.0.0.1";
 const PORT = 5000;
+
+/* Servidor aplicação */
+
+app.use(express.static("../1-frontend/"));
 
 // Routes import
 const usuariosRoute = require("./routes/v1/usuarios");

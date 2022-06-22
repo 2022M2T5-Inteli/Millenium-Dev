@@ -2,14 +2,15 @@ var port = 5000
 var API = `http://127.0.0.1:${port}`;
 var card = [];
 var nQuest = [];
-
+var pTotal = Number(0);
+let idQuestionario = Number(0)
 
 $(document).ready(() => {
     agendas.list3();
     //questionario.list2();
     eixos.list();
-    
-    //questionario.list(sessionStorage.getItem("idEscola"))
+    finish();
+    idQuestionario = questionario.list(sessionStorage.getItem("idEscola"))
     //questionario.list(1)
 });
 
@@ -90,6 +91,19 @@ var progress = {
             console.log("progresso"+progressEixo);
         })
         progressEixo = 100 * done / allQ;
+
+        let eixoDone = Number();
+        let eixoNDone = Number();
+
+        if (progressEixo == 100){
+            eixoDone += 1;
+            eixoNDone += 1
+        }
+        else{
+            eixoNDone += 1
+        }
+        pTotal = eixoDone/eixoNDone;
+
         return progressEixo
         console.log(data)
         return 0
@@ -174,13 +188,13 @@ var eixos = {
                         let card = (`card${element.id}`);
                         document.getElementById("boxes-geral").innerHTML += `<div class="card col-12 col-lg-3">
                         <div class="row" id="card-quiz" type="button" onclick="${element.id}">
-                            <a href="https://www.google.com.br">
+                            <a href="../2-SchoolQuestionsScreen/newTrab.html">
                                 <div class="col-12">
                                     <p><strong>${element.nome}</strong></p>
                                 </div>
                                 <div class="col-12">
                                     <div id="circular-progress">
-                                        <div id="card${element.id}" role="progressbar" aria-valuenow="${progressEixo}" aria-valuemin="0"
+                                        <div id="card${element.id}" role="progressbar" aria-valuenow="${Math.round(progressEixo)}" aria-valuemin="0"
                                             aria-valuemax="100" style="--value:0">
                                         </div>
                                     </div>
@@ -220,6 +234,7 @@ var eixos = {
     }
 
 };
+
 var value = "";
 
 function saveEixo(id) {
@@ -227,6 +242,26 @@ function saveEixo(id) {
     sessionStorage.setItem("idEixo", eixoEscolhido)
 }
 
+function finish(){
+    if(pTotal == 1){
+        document.getElementById("finished").innerHTML = "<button id='done' onclick='questionarioDone()'><!<a href=''>Entregar Questionario</a>/></button>"
+    }
+}
+
+function questionarioDone(){
+    $.ajax({
+        url: API + "/questionarios/close",
+        type: 'POST',
+        data:{"idQuestionario": idQuestionario},
+        success: function (resultado) {
+          alert("Questionario entregue com sucesso");
+        },
+        error: function (err) {
+          console.log(err);
+          alert("Erro ao entregar questionario");
+        },
+    })
+}
 
 //pega o valor atual da porcentagem da barra de progresso de cada card no html
 //e verifica em qual intervalo ela esta. Muda a "role" do card conforme o

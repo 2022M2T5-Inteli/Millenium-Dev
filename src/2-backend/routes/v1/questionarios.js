@@ -9,7 +9,7 @@ const {
   createQuestionario,
   setQuestionarioAsComplete,
   getQuestionarioResultado,
-} = require("../../controllers/questionariosController");
+} = require("../../controllers/questionariosController.js");
 const router = express.Router();
 
 // controller
