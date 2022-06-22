@@ -31,8 +31,10 @@ exports.setQuestionarioAsComplete = async (request, response) => {
   response.setHeader("Access-Control-Allow-Origin", "*");
   const responseMessage = { message: "success", code: 200 };
   try {
+    if(request.body.id != undefined){
     await closeQuestionario(request.body.id);
-    console.log("antes");
+    console.log("antes");}
+    else{throw new Error(500)}
   } catch (err) {
     responseMessage.message = err.message;
     responseMessage.stack = err.stack;

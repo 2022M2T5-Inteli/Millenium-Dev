@@ -243,7 +243,7 @@ function saveEixo(id) {
 }
 
 function finish(){
-    if(pTotal == 1){
+    if(pTotal == 0){
         document.getElementById("finished").innerHTML = "<button id='done' onclick='questionarioDone()'><!<a href=''>Entregar Questionario</a>/></button>"
     }
 }
@@ -252,13 +252,13 @@ function questionarioDone(){
     $.ajax({
         url: API + "/questionarios/close",
         type: 'POST',
-        data:{"idQuestionario": idQuestionario},
+        data:{"id": idQuestionario},
         success: function (resultado) {
-          alert("Questionario entregue com sucesso");
+          Swal.fire("Questionario entregue com sucesso");
         },
         error: function (err) {
           console.log(err);
-          alert("Erro ao entregar questionario");
+          Swal.fire("Erro ao entregar questionario");
         },
     })
 }
