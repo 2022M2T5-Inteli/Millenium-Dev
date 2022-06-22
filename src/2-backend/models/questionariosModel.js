@@ -52,7 +52,8 @@ const createNewQuestionario = async (escolaId) => {
   }
 };
 
-const closeQuestionario = async (questionarioId) => {
+const closeQuestionario = async (id) => {
+  console.log(id)
   let db = await Database.open(DBPATH);
   let sql = "UPDATE Questionario SET isComplete = 1 WHERE id = ?";
 
@@ -60,7 +61,8 @@ const closeQuestionario = async (questionarioId) => {
   let params = [];
 
   // add elements to the params list
-  params.push(request.body.questionarioId);
+  console.log("aqui"+id)
+  params.push(id);
   return await db.all(sql, params);
 };
 
