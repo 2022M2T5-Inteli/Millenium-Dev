@@ -5,7 +5,7 @@ exports.createResposta = (request, response) => {
     response.setHeader("Access-Control-Allow-Origin", "*");
   
    let db = new sqlite3.Database(DBPATH);
-   let sql = "UPDATE resposta SET observacao = ?, idAlternativa = ?  WHERE idQuestao= ?;";
+   let sql = "UPDATE resposta SET observacao = ?, idAlternativa = ?  WHERE idQuestao= ? AND idQuestionario = ?;";
   
     // params list, replaces "?"
     let params = [];
@@ -14,6 +14,7 @@ exports.createResposta = (request, response) => {
     params.push(request.body.observacao);
     params.push(request.body.idAlternativa);
     params.push(request.body.idQuestao);
+    params.push(request.body.idQuestionario);
     
     db.all(sql, params, (err, rows) => {
       response.statusCode = 200;

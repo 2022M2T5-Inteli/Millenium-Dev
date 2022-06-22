@@ -6,6 +6,8 @@ const {
   createOpcao,
   updateOpcao,
   disableOpcao,
+  listOpcoesByQuestao,
+
 } = require("../../controllers/opcoesController");
 const router = express.Router();
 
@@ -13,6 +15,7 @@ const router = express.Router();
 
 // GET requests
 router.get("/list", listOpcoes);
+router.get("/listByQustao/:idQuestao", listOpcoesByQuestao);
 
 // // POST requests
 router.post("/create", createOpcao);
