@@ -26,6 +26,17 @@ O desenvolvimento do ambiente web passa por três fases: front-end, back-end e b
 <br><br>
 
 ## 🛠 Estrutura de pastas
+|--> documentos
+ | --> outros
+ | T(NUMERO_DA_TURMA)_G(NUMERO_DO_GRUPO)_V(VERSÃO)_Web_application_document.pdf
+ | T(NUMERO_DA_TURMA)_G(NUMERO_DO_GRUPO)_V(VERSÃO)_Web_application_document.docx
+|--> imagens
+|--> src
+ |--> Backend
+ |--> Frontend
+| readme.md
+| license.txt
+
 <b>Dentre os arquivos presentes na raiz do projeto, definem-se:</b>
 
 <b>readme:</b> arquivo que serve como guia e explicação geral sobre o projeto (o mesmo que você está lendo agora).
