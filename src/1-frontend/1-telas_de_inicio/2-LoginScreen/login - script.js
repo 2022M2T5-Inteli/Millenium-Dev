@@ -26,3 +26,25 @@ function buttonEntrar() {
 let result = verify(document.getElementById("floatingInput").value);
 show(result);
 }
+
+
+
+
+  var loginScreen = {
+    list(loginId) {
+      $.ajax({
+        type: "POST",
+        url:  API_BASE_URL + "/escola/login/" + loginId,
+        data: {'idLogin': idLogin },
+        success: function (resultados) {
+          resultados.login.forEach((login) => {
+            var element = `<id="floatingInput" placeholder="millenium@example.com">${login.loginId}`;
+            document.postElementById("list").innerHTML += element;
+  
+
+          });
+        },
+      });
+    },
+  };
+  
