@@ -28,8 +28,8 @@ O desenvolvimento do ambiente web passa por três fases: front-end, back-end e b
 ## 🛠 Estrutura de pastas
 |--> documentos<br>
   | --> outros<br>
-  <br>&emsp;| T(NUMERO_DA_TURMA)_G(NUMERO_DO_GRUPO)_V(VERSÃO)_Web_application_document.pdf<br>
-  <br>&emsp;|T(NUMERO_DA_TURMA)_G(NUMERO_DO_GRUPO)_V(VERSÃO)_Web_application_document.docx<br>
+    &emsp;| T(NUMERO_DA_TURMA)_G(NUMERO_DO_GRUPO)_V(VERSÃO)_Web_application_document.pdf<br>
+    &emsp;|T(NUMERO_DA_TURMA)_G(NUMERO_DO_GRUPO)_V(VERSÃO)_Web_application_document.docx<br>
 |-->imagens<br>
 |-->src<br>
   &emsp;|--> frontend<br>
@@ -50,6 +50,17 @@ O desenvolvimento do ambiente web passa por três fases: front-end, back-end e b
 ## 🛠 Instalação
 
 ## 💻 Configuração para desenvolvimento
+Aqui encontram-se todas as instruções necessárias para a instalação de todos os programas, bibliotecas e ferramentas imprescindíveis para a configuração do ambiente de desenvolvimento.
+
+  1.Baixar e instalar o node.js: <a href= "https://nodejs.org/pt-br/"></a> (versão 16.15.1 LTS)
+  2.Clone o repositório em questão.
+  3.No modo administrador, abra o "prompt de comando" ou o "terminal" e, após, abra a pasta "src/backend" no diretório raiz do repositório clonado e digite o segundo comando:
+npm install
+Isso instalará todas as dependências definidas no arquivo package.json que são necessárias para rodar o projeto. Agora o projeto já está pronto para ser modificado. Caso ainda deseje iniciar a aplicação, digite o comando abaixo no terminal:
+
+npm start
+Agora você pode acessar a aplicação através do link http://localhost:1234/
+O servidor está online.
 
 ## 📋 Licença/License
 
