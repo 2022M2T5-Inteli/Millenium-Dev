@@ -26,11 +26,10 @@ O desenvolvimento do ambiente web passa por três fases: front-end, back-end e b
 <br><br>
 
 ## 🛠 Estrutura de pastas
-|<br>
 |--> documentos<br>
   | --> outros<br>
-  &emsp;| T(NUMERO_DA_TURMA)_G(NUMERO_DO_GRUPO)_V(VERSÃO)_Web_application_document.pdf<br>
-  &emsp;|T(NUMERO_DA_TURMA)_G(NUMERO_DO_GRUPO)_V(VERSÃO)_Web_application_document.docx<br>
+  <br>&emsp;| T(NUMERO_DA_TURMA)_G(NUMERO_DO_GRUPO)_V(VERSÃO)_Web_application_document.pdf<br>
+  <br>&emsp;|T(NUMERO_DA_TURMA)_G(NUMERO_DO_GRUPO)_V(VERSÃO)_Web_application_document.docx<br>
 |-->imagens<br>
 |-->src<br>
   &emsp;|--> frontend<br>
