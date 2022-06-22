@@ -4,59 +4,76 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Dr. Edu Create Acount</title>
+  <title>Dr. Edu Create Account Falconi</title>
+  <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/css/bootstrap.min.css" rel="stylesheet"
+    integrity="sha384-1BmE4kWBq78iYhFldvKuhfTAU6auU8tT94WrHftjDbrCEXSU1oBoqyl2QvZ6jIW3" crossorigin="anonymous">
+  <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/js/bootstrap.bundle.min.js"
+    integrity="sha384-ka7Sk0Gln4gmtz2MlQnikT1wXgYsOg+OMhuP+IlRH9sENBO0LRn5q+8nbTov4+1p"
+    crossorigin="anonymous"></script>
+
   <link href="cadastroAdminFalcon.css" rel="stylesheet">
-  <link rel="preconnect" href="https://fonts.googleapis.com">
-  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300&display=swap" rel="stylesheet">
+
+  <!--fonte do subtítulo e textos-->
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <link href="https://fonts.googleapis.com/css2?family=Raleway:wght@400&display=swap" rel="stylesheet">
+
+  <!--fonte do título-->
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400&display=swap" rel="stylesheet">
+
+  <!--Bootstrap/FontAwesome Icons-->
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.1.1/css/all.min.css"
     integrity="sha512-KfkfwYDsLkIlwQp6LFnl8zNdLGxu9YAA1QvwINks4PhcElQSvqcyVLLD9aMhXd13uQjoXtEKNosOWaZqXgel0g=="
     crossorigin="anonymous" referrerpolicy="no-referrer" />
-  <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/css/bootstrap.min.css" rel="stylesheet"
-    integrity="sha384-1BmE4kWBq78iYhFldvKuhfTAU6auU8tT94WrHftjDbrCEXSU1oBoqyl2QvZ6jIW3" crossorigin="anonymous">
+  <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/js/bootstrap.bundle.min.js"
+    integrity="sha384-ka7Sk0Gln4gmtz2MlQnikT1wXgYsOg+OMhuP+IlRH9sENBO0LRn5q+8nbTov4+1p"
+    crossorigin="anonymous"></script>
+
+  <!--Script Create Rede-->
   <script src="https://code.jquery.com/jquery-3.6.0.min.js"
     integrity="sha256-/xUj+3OJU5yExlq6GSYGSHk7tPXikynS7ogEvDej/m4=" crossorigin="anonymous"></script>
   <script src="../../../constants.js"></script>
   <script src="script.js"></script>
+
 </head>
 
 <body>
+<body>
   <div class="container-fluid">
-    <div class="row top">
-      <div class="header row p-4">
-        <div class="p-3 col-12 col-lg-4 justify-content-center justify-content-lg-start d-flex" id="leftSection">
-          <div class="d-flex justify-content-center align-items-center" id="backButton">
-            <a
-              href="C:\Users\rafak\OneDrive\Documentos\Projeto4\Millennium\1-frontend\1-telas_de_inicio\4-ChooseProfileScreen\chooseprofilescreen - index.html">
-              <i class="fa-solid fa-arrow-left-long"></i></a>
-          </div>
-        </div>
-        <div class="p-3 col-12 col-lg-4 text-center" id="centerSection">
-          <h1>Crie sua conta</h1>
-          <h6>Cadastre seus dados abaixo</h6>
+    <!-- Container -->
+    <div class=" header row p-5 ">
+      <!-- cria rows para os do header -->
+      <div class="p-3 col-12 col-lg-4 justify-content-center justify-content-lg-start d-flex" id="leftSection">
+        <div class="d-flex justify-content-center align-items-center" id="backButton">
+          <!-- seta voltar -->
+          <a href="../../4-ChooseProfileScreen/chooseprofilescreen - index.html"> <i class="fa-solid fa-arrow-left-long"></i></a> <!-- ícone da seta -->
         </div>
       </div>
+      <!-- título e subtítulo -->
+      <div class="p-3 col-12 col-lg-4 text-center" id="centerSection">
+        <h1>Crie sua conta</h1>
+        <h6>Cadastre seus dados abaixo</h6>
+      </div>
+      <!-- seção do meio - insirir dados -->
       <div class="col-sm-4">
       </div>
+      <div class="row center">
+        <div class="col-sm-4 offset-sm-4 register">
+          <label for="floatingInputName">Insira seu nome:</label>
+          <input type="nome" class="form-control" id="floatingInputName" placeholder="Nome Sobrenome">
+          <label for="floatingInputEmail">Insira seu email:</label>
+          <input type="email" class="form-control" id="floatingInputEmail" placeholder="name@example.com">
+        </div>
+      </div>
+      <!-- botão de "cadastrar"-->
+      <div class="container" style="text-align:center;">
+        <input type="button" class="buttonCadastrar" value="Cadastrar" onclick="cadastroClick()">
+      </div>
     </div>
   </div>
-  <div class="row center">
-    <div class="col-sm-4 offset-sm-4 register">
-      <label for="floatingInputName">Insira seu nome:</label>
-      <input type="nome" class="form-control" id="floatingInputName" placeholder="Nome Sobrenome">
-      <label for="floatingInputEmail">Insira seu email:</label>
-      <input type="email" class="form-control" id="floatingInputEmail" placeholder="name@example.com">
-    </div>
-    <div class="container" style="text-align:center;">
-      <input type="button" class="buttonCadastrar" value="Cadastrar" onclick="falconiClick()">
-    </div>
-  </div>
-  <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/js/bootstrap.bundle.min.js"
-    integrity="sha384-ka7Sk0Gln4gmtz2MlQnikT1wXgYsOg+OMhuP+IlRH9sENBO0LRn5q+8nbTov4+1p"
-    crossorigin="anonymous"></script>
 </body>
+
 
 </html>
