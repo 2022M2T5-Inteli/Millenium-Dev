@@ -9,7 +9,9 @@ const {
   createQuestionario,
   setQuestionarioAsComplete,
   getQuestionarioResultado,
-} = require("../../controllers/questionariosController");
+  listQuestionarioRespostasByAgenda,
+} = require("../../controllers/questionariosController.js");
+
 const router = express.Router();
 
 // controller
@@ -27,6 +29,11 @@ router.get(
 router.get(
   "/questionario/:idQuestionario/respostas/eixo/:idEixo",
   listQuestionarioRespostasByEixo
+);
+
+router.get(
+  "/questionario/:idQuestionario/respostas/agenda/:idAgenda",
+  listQuestionarioRespostasByAgenda
 );
 
 router.get("/questionario/:idQuestionario/resultado", getQuestionarioResultado);
