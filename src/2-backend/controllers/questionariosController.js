@@ -6,6 +6,7 @@ const {
   listQuestionarioRespostas,
   listQuestionarioRespostasByEixo,
   processQuestionarioResultado,
+  listQuestionarioRespostasByAgenda,
 } = require("../models/questionariosModel");
 
 const sqlite3 = require("sqlite3").verbose();
@@ -71,6 +72,26 @@ exports.listQuestionarioRespostas = async (request, response) => {
   try {
     const listRespostas = await listQuestionarioRespostas(
       request.params.idQuestionario
+    );
+    responseMessage.respostas = listRespostas.respostas;
+    responseMessage.answeredQuestions = listRespostas.answeredQuestions;
+    responseMessage.unansweredQuestions = listRespostas.unansweredQuestions;
+  } catch (err) {
+    responseMessage.code = 500;
+    responseMessage.message = err.message;
+    responseMessage.stack = err.stack;
+  }
+  response.statusCode = responseMessage.code;
+  response.json(responseMessage);
+};
+
+exports.listQuestionarioRespostasByAgenda = async (request, response) => {
+  response.setHeader("Access-Control-Allow-Origin", "*");
+  const responseMessage = { message: "success", code: 200, respostas: {} };
+  try {
+    const listRespostas = await listQuestionarioRespostasByAgenda(
+      request.params.idQuestionario,
+      request.params.idAgenda
     );
     responseMessage.respostas = listRespostas.respostas;
     responseMessage.answeredQuestions = listRespostas.answeredQuestions;
