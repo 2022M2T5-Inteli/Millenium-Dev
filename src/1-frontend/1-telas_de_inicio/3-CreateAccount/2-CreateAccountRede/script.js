@@ -1,5 +1,4 @@
 //AJAX criar conta Rede
-
 var contaRede = {
   create(nome, email) {
     $.ajax({

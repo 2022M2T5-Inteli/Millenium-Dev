@@ -12,7 +12,7 @@
         crossorigin="anonymous"></script>
 
     <link href="homescreen - style.css" rel="stylesheet">
-    <script src="script.js"></script>
+    
     
     <!--fonte do subtítulo e textos-->
     <link rel="preconnect" href="https://fonts.googleapis.com">
@@ -28,17 +28,18 @@
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.1.1/css/all.min.css"
     integrity="sha512-KfkfwYDsLkIlwQp6LFnl8zNdLGxu9YAA1QvwINks4PhcElQSvqcyVLLD9aMhXd13uQjoXtEKNosOWaZqXgel0g=="
     crossorigin="anonymous" referrerpolicy="no-referrer" />
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/js/bootstrap.bundle.min.js" integrity="sha384-ka7Sk0Gln4gmtz2MlQnikT1wXgYsOg+OMhuP+IlRH9sENBO0LRn5q+8nbTov4+1p" crossorigin="anonymous"></script>
 </head>
 
 <body>
 
-
-      <!-- Nav bar-->
+    <!-- Nav bar -->
     <nav class="navbar navbar-expand-lg fixed-top" id="mainNav">
       <div class="container px-4" id="navBox">
           <a class="navbar-brand d-flex justify-content-center align-items-center" href="#page-top" id="navTitle">Dr. Edu by Falconi</a>
           <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarResponsive" aria-controls="navbarResponsive" aria-expanded="false" aria-label="Toggle navigation"><span class="navbar-toggler-icon"></span></button>
           <div class="collapse navbar-collapse" id="navbarResponsive">
+            <!-- adicionar os três botões da Nav bar -->
             <ul class="navbar-nav ms-auto">
               <li class="nav-item"><a class="nav-link d-flex justify-content-center align-items-center" href="#sobre">Sobre</a></li>
               <li class="nav-item"><a class="nav-link d-flex justify-content-center align-items-center" href="#millennium">O Millennium</a></li>
@@ -48,21 +49,26 @@
       </div>
     </nav>
 
+    <!-- Container fluid -->
     <div class="container-fluid" id="acesse">
+      <!-- botão de subir para o topo da tela -->
       <button onclick="goToTop()" id="topButton"><i class="fa-solid fa-arrow-up"></i></button>
       <header>
         <h1 id="drEdu">Dr. Edu</h1>
       </header>
+      <!-- logo do Dr.Edu -->
       <div class="content d-flex align-items-center">
         <div class="col-12 col-md-3 logo">
           <img src="logo.png" id="logo">
         </div>
+        <!-- título e subtítulo a direita da página -->
         <div class="col-12 col-md-6 offset-md-2 oi">
           <h1 id="pageTitle">Faça o questionário</h1>
           <p id="pageText">Dr. Edu é uma plataforma de diagnóstico de maturidade de gestão de instituições de ensino. Desse modo, o diagnóstico é obtido através de questionários e o resultado é demonstrado por gráficos, para o fácil entendimento. Além disso, pontos de melhoria são destacados, gerando uma consultoria ágil e rápida.</p>
-          <input type="button" class="buttonAcessar" value="Acessar   -->">
+          <a  href="../2-LoginScreen/login - index.html" ><input type="button" class="buttonAcessar" value="Acessar   -->"></a> <!-- botão acessar -->
         </div>
       </div>
+      <!-- seção da página - cards "como funciona" -->
       <div class="container-fluid row center justify-content-center" id="sobre">
         <h2>Como funciona?</h2>
         <p>Explicação sobre o que é o projeto, sobre o que é o questionário e afins</p>
@@ -87,6 +93,7 @@
         </div>
       </div>
       </div>
+      <!-- seção da página - cards "time milleinnium" -->
       <div class="container-fluid row center justify-content-center" id="millennium">
         <h2>Conheça o time!</h2>
         <p>Explicação sobre o Inteli e o time Millennium</p>
@@ -155,14 +162,14 @@
           </div>
         </div>
       </div>
+      <!-- footer -->
       <footer>
         <a href="https://www.falconi.com/home">
           <img src="logoFalconi.png" id="logoFalconi">
         </a>
       </footer>
     </div>
-    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/js/bootstrap.bundle.min.js" integrity="sha384-ka7Sk0Gln4gmtz2MlQnikT1wXgYsOg+OMhuP+IlRH9sENBO0LRn5q+8nbTov4+1p" crossorigin="anonymous"></script>
-    <script src="script.js"></script>
+    <script src ="script.js"></script>
 </body>
 
 </html>
