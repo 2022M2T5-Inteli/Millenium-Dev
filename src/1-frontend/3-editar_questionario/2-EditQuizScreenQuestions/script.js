@@ -96,6 +96,12 @@ function setQuestionModal(questionObj) {
             <option value="1">1 ponto</option>
             <option value="2">2 pontos</option>
             <option value="3">3 pontos</option>
+            <option value="5">5 pontos</option>
+            <option value="6">6 pontos</option>
+            <option value="7">7 pontos</option>
+            <option value="8">8 pontos</option>
+            <option value="9">9 pontos</option>
+            <option value="10">10 pontos</option>
           </select>
         </div>
       </div>
@@ -374,6 +380,15 @@ function addNewRawOption() {
             <option value="1">1 ponto</option>
             <option value="2">2 pontos</option>
             <option value="3">3 pontos</option>
+            <option value="1">1 ponto</option>
+            <option value="2">2 pontos</option>
+            <option value="3">3 pontos</option>
+            <option value="5">5 pontos</option>
+            <option value="6">6 pontos</option>
+            <option value="7">7 pontos</option>
+            <option value="8">8 pontos</option>
+            <option value="9">9 pontos</option>
+            <option value="10">10 pontos</option>
           </select>
         </div>
       </div>

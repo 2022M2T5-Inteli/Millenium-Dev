@@ -63,3 +63,20 @@ p {
 .form-select{
   font-family: "Raleway", sans-serif;
 }
+
+#criarEixo{
+  border-radius: 5px;
+  font-family: "Raleway", sans-serif;
+  border-style: none;
+  box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2);
+  transition: ease all 0.2s;
+  padding: 0.3em;
+}
+
+#criarEixo:hover {
+  cursor: pointer;
+  transform: scale(1.1, 1.1);
+  box-shadow: 0 6px 8px 0 rgba(0, 0, 0, 0.2);
+  background-color: #2c4b4d;
+  color: whitesmoke;
+}
