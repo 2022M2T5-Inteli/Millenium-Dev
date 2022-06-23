@@ -14,18 +14,18 @@ exports.listAgendas = (request, response) => {
   db.close();
 };
 
-exports.eixoCreate = (request, response) => {
+exports.agendaCreate = (request, response) => {
   response.setHeader("Access-Control-Allow-Origin", "*");
 
   let db = new sqlite3.Database(DBPATH);
-  let sql = "INSERT INTO Eixo (nome, idAgenda) VALUES(?,?);";
+  let sql = "INSERT INTO Agenda (nome, IsConsolidated) VALUES(?,?);";
 
   // params list, replaces "?"
   let params = [];
 
   // add elements to the params list
   params.push(request.body.nome);
-  params.push(request.body.idAgenda);
+  params.push(request.body.isConsolidated);
 
   db.all(sql, params, (err, rows) => {
     response.statusCode = 200;

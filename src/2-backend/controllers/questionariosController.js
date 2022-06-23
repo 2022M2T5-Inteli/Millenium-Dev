@@ -7,6 +7,9 @@ const {
   listQuestionarioRespostasByEixo,
   processQuestionarioResultado,
   listQuestionarioRespostasByAgenda,
+  listQuestionarioAgendas,
+  listQuestionarioEixos,
+  listQuestionarioEixosByAgenda,
 } = require("../models/questionariosModel");
 
 const sqlite3 = require("sqlite3").verbose();
@@ -117,6 +120,55 @@ exports.listQuestionarioRespostasByEixo = async (request, response) => {
     responseMessage.respostas = listRespostas.respostas;
     responseMessage.answeredQuestions = listRespostas.answeredQuestions;
     responseMessage.unansweredQuestions = listRespostas.unansweredQuestions;
+  } catch (err) {
+    responseMessage.code = 500;
+    responseMessage.message = err.message;
+  }
+  response.statusCode = responseMessage.code;
+  response.json(responseMessage);
+};
+
+exports.listQuestionarioRespostasAgendas = async (request, response) => {
+  response.setHeader("Access-Control-Allow-Origin", "*");
+  const responseMessage = { message: "success", code: 200, agendas: {} };
+  try {
+    const listAgendas = await listQuestionarioAgendas(
+      request.params.idQuestionario
+    );
+    responseMessage.agendas = listAgendas.agendas;
+  } catch (err) {
+    responseMessage.code = 500;
+    responseMessage.message = err.message;
+  }
+  response.statusCode = responseMessage.code;
+  response.json(responseMessage);
+};
+
+exports.listQuestionarioRespostasEixos = async (request, response) => {
+  response.setHeader("Access-Control-Allow-Origin", "*");
+  const responseMessage = { message: "success", code: 200, eixos: {} };
+  try {
+    const listEixos = await listQuestionarioEixos(
+      request.params.idQuestionario
+    );
+    responseMessage.eixos = listEixos.eixos;
+  } catch (err) {
+    responseMessage.code = 500;
+    responseMessage.message = err.message;
+  }
+  response.statusCode = responseMessage.code;
+  response.json(responseMessage);
+};
+
+exports.listQuestionarioRespostasEixosByAgenda = async (request, response) => {
+  response.setHeader("Access-Control-Allow-Origin", "*");
+  const responseMessage = { message: "success", code: 200, eixos: {} };
+  try {
+    const listEixos = await listQuestionarioEixosByAgenda(
+      request.params.idQuestionario,
+      request.params.idAgenda
+    );
+    responseMessage.eixos = listEixos.eixos;
   } catch (err) {
     responseMessage.code = 500;
     responseMessage.message = err.message;

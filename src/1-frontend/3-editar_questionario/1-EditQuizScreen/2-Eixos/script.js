@@ -34,7 +34,7 @@ function setEixoAndRedirect(idEixo, nomeEixo) {
 $(document).ready(function () {
   $("#agendaTitle").text(currentAgendaNome);
   usuarioFalconi.dados(sessionStorage.getItem("userId"));
-  listarEixos.list();
+  Eixos.list();
 });
 
 // Objeto responsável pelas requisições usuarioFalconi
@@ -52,7 +52,7 @@ var usuarioFalconi = {
 };
 
 // Objeto responsável pelas requisições de Eixos
-var listarEixos = {
+var Eixos = {
   list() {
     $.ajax({
       type: "GET",
@@ -63,4 +63,35 @@ var listarEixos = {
       },
     });
   },
+  async create(nome, idAgenda, maxGrade) {
+    return await $.ajax({
+      type: "POST",
+      url: API_BASE_URL + "/eixos/create",
+      data: { nome: nome, idAgenda: idAgenda, maxGrade: maxGrade },
+    });
+  },
 };
+
+function criarEixoButton() {
+  Swal.fire({
+    title: "Insira o nome do eixo:",
+    html:
+      '<input id="nomeEixoInput" class="swal2-input text-center" placeholder="Novo Eixo">' +
+      '<p for="maxGradeEixoInput">Nota máxima</p><input id="maxGradeEixoInput" class="swal2-input text-center" type="number" value="5">',
+    showCancelButton: true,
+    confirmButtonText: "Criar",
+    cancelButtonText: "Cancelar",
+    showLoaderOnConfirm: true,
+    preConfirm: async () => {
+      const newEixoName = document.getElementById("nomeEixoInput").value;
+      const newEixoGrade = document.getElementById("maxGradeEixoInput").value;
+      return await Eixos.create(newEixoName, currentAgendaId, newEixoGrade);
+    },
+    allowOutsideClick: () => !Swal.isLoading(),
+  }).then((result) => {
+    console.log(result, "resultaddoooodfodoashdakjsdhkahsd");
+    if (result.isConfirmed) {
+      Eixos.list();
+    }
+  });
+}

@@ -27,6 +27,9 @@
   <!--Bootstrap Icons-->
   <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.8.1/font/bootstrap-icons.css">
 
+  <!--Modais de alerta-->
+  <script src="https://cdn.jsdelivr.net/npm/sweetalert2@10.10.1/dist/sweetalert2.all.min.js"></script>
+  <link rel='stylesheet' href='https://cdn.jsdelivr.net/npm/sweetalert2@10.10.1/dist/sweetalert2.min.css'>
 
   <link rel="stylesheet" href="./editQuizScreen.css" />
   <script src="../../../constants.js"></script>
@@ -61,7 +64,7 @@
 
     <div class="row col-4 offset-4">
       <div class="col-12 d-flex justify-content-center m-2 p-4">
-        <button id="criarEixo"> Criar eixo </button>
+        <button id="criarEixo" onclick="criarEixoButton()"> Criar eixo </button>
       </div>
     </div>
 

@@ -12,8 +12,7 @@ exports.listEixosByAgenda = (request, response) => {
 
   // add elements to the params list
   params.push(request.params.idAgenda);
-  console.log(params)
-
+  console.log(params);
 
   db.all(sql, params, (err, rows) => {
     response.statusCode = 200;
@@ -39,7 +38,7 @@ exports.eixoCreate = (request, response) => {
   response.setHeader("Access-Control-Allow-Origin", "*");
 
   let db = new sqlite3.Database(DBPATH);
-  let sql = "INSERT INTO Eixo (nome, idAgenda) VALUES(?,?);";
+  let sql = "INSERT INTO Eixo (nome, idAgenda, maxGrade) VALUES(?,?,?);";
 
   // params list, replaces "?"
   let params = [];
@@ -47,6 +46,7 @@ exports.eixoCreate = (request, response) => {
   // add elements to the params list
   params.push(request.body.nome);
   params.push(request.body.idAgenda);
+  params.push(request.body.maxGrade);
 
   db.all(sql, params, (err, rows) => {
     response.statusCode = 200;

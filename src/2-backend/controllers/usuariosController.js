@@ -39,7 +39,8 @@ exports.getUsuarioEscola = (request, response) => {
   let params = [];
   params.push(request.params.usuarioId);
 
-  let sql = "SELECT * FROM Account WHERE id=?";
+  let sql =
+    "SELECT a.*, e.nome as nomeEscola FROM Account a JOIN Escola e ON a.idEscola=e.codeEscola WHERE id=?";
   db.all(sql, params, (err, rows) => {
     response.statusCode = err ? 500 : 200;
     response.json({ user: rows[0], err });
@@ -143,7 +144,8 @@ exports.loginFalconi = (request, response) => {
 exports.loginEscola = (request, response) => {
   response.setHeader("Access-Control-Allow-Origin", "*");
   let db = new sqlite3.Database(DBPATH);
-  let sql = "SELECT nome, id, idEscola FROM Account WHERE email= ?";
+  let sql =
+    "SELECT a.nome, a.id, a.idEscola, e.nome as nomeEscola FROM Account a JOIN Escola e ON a.idEscola = e.codeEscola WHERE email= ?";
   // add query params
   let params = [];
   params.push(request.body.email);

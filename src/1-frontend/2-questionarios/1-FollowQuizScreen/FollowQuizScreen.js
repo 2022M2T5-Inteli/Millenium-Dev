@@ -6,12 +6,17 @@ var pTotal = Number(0);
 let idQuestionario = Number(0);
 
 $(document).ready(async () => {
-  agendas.list3();
-  //questionario.list2();
-  eixos.list();
-  finish();
   idQuestionario = await questionario.list(sessionStorage.getItem("idEscola"));
+
+  agendas.list3(idQuestionario);
+  //questionario.list2();
+  eixos.list(idQuestionario);
+  finish();
   sessionStorage.setItem("idQuestionario", idQuestionario);
+  document.getElementById("nomeUsuario").textContent =
+    sessionStorage.getItem("userName");
+  document.getElementById("nomeEscola").textContent =
+    sessionStorage.getItem("nomeEscola");
   //questionario.list(1)
 });
 
@@ -42,9 +47,11 @@ var questionario = {
 };
 
 var agendas = {
-  async list3() {
+  async list3(idQuestionarioCurrent) {
     $.ajax({
-      url: API + "/agendas/list",
+      url:
+        API +
+        `/questionarios/questionario/${idQuestionarioCurrent}/respostas/agendas`,
       type: "GET",
       success: (data) => {
         data.agendas.forEach(async (element) => {
@@ -116,7 +123,8 @@ var eixos = {
     document.getElementById("boxes-geral").innerHTML = "";
     if (agenda == 0) {
       $.ajax({
-        url: API + `/eixos/list`,
+        url:
+          API + `/questionarios/questionario/${idQuestionario}/respostas/eixos`,
         type: "GET",
         success: (data) => {
           data.eixos.forEach(async (element) => {
@@ -184,7 +192,9 @@ var eixos = {
       });
     } else {
       $.ajax({
-        url: API + `/eixos/list/${agenda}`,
+        url:
+          API +
+          `/questionarios/questionario/${idQuestionario}/respostas/agendas/${agenda}/eixos`,
         type: "GET",
         success: (data) => {
           data.eixos.forEach(async (element) => {

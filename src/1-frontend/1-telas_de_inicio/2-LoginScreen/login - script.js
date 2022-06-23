@@ -57,13 +57,15 @@ var LoginScreen = {
             }).then((result) => {
               sessionStorage.setItem("userId", resultados.data.id);
               sessionStorage.setItem("idEscola", resultados.data.idEscola);
+              sessionStorage.setItem("userName", resultados.data.nome);
+              sessionStorage.setItem("nomeEscola", resultados.data.nomeEscola);
               document.location.href = "../5-SchoolChooseActionScreen/";
             });
           }
         }
       },
-      error: function (eerrr) {
-        console.log(eerrr);
+      error: function (err) {
+        console.log(err);
       },
     });
   },
@@ -90,6 +92,7 @@ var LoginScreen = {
             text: "Redirecionando...",
           }).then((result) => {
             sessionStorage.setItem("userId", resultados.data.id);
+            sessionStorage.setItem("userName", resultados.data.nome);
             document.location.href =
               "../../3-editar_questionario/1-EditQuizScreen/1-Agendas/";
           });
