@@ -9,6 +9,7 @@ const {
   disableQuestao,
   getQuestaoById,
   getQuestaoOpcoes,
+  listQuestoesByDominio,
 } = require("../../controllers/questoesController");
 const router = express.Router();
 
@@ -18,6 +19,8 @@ const router = express.Router();
 router.get("/list", listQuestoes);
 
 router.get("/eixo/:idEixo", listQuestoesByEixo);
+
+router.get("/dominio/:idDominio", listQuestoesByDominio);
 
 router.get("/questao/:idQuestao", getQuestaoById);
 

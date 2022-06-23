@@ -14,16 +14,16 @@ var contaEscola = {
         Swal.fire({
           icon: "success",
           title: "Sucesso!",
-          text: "Conta criada com sucesso!",
+          text: "Usuário criado com sucesso!",
         }).then(() => {
-          location.href = "../2-LoginScreen";
+          location.href = "../../2-LoginScreen";
         });
       },
       error: function (err) {
         Swal.fire({
           icon: "error",
           title: "Erro!",
-          text: "Erro ao criar a conta! " + err.textMessage,
+          text: "Erro ao criar a conta!" + err.textMessage,
         });
       },
     });
@@ -61,6 +61,13 @@ var Escola = {
           dadosUsuario.cargo,
           resultado.codeEscola
         );
+      },
+      error: function (err) {
+        Swal.fire({
+          icon: "error",
+          title: "Erro!",
+          text: "Erro ao criar a escola!",
+        });
       },
     });
   },

@@ -5,7 +5,7 @@ exports.listEixosByAgenda = (request, response) => {
   response.setHeader("Access-Control-Allow-Origin", "*");
 
   let db = new sqlite3.Database(DBPATH);
-  let sql = "SELECT * FROM Eixo WHERE idAgenda = ?";
+  let sql = "SELECT * FROM Eixo WHERE idAgenda = ? AND ativada = 1";
 
   // params list, replaces "?"
   let params = [];
@@ -25,7 +25,7 @@ exports.listEixos = (request, response) => {
   response.setHeader("Access-Control-Allow-Origin", "*");
 
   let db = new sqlite3.Database(DBPATH);
-  let sql = "SELECT * FROM Eixo";
+  let sql = "SELECT * FROM Eixo WHERE ativada = 1";
 
   db.all(sql, [], (err, rows) => {
     response.statusCode = 200;
@@ -80,7 +80,7 @@ exports.eixoDelete = (request, response) => {
   response.setHeader("Access-Control-Allow-Origin", "*");
 
   let db = new sqlite3.Database(DBPATH);
-  let sql = "DELETE FROM Eixo WHERE id = ?;";
+  let sql = "UPDATE Eixo SET ativada = 0 WHERE id = ?;";
 
   // params' list, replaces "?"
   let params = [];

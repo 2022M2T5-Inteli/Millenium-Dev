@@ -3,7 +3,8 @@ let usuarioFalconiId = sessionStorage.getItem("userId") || 1;
 let currentIdEixo = sessionStorage.getItem("currentEixoId") || 1;
 let currentIdDominio = sessionStorage.getItem("currentDominioId") || 1;
 let currentEixoNome =
-  sessionStorage.getItem("currentEixoNome") || "Perguntas do eixo";
+  `Seção ` + sessionStorage.getItem("currentDominioNome") ||
+  "Perguntas da seção";
 
 // Variável responsável por guardar todas as
 // questões da página
@@ -31,7 +32,6 @@ let questionModal = new bootstrap.Modal(
 function createQuestionCard(
   questionId,
   questionNumber,
-  questionDomain,
   question
 ) {
   let newQuestionCard = `<div class="row col-12 text-center align-items-center m-2 questions" id="question${questionNumber}">
@@ -40,11 +40,7 @@ function createQuestionCard(
     <h6>${questionNumber}</h6>
   </div>
 
-  <div class="col-lg-3 p-4">
-    <h6>${questionDomain}</h6>
-  </div>
-
-  <div class="col-lg-3 p-4">
+  <div class="col-lg-6 p-4">
     <h6>${question.substring(0, 46) + "..."}</h6>
   </div>
 
@@ -161,14 +157,12 @@ function openQuestion(questionId) {
           currentQuestion.peso = document.getElementById(
             "questionWeightSelect"
           ).value;
-          currentQuestion.idDominio = document.getElementById(
-            "questionDominioSelect"
-          ).value;
+          currentQuestion.idDominio = currentIdDominio;
           questoes.update(
             currentQuestion.texto,
             currentQuestion.numeroQuestao,
             currentQuestion.peso,
-            currentQuestion.idDominio,
+            currentIdDominio,
             usuarioFalconiId,
             currentIdEixo,
             currentQuestion.opcoes,
@@ -186,15 +180,15 @@ function openQuestion(questionId) {
 $(document).ready(function () {
   $("#pageTitle").text(currentEixoNome);
   usuarioFalconi.list(usuarioFalconiId);
-  questoes.list(currentIdEixo);
+  questoes.list(currentIdDominio);
 });
 
 // Objeto reponsável por requisições Questoes
 var questoes = {
-  list(eixoId) {
+  list(dominioId) {
     $.ajax({
       type: "GET",
-      url: API_BASE_URL + "/questoes/eixo/" + eixoId,
+      url: API_BASE_URL + "/questoes/dominio/" + dominioId,
       success: (response) => {
         questionCards = response.questoes;
         $("#questionsWrapper").empty();
@@ -202,7 +196,6 @@ var questoes = {
           let newQuestionCard = createQuestionCard(
             question.id,
             question.numeroQuestao,
-            question.idDominio,
             question.texto
           );
           $("#questionsWrapper").append(newQuestionCard);
@@ -217,7 +210,7 @@ var questoes = {
       data: { texto, peso, idDominio, idAutor, idEixo },
     }).done(() => {
       alert("Sucesso!");
-      questoes.list(currentIdEixo);
+      questoes.list(currentIdDominio);
       // toggleModal();
     });
   },
@@ -269,7 +262,7 @@ var questoes = {
         currentQuestion = {};
         createNewOptions = [];
         questionsToBeRemoved = [];
-        questoes.list(currentIdEixo);
+        questoes.list(currentIdDominio);
         toggleModal();
         // questoes.list(currentIdEixo);
       },

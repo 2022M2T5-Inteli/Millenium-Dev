@@ -50,6 +50,37 @@ exports.listQuestoesByEixo = (request, response) => {
   db.close();
 };
 
+exports.listQuestoesByDominio = (request, response) => {
+  response.setHeader("Access-Control-Allow-Origin", "*");
+
+  let db = new sqlite3.Database(DBPATH);
+  let sql = "SELECT * FROM Questao WHERE idDominio = ? AND ativada=1";
+  // params list, replaces "?"
+  let params = [];
+
+  // add elements to the params list
+  params.push(request.params.idDominio);
+  db.all(sql, params, (err, rows) => {
+    response.statusCode = 200;
+    let hashmap = {};
+    let questoesFiltered = [];
+    rows.forEach((questao) => {
+      hashmap[questao.numeroQuestao]
+        ? hashmap[questao.numeroQuestao].push(questao)
+        : (hashmap[questao.numeroQuestao] = [questao]);
+    });
+    Object.keys(hashmap).forEach((key) => {
+      let lastQuestionVersion = hashmap[key].reduce((prev, curr) => {
+        return curr.versao > prev.versao ? curr : prev;
+      });
+      questoesFiltered.push(lastQuestionVersion);
+    });
+
+    response.json({ questoes: questoesFiltered, err });
+  });
+  db.close();
+};
+
 exports.getQuestaoById = (request, response) => {
   response.setHeader("Access-Control-Allow-Origin", "*");
 

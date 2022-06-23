@@ -26,7 +26,7 @@ function setEixoAndRedirect(idEixo, nomeEixo) {
   sessionStorage.setItem("currentEixoId", idEixo);
   sessionStorage.setItem("currentEixoNome", nomeEixo);
   window.location.href =
-    "../../2-EditQuizScreenQuestions/EditQuizScreenQuestions.html";
+    "../3-Dominios";
 }
 
 // Chama uma série de funções após a página estar
