@@ -15,6 +15,9 @@
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.1.1/css/all.min.css"
     integrity="sha512-KfkfwYDsLkIlwQp6LFnl8zNdLGxu9YAA1QvwINks4PhcElQSvqcyVLLD9aMhXd13uQjoXtEKNosOWaZqXgel0g=="
     crossorigin="anonymous" referrerpolicy="no-referrer" />
+  <script src="https://code.jquery.com/jquery-3.6.0.min.js"
+    integrity="sha256-/xUj+3OJU5yExlq6GSYGSHk7tPXikynS7ogEvDej/m4=" crossorigin="anonymous"></script>
+  <script src="../../constants.js"></script>
 
 
   <!--adição no head*//-->
@@ -28,21 +31,9 @@
       <div class="col-7" id="n-pergunta">
         <div class="container-fluid">
           <div class="col-4">
-            <nav aria-label="Page navigation example">
-              <ul class="pagination">
-                <li class="page-item">
-                  <a class="page-link" href="#" aria-label="Previous">
-                    <span aria-hidden="true">&laquo;</span>
-                  </a>
-                </li>
-                <li class="icon.box"><a class="page-link" href="#">1</a></li>
-                <li class="icon.box"><a class="page-link" href="#">2</a></li>
-                <li class="icon.box"><a class="page-link" href="#">3</a></li>
-                <li class="icon.box">
-                  <a class="page-link" href="#" aria-label="Next">
-                    <span aria-hidden="true">&raquo;</span>
-                  </a>
-                </li>
+            <nav aria-label="Page navigation example" id="test123">
+              <ul id="paginas" class="pagination" >
+                
               </ul>
             </nav>
           </div>
@@ -54,7 +45,7 @@
     <div class="row d-flex col-8" id="question-box">
       <div class="col-12 d-flex align-items-center p-3" id="question-box-header">
         <h5 class="m-0" id="titulo">
-          Sistema de Gestão   
+          Sistema de Gestão
         </h5>
       </div>
       <div class="col-12 d-flex flex-column p-2" id="question-box-body">
@@ -65,7 +56,7 @@
           capacitação? Como é feito o levantamento de competências e conhecimentos faltantes para treinamentos?
         </p>
         <div class="col-11" id="respostas">
-          <div class="form-check">
+          <div  class="form-check">
             <input class="form-check-input" type="radio" name="flexRadioDefault" id="flexRadioDefault1">
             <label class="form-check-label" for="flexRadioDefault1">
               Opção a
@@ -100,7 +91,7 @@
         <div style="width: 160px; height: 120px;">
           <p class="w-44 h-12 text-2xl font-bold leading-10 text-center text-gray-400">Observações:</p>
           <div class="bg-gray-200" style="width: 300px; margin-left: 2rem; height: 74px;" />
-          <div </label>
+          <div>
             </p>
             <textarea class="container-fluid" id="w3review" name="w3review" rows="4" cols="50"></textarea>
             <br>
@@ -112,10 +103,12 @@
       </p>
     </div>
     <p align="right">
-      <button id="button4" type="button4">Próxima</button>
+      <button id="button4" type="button4" onclick="entregaAlternativa()">Próxima</button>
   </div>
   </div>
   </div>
+  <script src="SchoolQuizScreen.js">
+  </script>
 </body>
 
 </html>

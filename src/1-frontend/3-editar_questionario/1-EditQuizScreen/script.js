@@ -9,6 +9,7 @@ function createSectionCard(sectionId, sectionName, questionsAmount) {
 
 // Cria um sectionCard para cada eixo da lista Eixos
 function createCardEixos() {
+  $("#cardBox").empty();
   eixos.forEach((eixo) => {
     let newSectionCard = createSectionCard(eixo.id, eixo.nome, eixo.idAgenda);
     $("#cardBox").append(newSectionCard);
