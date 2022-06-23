@@ -11,11 +11,20 @@ var contaEscola = {
       url: API_BASE_URL + "/usuarios/escola/create",
       data: { nome, email, cargo, idEscola },
       success: function (resultado) {
-        alert("Conta criada com sucesso!");
+        Swal.fire({
+          icon: "success",
+          title: "Sucesso!",
+          text: "Conta criada com sucesso!",
+        }).then(() => {
+          location.href = "../2-LoginScreen";
+        });
       },
       error: function (err) {
-        console.log(err);
-        alert("Erro ao criar conta!");
+        Swal.fire({
+          icon: "error",
+          title: "Erro!",
+          text: "Erro ao criar a conta! " + err.textMessage,
+        });
       },
     });
   },

@@ -196,9 +196,9 @@ var eixos = {
             document.getElementById(
               "boxes-geral"
             ).innerHTML += `<div class="card col-12 col-lg-3">
-                        <div class="row" id="card-quiz" type="button" onclick="${
+                        <div class="row" id="card-quiz" type="button" onclick="saveEixo(${
                           element.id
-                        }">
+                        }, '${element.nome}')">
                             <a href="../3-SchoolQuizScreen/">
                                 <div class="col-12">
                                     <p><strong>${element.nome}</strong></p>

@@ -43,6 +43,10 @@ async function showDashboardButton() {
   }
 }
 
+function loadDashboard() {
+  document.location = "./../../4-dashboard/1-SchoolDashboardScreen";
+}
+
 $(document).ready(() => {
   showDashboardButton();
 });
