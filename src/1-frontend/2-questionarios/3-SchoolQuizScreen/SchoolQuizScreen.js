@@ -15,7 +15,6 @@ $(document).ready(() => {
 //Puxa as questões do banco de dados e muda no HTML
 var schoolQuestion = {
   list() {
-    console.log("funciona");
     $.ajax({
       type: "GET",
       url:
@@ -30,16 +29,15 @@ var schoolQuestion = {
         let firstNextQuestion = 0;
         resultados.respostas.forEach((questao, index) => {
           nQuest += 1;
-          console.log(questao.idQuestao + "bgidlfbhilz");
           textoQuestao[questao.idQuestao] = {
             texto: questao.textoQuestao,
             observacao: questao.observacao,
+            idAlternativa: questao.idAlternativa,
           };
           //var element = `<p class="col-11" id="pergunta" id="gray">${questao.texto}</p>`;
           let proximaQuestaoId = null;
           if (index < resultados.respostas.length - 1) {
             const proximaQuestaoObj = resultados.respostas[index + 1];
-            console.log(proximaQuestaoObj.idQuestao);
             proximaQuestaoId = proximaQuestaoObj.idQuestao;
           }
           let BGcolor = "";
@@ -51,25 +49,36 @@ var schoolQuestion = {
             BGcolor = "#fff";
             TextColor = "#000";
           } else {
-            BGcolor = "#2c4b4d";
-            TextColor = "#fff";
+            BGcolor = "#accccb";
+            TextColor = "#000";
           }
           document.getElementById(
             "paginas"
-          ).innerHTML += `<li class="icon.box" id="buttonQuestao${questao.idQuestao}" proxima-questao="${proximaQuestaoId}"><a class="page-link" onclick="abrirQuestao(${questao.idQuestao},${proximaQuestaoId})" href="#" style="background-color: ${BGcolor}; color:${TextColor}">${nQuest}</a></li>`;
+          ).innerHTML += `<li class="icon.box" id="buttonQuestao${questao.idQuestao}" proxima-questao="${proximaQuestaoId}" onclick="abrirQuestao(${questao.idQuestao},${proximaQuestaoId})"><a class="page-link" href="#" style="background-color: ${BGcolor}; color:${TextColor}">${nQuest}</a></li>`;
           if (index == 0) {
             firstQuestion = questao.idQuestao;
             firstNextQuestion = proximaQuestaoId;
           }
         });
-        abrirQuestao(firstQuestion, firstNextQuestion);
-        console.log(textoQuestao);
+        const nextStoredQuestionId = sessionStorage.getItem("idProximaQuestao");
+        nextStoredQuestionId
+          ? $(`#${nextStoredQuestionId}`).click()
+          : abrirQuestao(firstQuestion, firstNextQuestion);
       },
     });
   },
 };
 
 function abrirQuestao(idQuestao, idProximaQuestao) {
+  sessionStorage.setItem("idProximaQuestao", `buttonQuestao${idQuestao}`);
+  const selected = document.querySelectorAll(".selected-button");
+  selected.forEach((button) => {
+    button.classList.remove("selected-button");
+  });
+  const currentButton = document.getElementById(`buttonQuestao${idQuestao}`);
+
+  currentButton.firstChild.className += " selected-button";
+
   document.getElementById("pergunta").innerHTML = textoQuestao[idQuestao].texto;
   document.getElementById("w3review").value =
     textoQuestao[idQuestao].observacao;
@@ -84,15 +93,21 @@ var respostas = {
       type: "GET",
       url: `${API}/opcoes/listByQustao/${idQuestao}`,
       success: (data) => {
-        console.log("success", data);
         document.getElementById("respostas").innerHTML = ``;
         nAlternativa = 0;
         data.opcoes.forEach((element) => {
+          const isAlternativaSelected =
+            textoQuestao[idQuestao].idAlternativa == element.id;
+          console.log(isAlternativaSelected);
           nAlternativa += 1;
           document.getElementById(
             "respostas"
           ).innerHTML += `<div  class="form-check">
-          <input class="form-check-input" type="radio" name="resposta" id="flexRadioDefault${nAlternativa}" value="${element.id}" questao="${idQuestao}">
+          <input class="form-check-input" type="radio" name="resposta" id="flexRadioDefault${nAlternativa}" value="${
+            element.id
+          }" questao="${idQuestao}" ${
+            isAlternativaSelected && 'checked="true"'
+          }>
           <label class="form-check-label" for="flexRadioDefault${nAlternativa}">
             ${element.texto}
           </label>
@@ -104,27 +119,48 @@ var respostas = {
 };
 
 async function entregaAlternativa() {
-  //console.log(document.querySelector('input[name="resposta"]:checked').value);
-  console.log(document.getElementById("w3review").value);
   if (document.querySelector('input[name="resposta"]:checked')) {
-    await $.ajax({
-      type: "POST",
-      url: `${API}/respostas/create`,
-      data: {
-        idQuestionario: idQuestionario,
-        observacao: document.getElementById("w3review").value,
-        idAlternativa: document.querySelector('input[name="resposta"]:checked')
-          .value,
-        idQuestao: document
-          .querySelector('input[name="resposta"]:checked')
-          .getAttribute("questao"),
-      },
-    });
-    schoolQuestion.list(1);
-    const proxima2Questao = document
-      .getElementById(`buttonQuestao${proximaQuestao}`)
-      .getAttribute("proxima-questao");
-    abrirQuestao(proximaQuestao, proxima2Questao);
+    const idQuestao = document
+      .querySelector('input[name="resposta"]:checked')
+      .getAttribute("questao");
+    if (idQuestao) {
+      await $.ajax({
+        type: "POST",
+        url: `${API}/respostas/create`,
+        data: {
+          idQuestionario: idQuestionario,
+          observacao: document.getElementById("w3review").value,
+          idAlternativa: document.querySelector(
+            'input[name="resposta"]:checked'
+          ).value,
+          idQuestao: idQuestao,
+        },
+      });
+      proximaQuestao
+        ? sessionStorage.setItem(
+            "idProximaQuestao",
+            `buttonQuestao${proximaQuestao}`
+          )
+        : null;
+      schoolQuestion.list(1);
+      const proxima2QuestaoElement = document.getElementById(
+        `buttonQuestao${proximaQuestao}`
+      );
+      if (proxima2QuestaoElement) {
+        const proxima2Questao =
+          proxima2QuestaoElement.getAttribute("proxima-questao");
+        showSuccess("Questão salva!");
+        abrirQuestao(proximaQuestao, proxima2Questao);
+      } else {
+        Swal.fire({
+          icon: "success",
+          title: "Eixo finalizado com sucesso!",
+          text: "Redirecionando para a tela de eixos",
+        }).then((result) => {
+          document.location.href = "./../1-FollowQuizScreen";
+        });
+      }
+    }
   } else {
     const proxima2Questao = document
       .getElementById(`buttonQuestao${proximaQuestao}`)

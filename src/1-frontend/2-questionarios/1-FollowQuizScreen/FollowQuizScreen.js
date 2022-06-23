@@ -9,6 +9,7 @@ let eixoDone = 0;
 let eixoNDone = 0;
 
 $(document).ready(async () => {
+  sessionStorage.removeItem("idProximaQuestao");
   idQuestionario = await questionario.list(sessionStorage.getItem("idEscola"));
 
   await agendas.list3(idQuestionario);
@@ -262,7 +263,7 @@ function saveEixo(id, nomeEixo) {
 function finish() {
   if (pTotal == 1) {
     document.getElementById("finished").innerHTML =
-      "<button id='done' onclick='questionarioDone()'><a href=''>Entregar Questionario</a></button>";
+      "<button id='done' onclick='questionarioDone()'>Entregar Questionario</button>";
   }
 }
 
@@ -273,8 +274,13 @@ async function questionarioDone() {
       type: "POST",
       data: { id: idQuestionario },
     });
-    Swal.fire("Questionario entregue com sucesso");
-    location.href = "../../4-dashboard/1-SchoolDashboardScreen";
+    Swal.fire({
+      icon: "success",
+      title: "Parabéns!",
+      text: "Questionário finalizado com sucesso!",
+    }).then((result) => {
+      location.href = "../../4-dashboard/1-SchoolDashboardScreen";
+    });
   } catch (err) {
     console.log(err);
     Swal.fire("Erro ao entregar questionario");
