@@ -29,7 +29,7 @@
 
 
   <link rel="stylesheet" href="./editQuizScreen.css" />
-  <script src="../../constants.js"></script>
+  <script src="../../../constants.js"></script>
   <script src="./script.js"></script>
   <title>Editar Questionário</title>
 </head>
@@ -40,11 +40,12 @@
     <div class="header row p-5">
       <div class="p-3 col-12 col-lg-4 justify-content-center justify-content-lg-start d-flex" id="leftSection">
         <div class="d-flex justify-content-center align-items-center" id="backButton">
-          <a href="../../1-telas_de_inicio/2-LoginScreen"> <i class="fa-solid fa-arrow-left-long"></i></a>
+          <a href="../1-Agendas/"> <i class="fa-solid fa-arrow-left-long"></i></a>
         </div>
       </div>
       <div class="p-3 col-12 col-lg-4 text-center" id="centerSection">
-        <h1>Painel de Eixos</h1>
+        <h1 id="pageTitle">Painel de Eixos</h1>
+        <h4 id="agendaTitle"></h4>
         <h6>Clique nos cards para editar as questões da seção.</h6>
       </div>
       <div class="p-3 col-12 col-lg-4" id="rightSection">
@@ -59,19 +60,8 @@
     </div>
 
     <div class="row col-4 offset-4">
-      <div class="col-12 d-flex justify-content-start">
-        <p>Selecione a agenda a ser respondida: </p>
-      </div>
-      <select class="form-select" aria-label="Default select exemple">
-        <option value="1">Agenda de Gestão</option>
-        <option value="2">Agenda Educacional</option>
-        <option value="3" selected>Todas as agendas</option>
-      </select>
-    </div>
-
-    <div class= "row col-4 offset-4">
       <div class="col-12 d-flex justify-content-center m-2 p-4">
-        <button id="criarEixo" > Criar eixo </button>
+        <button id="criarEixo"> Criar eixo </button>
       </div>
     </div>
 

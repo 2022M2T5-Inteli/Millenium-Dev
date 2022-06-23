@@ -91,7 +91,7 @@ var LoginScreen = {
           }).then((result) => {
             sessionStorage.setItem("userId", resultados.data.id);
             document.location.href =
-              "../../3-editar_questionario/1-EditQuizScreen/";
+              "../../3-editar_questionario/1-EditQuizScreen/1-Agendas/";
           });
         }
       },

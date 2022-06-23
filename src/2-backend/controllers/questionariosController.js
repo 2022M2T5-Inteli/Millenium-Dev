@@ -32,10 +32,12 @@ exports.setQuestionarioAsComplete = async (request, response) => {
   response.setHeader("Access-Control-Allow-Origin", "*");
   const responseMessage = { message: "success", code: 200 };
   try {
-    if(request.body.id != undefined){
-    await closeQuestionario(request.body.id);
-    console.log("antes");}
-    else{throw new Error("Id não recebido")}
+    if (request.body.id != undefined) {
+      await closeQuestionario(request.body.id);
+      console.log("antes");
+    } else {
+      throw new Error("Id não recebido");
+    }
   } catch (err) {
     responseMessage.message = err.message;
     responseMessage.stack = err.stack;
@@ -44,7 +46,6 @@ exports.setQuestionarioAsComplete = async (request, response) => {
   response.statusCode = responseMessage.code;
   response.json({ message: responseMessage.message });
 };
-
 
 exports.listQuestionarios = (request, response) => {
   response.json({ message: "Not Implemented!" });

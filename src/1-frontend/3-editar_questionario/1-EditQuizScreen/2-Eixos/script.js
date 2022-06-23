@@ -1,3 +1,5 @@
+var currentAgendaNome = sessionStorage.getItem("currentAgendaNome");
+var currentAgendaId = sessionStorage.getItem("currentAgendaId");
 var eixos = [];
 
 // Cria um elemento Card e retorna o HTML deste elemento
@@ -24,12 +26,13 @@ function setEixoAndRedirect(idEixo, nomeEixo) {
   sessionStorage.setItem("currentEixoId", idEixo);
   sessionStorage.setItem("currentEixoNome", nomeEixo);
   window.location.href =
-    "../2-EditQuizScreenQuestions/EditQuizScreenQuestions.html";
+    "../../2-EditQuizScreenQuestions/EditQuizScreenQuestions.html";
 }
 
 // Chama uma série de funções após a página estar
 // "pronta"
 $(document).ready(function () {
+  $("#agendaTitle").text(currentAgendaNome);
   usuarioFalconi.dados(sessionStorage.getItem("userId"));
   listarEixos.list();
 });
@@ -53,7 +56,7 @@ var listarEixos = {
   list() {
     $.ajax({
       type: "GET",
-      url: API_BASE_URL + "/eixos/list",
+      url: API_BASE_URL + "/eixos/list/" + currentAgendaId,
       success: function (resultado) {
         eixos = resultado.eixos;
         createCardEixos();

@@ -1,7 +1,6 @@
 const express = require("express");
 const router = express.Router();
 
-
 // Router Controllers
 const {
   getUsuarioEscola,
@@ -34,6 +33,5 @@ router.post("/rede/login", loginRede);
 router.post("/falconi/login", loginFalconi);
 
 router.post("/escola/login", loginEscola);
-
 
 module.exports = router;
