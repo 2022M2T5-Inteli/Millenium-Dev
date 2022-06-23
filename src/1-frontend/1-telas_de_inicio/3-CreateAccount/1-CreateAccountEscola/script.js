@@ -1,9 +1,5 @@
 $(document).ready(() => {
   // Adiciona a função cadastroClick ao botão de cadastro
-  $("#cadastroButton").click((e) => {
-    e.preventDefault();
-    cadastroClick();
-  });
 });
 
 // Objeto responsável pelas requisições da conta usuário Escola
@@ -66,22 +62,20 @@ var inputChecked = false;
 
 //Cria uma função para comparar o email inserido com o padrão
 function verifyEmail(input) {
-  let pattern = new RegExp('[a-z0-9]+@[a-z]+\.[a-z]');
+  let pattern = new RegExp("[a-z0-9]+@[a-z]+.[a-z]");
   return pattern.test(input);
 }
-
 
 //Cria uma função para determinar qual ação tomar depois de verificar o email
 function showEmail(param) {
   if (param) {
     emailChecked = true;
-  }
-  else {
+  } else {
     Swal.fire({
-      icon: 'error',
-      title: 'Oops...',
-      text: 'Formato de email inválido.',
-    })
+      icon: "error",
+      title: "Oops...",
+      text: "Formato de email inválido.",
+    });
     emailChecked = false;
   }
 }
@@ -107,14 +101,12 @@ function proximoClick() {
 
   if (inputNome == "" || inputEmail == "" || inputCargo == "") {
     Swal.fire({
-      icon: 'error',
-      title: 'Oops...',
-      text: 'Campo de resposta vazio.',
-    })
+      icon: "error",
+      title: "Oops...",
+      text: "Campo de resposta vazio.",
+    });
     inputChecked = false;
-  }
-
-  else {
+  } else {
     inputChecked = true;
   }
 
@@ -125,10 +117,10 @@ function proximoClick() {
   //Verifica se o email e o input estão incorretos para exibir o alerta
   if (emailChecked == false && inputChecked == false) {
     Swal.fire({
-      icon: 'error',
-      title: 'Oops...',
-      text: 'Formato de email inválido e campo de resposta vazio.',
-    })
+      icon: "error",
+      title: "Oops...",
+      text: "Formato de email inválido e campo de resposta vazio.",
+    });
   }
 }
 
@@ -138,26 +130,24 @@ var ufChecked2 = false;
 
 //Cria uma função para comparar o código inserido com o padrão
 function verifyCodigo(codigo, uf) {
-  let patternCodigo = new RegExp('[0-9]{8}');
+  let patternCodigo = new RegExp("[0-9]{8}");
   return patternCodigo.test(codigo);
 }
 
 function verifyUF(uf) {
-  let patternUF = new RegExp('[A-Z]{2}');
+  let patternUF = new RegExp("[A-Z]{2}");
   return patternUF.test(uf);
 }
 
 function showCodigo(param) {
   if (param == false) {
     Swal.fire({
-      icon: 'error',
-      title: 'Oops...',
-      text: 'Formato de código Inep inválido',
-    })
+      icon: "error",
+      title: "Oops...",
+      text: "Formato de código Inep inválido",
+    });
     codigoChecked2 = false;
-  }
-
-  else {
+  } else {
     codigoChecked2 = true;
   }
 }
@@ -165,14 +155,12 @@ function showCodigo(param) {
 function showUF(param) {
   if (param == false) {
     Swal.fire({
-      icon: 'error',
-      title: 'Oops...',
-      text: 'Formato de UF inválido',
-    })
+      icon: "error",
+      title: "Oops...",
+      text: "Formato de UF inválido",
+    });
     ufChecked2 = false;
-  }
-
-  else {
+  } else {
     ufChecked2 = true;
   }
 }
@@ -190,38 +178,45 @@ function cadastroClick() {
   var enderecoEscola = document.getElementById("floatingInputEndereco").value;
 
   //Verifica se é necessário mostrar alerta de formato errado de email
-  let resultCodigo = verifyCodigo(document.getElementById("floatingCodigoInep").value);
+  let resultCodigo = verifyCodigo(
+    document.getElementById("floatingCodigoInep").value
+  );
   showCodigo(resultCodigo);
   let resultUF = verifyUF(document.getElementById("floatingInputUF").value);
   showUF(resultUF);
 
-//   var dadosUsuario = {
-//     nome: nome,
-//     email: email,
-//     cargo: cargo,
-//   };
-//   Escola.create(
-//     codigoEscola,
-//     nomeEscola,
-//     nomeRede,
-//     enderecoEscola,
-//     cidadeEscola + " - " + ufEscola,
-//     0,
-//     0,
-//     dadosUsuario
-//   );
+  //   var dadosUsuario = {
+  //     nome: nome,
+  //     email: email,
+  //     cargo: cargo,
+  //   };
+  //   Escola.create(
+  //     codigoEscola,
+  //     nomeEscola,
+  //     nomeRede,
+  //     enderecoEscola,
+  //     cidadeEscola + " - " + ufEscola,
+  //     0,
+  //     0,
+  //     dadosUsuario
+  //   );
   //Verifica se há input vazio e o mostra alerta
 
-  if (nomeEscola == "" || codigoEscola == "" || nomeRede == "" || ufEscola == "" || cidadeEscola == "" || enderecoEscola == "") {
+  if (
+    nomeEscola == "" ||
+    codigoEscola == "" ||
+    nomeRede == "" ||
+    ufEscola == "" ||
+    cidadeEscola == "" ||
+    enderecoEscola == ""
+  ) {
     Swal.fire({
-      icon: 'error',
-      title: 'Oops...',
-      text: 'Campo de resposta vazio.',
-    })
+      icon: "error",
+      title: "Oops...",
+      text: "Campo de resposta vazio.",
+    });
     inputChecked2 = false;
-  }
-
-  else {
+  } else {
     inputChecked2 = true;
   }
 
@@ -241,28 +236,31 @@ function cadastroClick() {
       0,
       0,
       dadosUsuario
-      );
+    );
   }
 
   //Verifica se o email e o input estão incorretos para exibir o alerta
   if (codigoChecked2 == false && inputChecked2 == false) {
     Swal.fire({
-      icon: 'error',
-      title: 'Oops...',
-      text: 'Formato de código Inep inválido e campo de resposta vazio.',
-    })
+      icon: "error",
+      title: "Oops...",
+      text: "Formato de código Inep inválido e campo de resposta vazio.",
+    });
   }
 
   //Verifica se o email, input e UF estão incorretos para exibir o alerta
-  if (codigoChecked2 == false && inputChecked2 == false && ufChecked2 == false) {
+  if (
+    codigoChecked2 == false &&
+    inputChecked2 == false &&
+    ufChecked2 == false
+  ) {
     Swal.fire({
-      icon: 'error',
-      title: 'Oops...',
-      text: 'Formato de código Inep inválido, UF inválido e campo de resposta vazio.',
-    })
+      icon: "error",
+      title: "Oops...",
+      text: "Formato de código Inep inválido, UF inválido e campo de resposta vazio.",
+    });
   }
 }
-
 
 // Funções auxiliares
 

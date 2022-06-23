@@ -1,46 +1,68 @@
-var port = 5000
+var port = 5000;
 var API = `http://127.0.0.1:${port}`;
 var nQuest = 0;
-var textoQuestao = {}
-var idQuestionario = 4
-var proximaQuestao = 0
+var textoQuestao = {};
+var idQuestionario = sessionStorage.getItem("idQuestionario");
+var idEixo = sessionStorage.getItem("idEixo");
+var nomeEixo = sessionStorage.getItem("nomeEixo");
+var proximaQuestao = 0;
 
 $(document).ready(() => {
-  schoolQuestion.list(1);
+  document.getElementById("titulo").innerHTML = nomeEixo;
+  schoolQuestion.list();
 });
-
 
 //Puxa as questões do banco de dados e muda no HTML
 var schoolQuestion = {
-  list(idEixo) {
+  list() {
     console.log("funciona");
     $.ajax({
       type: "GET",
-      url: API + `/questionarios/questionario/${idQuestionario}/respostas/eixo/` + idEixo,
+      url:
+        API +
+        `/questionarios/questionario/${idQuestionario}/respostas/eixo/` +
+        idEixo,
       success: function (resultados) {
         document.getElementById("paginas").innerHTML = "";
         nQuest = 0;
         textoQuestao = {};
+        let firstQuestion = 0;
+        let firstNextQuestion = 0;
         resultados.respostas.forEach((questao, index) => {
           nQuest += 1;
-          console.log(questao.idQuestao + "bgidlfbhilz")
-          textoQuestao[questao.idQuestao] = { texto: questao.textoQuestao, observacao: questao.observacao };
+          console.log(questao.idQuestao + "bgidlfbhilz");
+          textoQuestao[questao.idQuestao] = {
+            texto: questao.textoQuestao,
+            observacao: questao.observacao,
+          };
           //var element = `<p class="col-11" id="pergunta" id="gray">${questao.texto}</p>`;
           let proximaQuestaoId = null;
           if (index < resultados.respostas.length - 1) {
             const proximaQuestaoObj = resultados.respostas[index + 1];
-            console.log(proximaQuestaoObj.idQuestao)
+            console.log(proximaQuestaoObj.idQuestao);
             proximaQuestaoId = proximaQuestaoObj.idQuestao;
           }
           let BGcolor = "";
-          if (questao.idAlternativa == "" || questao.idAlternativa == undefined) {
-            BGcolor = "#fff"
+          let TextColor = "";
+          if (
+            questao.idAlternativa == "" ||
+            questao.idAlternativa == undefined
+          ) {
+            BGcolor = "#fff";
+            TextColor = "#000";
+          } else {
+            BGcolor = "#2c4b4d";
+            TextColor = "#fff";
           }
-          else {
-            BGcolor = "#bcff4f"
+          document.getElementById(
+            "paginas"
+          ).innerHTML += `<li class="icon.box" id="buttonQuestao${questao.idQuestao}" proxima-questao="${proximaQuestaoId}"><a class="page-link" onclick="abrirQuestao(${questao.idQuestao},${proximaQuestaoId})" href="#" style="background-color: ${BGcolor}; color:${TextColor}">${nQuest}</a></li>`;
+          if (index == 0) {
+            firstQuestion = questao.idQuestao;
+            firstNextQuestion = proximaQuestaoId;
           }
-          document.getElementById("paginas").innerHTML += `<li class="icon.box" id="buttonQuestao${questao.idQuestao}" proxima-questao="${proximaQuestaoId}"><a class="page-link" onclick="abrirQuestao(${questao.idQuestao},${proximaQuestaoId})" href="#" style="background-color: ${BGcolor}">${nQuest}</a></li>`;
-        })
+        });
+        abrirQuestao(firstQuestion, firstNextQuestion);
         console.log(textoQuestao);
       },
     });
@@ -49,11 +71,11 @@ var schoolQuestion = {
 
 function abrirQuestao(idQuestao, idProximaQuestao) {
   document.getElementById("pergunta").innerHTML = textoQuestao[idQuestao].texto;
-  document.getElementById('w3review').value = textoQuestao[idQuestao].observacao;
-  proximaQuestao = idProximaQuestao
-  respostas.list(idQuestao)
-
-};
+  document.getElementById("w3review").value =
+    textoQuestao[idQuestao].observacao;
+  proximaQuestao = idProximaQuestao;
+  respostas.list(idQuestao);
+}
 
 //Puxa as alternativas do banco de dados e muda no HTML
 var respostas = {
@@ -61,13 +83,15 @@ var respostas = {
     $.ajax({
       type: "GET",
       url: `${API}/opcoes/listByQustao/${idQuestao}`,
-      success: data => {
+      success: (data) => {
         console.log("success", data);
         document.getElementById("respostas").innerHTML = ``;
-        nAlternativa = 0
+        nAlternativa = 0;
         data.opcoes.forEach((element) => {
-          nAlternativa += 1
-          document.getElementById("respostas").innerHTML += `<div  class="form-check">
+          nAlternativa += 1;
+          document.getElementById(
+            "respostas"
+          ).innerHTML += `<div  class="form-check">
           <input class="form-check-input" type="radio" name="resposta" id="flexRadioDefault${nAlternativa}" value="${element.id}" questao="${idQuestao}">
           <label class="form-check-label" for="flexRadioDefault${nAlternativa}">
             ${element.texto}
@@ -76,36 +100,35 @@ var respostas = {
         });
       },
     });
-  }
-
-}
+  },
+};
 
 async function entregaAlternativa() {
   //console.log(document.querySelector('input[name="resposta"]:checked').value);
-  console.log(document.getElementById('w3review').value)
+  console.log(document.getElementById("w3review").value);
   if (document.querySelector('input[name="resposta"]:checked')) {
     await $.ajax({
       type: "POST",
       url: `${API}/respostas/create`,
       data: {
         idQuestionario: idQuestionario,
-        observacao: document.getElementById('w3review').value,
-        idAlternativa: document.querySelector('input[name="resposta"]:checked').value,
-        idQuestao: document.querySelector('input[name="resposta"]:checked').getAttribute("questao"),
-      }
-    })
+        observacao: document.getElementById("w3review").value,
+        idAlternativa: document.querySelector('input[name="resposta"]:checked')
+          .value,
+        idQuestao: document
+          .querySelector('input[name="resposta"]:checked')
+          .getAttribute("questao"),
+      },
+    });
     schoolQuestion.list(1);
-    const proxima2Questao = document.getElementById(`buttonQuestao${proximaQuestao}`).getAttribute("proxima-questao") 
-    abrirQuestao(proximaQuestao,proxima2Questao)
-  }
-  else {
-    const proxima2Questao = document.getElementById(`buttonQuestao${proximaQuestao}`).getAttribute("proxima-questao") 
-    abrirQuestao(proximaQuestao,proxima2Questao)
+    const proxima2Questao = document
+      .getElementById(`buttonQuestao${proximaQuestao}`)
+      .getAttribute("proxima-questao");
+    abrirQuestao(proximaQuestao, proxima2Questao);
+  } else {
+    const proxima2Questao = document
+      .getElementById(`buttonQuestao${proximaQuestao}`)
+      .getAttribute("proxima-questao");
+    abrirQuestao(proximaQuestao, proxima2Questao);
   }
 }
-
-
-
-
-
-

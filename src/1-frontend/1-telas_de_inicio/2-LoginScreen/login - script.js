@@ -1,4 +1,6 @@
 //Cria uma função para comparar o email inserido com o padrão
+sessionStorage.clear();
+
 function verify(input) {
   let pattern = /\S+@\S+\.\S+/;
   return pattern.test(input);
@@ -15,6 +17,13 @@ function show(param) {
     console.log(loginType);
     if (loginType == "escola") {
       return LoginScreen.loginEscola(email);
+    }
+    if (loginType == "rede") {
+      return LoginScreen.loginRede(email);
+    }
+
+    if (loginType == "falconi") {
+      return LoginScreen.loginFalconi(email);
     }
   } else {
     Swal.fire({
@@ -39,7 +48,19 @@ var LoginScreen = {
       url: API_BASE_URL + "/usuarios/escola/login",
       data: { email: email },
       success: function (resultados) {
-        console.log(resultados);
+        if (resultados.data) {
+          if (resultados.data.idEscola) {
+            Swal.fire({
+              icon: "success",
+              title: "Usuário Logado com Sucesso!",
+              text: "Redirecionando...",
+            }).then((result) => {
+              sessionStorage.setItem("userId", resultados.data.id);
+              sessionStorage.setItem("idEscola", resultados.data.idEscola);
+              document.location.href = "../5-SchoolChooseActionScreen/";
+            });
+          }
+        }
       },
       error: function (eerrr) {
         console.log(eerrr);
@@ -62,7 +83,17 @@ var LoginScreen = {
       url: API_BASE_URL + "/usuarios/falconi/login",
       data: { email: email },
       success: function (resultados) {
-        console.log(resultados);
+        if (resultados.data.id) {
+          Swal.fire({
+            icon: "success",
+            title: "Usuário Logado com Sucesso!",
+            text: "Redirecionando...",
+          }).then((result) => {
+            sessionStorage.setItem("userId", resultados.data.id);
+            document.location.href =
+              "../../3-editar_questionario/1-EditQuizScreen/";
+          });
+        }
       },
     });
   },

@@ -30,7 +30,7 @@ function setEixoAndRedirect(idEixo, nomeEixo) {
 // Chama uma série de funções após a página estar
 // "pronta"
 $(document).ready(function () {
-  usuarioFalconi.dados(1);
+  usuarioFalconi.dados(sessionStorage.getItem("userId"));
   listarEixos.list();
 });
 

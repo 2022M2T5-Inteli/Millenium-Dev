@@ -1,5 +1,5 @@
 // Carrega dados do sessionStorage em variáveis
-let usuarioFalconiId = sessionStorage.getItem("usuarioFalconiId") || 1;
+let usuarioFalconiId = sessionStorage.getItem("userId") || 1;
 let currentIdEixo = sessionStorage.getItem("currentEixoId") || 1;
 let currentIdDominio = sessionStorage.getItem("currentDominioId") || 1;
 let currentEixoNome =

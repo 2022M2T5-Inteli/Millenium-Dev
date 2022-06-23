@@ -35,7 +35,7 @@ exports.setQuestionarioAsComplete = async (request, response) => {
     if(request.body.id != undefined){
     await closeQuestionario(request.body.id);
     console.log("antes");}
-    else{throw new Error(500)}
+    else{throw new Error("Id não recebido")}
   } catch (err) {
     responseMessage.message = err.message;
     responseMessage.stack = err.stack;

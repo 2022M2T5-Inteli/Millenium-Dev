@@ -11,7 +11,7 @@
         integrity="sha384-ka7Sk0Gln4gmtz2MlQnikT1wXgYsOg+OMhuP+IlRH9sENBO0LRn5q+8nbTov4+1p"
         crossorigin="anonymous"></script>
 
-    <link href="schoolconsultantaction - style.css" rel="stylesheet">
+    <link href="schoolchooseaction - style.css" rel="stylesheet">
 
     <!--fonte do subtítulo e textos-->
     <link rel="preconnect" href="https://fonts.googleapis.com">
@@ -28,6 +28,9 @@
         integrity="sha512-KfkfwYDsLkIlwQp6LFnl8zNdLGxu9YAA1QvwINks4PhcElQSvqcyVLLD9aMhXd13uQjoXtEKNosOWaZqXgel0g=="
         crossorigin="anonymous" referrerpolicy="no-referrer" />
 
+    <script src="https://code.jquery.com/jquery-3.6.0.min.js"
+        integrity="sha256-/xUj+3OJU5yExlq6GSYGSHk7tPXikynS7ogEvDej/m4=" crossorigin="anonymous"></script>
+    <script src="../../constants.js"></script>
 </head>
 
 <body>
@@ -38,9 +41,10 @@
             <!-- cria rows para os 3 conteúdos do header -->
             <div class="p-3 col-12 col-lg-4 justify-content-center justify-content-lg-start d-flex" id="leftSection">
                 <!-- seção da esquerda -->
-                <div class="d-flex justify-content-center align-items-center" id="backButton">
+                <div class="d-flex justify-content-center align-items-center" id="backButton" data-bs-toggle="tooltip"
+                    data-bs-placement="top" title="Sair da sua conta">
                     <!-- seta voltar -->
-                    <a href="google.com"> <i class="fa-solid fa-arrow-left-long"></i></a> <!-- ícone da seta -->
+                    <a href="../2-LoginScreen/"> <i class="fa-solid fa-arrow-right-from-bracket"></i></a>
                 </div>
             </div>
             <!-- seção do meio -->
@@ -50,21 +54,24 @@
             </div>
         </div>
         <!-- seção dos cards -->
-        <div class="row options">
-            <div class="col-lg-3 offset-lg-3">
-                <div class="questionnaire" id="buttonQuestionario" onclick="carregarQuestionario()">
-                    <a href="google.com"> <i class="fa-regular fa-pen-to-square" id="iconEdit"></i></a>
-                    <h2>Editar<br> questionário</h2>
+        <div class="row options d-flex justify-content-center align-items-center">
+            <div class="col-lg-3">
+                <div class="questionnaire button-options" id="buttonQuestionario" onclick="carregarQuestionario()">
+                    <i class="fa-solid fa-laptop-file" id="icon"></i>
+                    <h2>Responder<br> questionário</h2>
+
                 </div>
             </div>
-            <div class="col-lg-3">
-                <div class="dashboard" id="button">
-                    <a href="google.com"> <i class="fa-solid fa-chart-line" id="icon"></i></a>
+            <div class="col-lg-3" id="buttonDashboard">
+                <div class="dashboard button-options">
+                    <i class="fa-solid fa-chart-line" id="icon"></i>
                     <h2>Acessar<br> dashboard</h2>
+
                 </div>
             </div>
         </div>
     </div>
+    <script src="script.js"></script>
 
 </body>
 
