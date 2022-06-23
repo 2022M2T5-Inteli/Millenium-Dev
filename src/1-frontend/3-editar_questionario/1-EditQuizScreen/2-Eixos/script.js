@@ -3,9 +3,9 @@ var currentAgendaId = sessionStorage.getItem("currentAgendaId");
 var eixos = [];
 
 // Cria um elemento Card e retorna o HTML deste elemento
-function createSectionCard(sectionId, sectionName, questionsAmount) {
-  let cardElement = `<div class="card col-12 col-lg-2 m-5 p-4 section-card" id="sectionCard${sectionId}" onclick="setEixoAndRedirect(${sectionId},'${sectionName}')">
-  <h3 class="section-name">${sectionName}</h3> <div><i class="fa-regular fa-pen-to-square"></i> <i class="bi bi-trash"></i></div> </div>`;
+function createSectionCard(sectionId, sectionName, maxGrade) {
+  let cardElement = `<div class="card col-12 col-lg-2 m-5 p-4 section-card" id="sectionCard${sectionId}">
+  <h3 class="section-name">${sectionName}</h3> <div><i class="fa-regular fa-pen-to-square" onclick="setEixoAndRedirect(${sectionId},'${sectionName}',${maxGrade})"></i> <i class="bi bi-trash" onclick="disableEixo(${sectionId}, '${sectionName}')"></i></div> </div>`;
   return cardElement;
 }
 
@@ -13,7 +13,7 @@ function createSectionCard(sectionId, sectionName, questionsAmount) {
 function createCardEixos() {
   $("#cardBox").empty();
   eixos.forEach((eixo) => {
-    let newSectionCard = createSectionCard(eixo.id, eixo.nome, eixo.idAgenda);
+    let newSectionCard = createSectionCard(eixo.id, eixo.nome, eixo.maxGrade);
     $("#cardBox").append(newSectionCard);
   });
 }
@@ -22,11 +22,11 @@ function createCardEixos() {
   e redireciona o document para a página de
  editar questões */
 
-function setEixoAndRedirect(idEixo, nomeEixo) {
+function setEixoAndRedirect(idEixo, nomeEixo, maxGrade) {
   sessionStorage.setItem("currentEixoId", idEixo);
   sessionStorage.setItem("currentEixoNome", nomeEixo);
-  window.location.href =
-    "../3-Dominios";
+  sessionStorage.setItem("currentEixoMaxGrade", maxGrade);
+  window.location.href = "../3-Dominios";
 }
 
 // Chama uma série de funções após a página estar
@@ -70,6 +70,13 @@ var Eixos = {
       data: { nome: nome, idAgenda: idAgenda, maxGrade: maxGrade },
     });
   },
+  async delete(idEixo) {
+    return await $.ajax({
+      type: "POST",
+      url: API_BASE_URL + "/eixos/delete",
+      data: { idEixo: idEixo },
+    });
+  },
 };
 
 function criarEixoButton() {
@@ -89,9 +96,30 @@ function criarEixoButton() {
     },
     allowOutsideClick: () => !Swal.isLoading(),
   }).then((result) => {
-    console.log(result, "resultaddoooodfodoashdakjsdhkahsd");
     if (result.isConfirmed) {
       Eixos.list();
+    }
+  });
+}
+
+function disableEixo(idEixo, nomeEixo) {
+  Swal.fire({
+    title: `Tem certeza de que você quer remover o eixo "${nomeEixo}" ?`,
+    icon: "warning",
+    html: "<p>Todas as questões pertencentes à esse eixo também serão removidas.</p>",
+    showCancelButton: true,
+    cancelButtonText: "Cancelar",
+    confirmButtonText: "Remover",
+  }).then(async (result) => {
+    /* Read more about isConfirmed, isDenied below */
+    if (result.isConfirmed) {
+      try {
+        await Eixos.delete(idEixo);
+        showSuccess("Eixo removido com sucesso!");
+        Eixos.list();
+      } catch (err) {
+        showError("Erro!", err.message);
+      }
     }
   });
 }

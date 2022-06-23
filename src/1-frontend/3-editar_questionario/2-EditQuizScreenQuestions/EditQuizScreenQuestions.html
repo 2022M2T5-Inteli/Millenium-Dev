@@ -33,6 +33,11 @@
   <!--jquery-->
   <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
   <script src="../../constants.js"></script>
+
+  <!--Modais de alerta-->
+  <script src="https://cdn.jsdelivr.net/npm/sweetalert2@10.10.1/dist/sweetalert2.all.min.js"></script>
+  <link rel='stylesheet' href='https://cdn.jsdelivr.net/npm/sweetalert2@10.10.1/dist/sweetalert2.min.css'>
+
   <link rel="stylesheet" href="./EditQuizScreenQuestions.css" />
   <title>Editar Questionário Questões Lista</title>
 </head>
@@ -45,22 +50,15 @@
     <div class="modal-dialog modal-dialog-centered modal-lg">
       <div class="modal-content">
         <div class="modal-header">
-          <select class="form-select" id="questionDominioSelect" aria-label="Seletor do domínio da questão">
-            <option selected>Domínio da questão</option>
-            <option value="1">Atrair e Interagir</option>
-            <option value="2">Sistema de Gestão</option>
-            <option value="3">Pessoas</option>
-            <option value="4">etc etc etc</option>
-
-          </select>
           <div class="col-4">
-            <select class="form-select" id="questionWeightSelect" aria-label="Seletor do peso da questão">
+            <!-- <select class="form-select" id="questionWeightSelect" aria-label="Seletor do peso da questão">
               <option selected>Peso da questão</option>
               <option value="1">Peso 1</option>
               <option value="2">Peso 2</option>
               <option value="3">Peso 3</option>
               <option value="4">Peso 4</option>
-            </select>
+            </select> -->
+            <label>Peso da Questão</label> <input type="number" class="input-group" id="questionWeightSelect">
           </div>
           <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
         </div>
@@ -85,7 +83,7 @@
 
                   <div class="row">
                     <div class="col-3">
-                      <select class="form-select" aria-label=".form-select-sm example">
+                      <select class="form-select" aria-label=".form-select-sm example" id="questionOptionPoints">
                         <option selected>Pontos</option>
                         <option value="1">1 ponto</option>
                         <option value="2">2 pontos</option>

@@ -5,8 +5,8 @@ var dominios = [];
 
 // Cria um elemento Card e retorna o HTML deste elemento
 function createSectionCard(sectionId, sectionName, questionsAmount) {
-  let cardElement = `<div class="card col-12 col-lg-2 m-5 p-4 section-card" id="sectionCard${sectionId}" onclick="setDominioAndRedirect(${sectionId},'${sectionName}')">
-  <h3 class="section-name">${sectionName}</h3> <div><i class="fa-regular fa-pen-to-square"></i> <i class="bi bi-trash"></i></div> </div>`;
+  let cardElement = `<div class="card col-12 col-lg-2 m-5 p-4 section-card" id="sectionCard${sectionId}">
+  <h3 class="section-name">${sectionName}</h3> <div><i class="fa-regular fa-pen-to-square" onclick="setDominioAndRedirect(${sectionId},'${sectionName}')"></i> <i class="bi bi-trash" onclick="disableDominio(${sectionId}, '${sectionName}')"></i></div> </div>`;
   return cardElement;
 }
 
@@ -71,6 +71,13 @@ var Dominios = {
       data: { nome: nome, idEixo: idEixo },
     });
   },
+  async delete(idDominio) {
+    return await $.ajax({
+      type: "POST",
+      url: API_BASE_URL + "/dominios/delete",
+      data: { idDominio: idDominio },
+    });
+  },
 };
 
 function criarDominioButton() {
@@ -90,6 +97,28 @@ function criarDominioButton() {
     console.log(result, "resultaddoooodfodoashdakjsdhkahsd");
     if (result.isConfirmed) {
       Dominios.list();
+    }
+  });
+}
+
+function disableDominio(idDominio, nomeDominio) {
+  Swal.fire({
+    title: `Tem certeza de que você quer remover a seção "${nomeDominio}" ?`,
+    icon: "warning",
+    html: "<p>Todas as questões pertencentes à essa seção também serão removidas.</p>",
+    showCancelButton: true,
+    cancelButtonText: "Cancelar",
+    confirmButtonText: "Remover",
+  }).then(async (result) => {
+    /* Read more about isConfirmed, isDenied below */
+    if (result.isConfirmed) {
+      try {
+        await Dominios.delete(idDominio);
+        showSuccess("Seção removida com sucesso!");
+        Dominios.list();
+      } catch (err) {
+        showError("Erro!", err.message);
+      }
     }
   });
 }
