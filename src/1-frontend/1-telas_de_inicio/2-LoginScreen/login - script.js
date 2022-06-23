@@ -75,7 +75,13 @@ var LoginScreen = {
       url: API_BASE_URL + "/usuarios/rede/login",
       data: { email: email },
       success: function (resultados) {
-        console.log(resultados);
+        if (resultados.data.id) {
+          Swal.fire({
+            icon: "success",
+            title: "Rede Logada com Sucesso!",
+            text: "Redirecionando...",
+          }).then((result) => {});
+        }
       },
     });
   },

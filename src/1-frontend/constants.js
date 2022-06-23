@@ -1,4 +1,4 @@
-var PORT = 5000;
+var PORT = 1234;
 var API_BASE_URL = `http://localhost:${PORT}`;
 
 function showError(title, message) {

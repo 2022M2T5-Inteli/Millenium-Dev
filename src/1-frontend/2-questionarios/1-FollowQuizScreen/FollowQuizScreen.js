@@ -1,5 +1,3 @@
-var port = 5000;
-var API = `http://127.0.0.1:${port}`;
 var card = [];
 var nQuest = [];
 var pTotal = Number(0);
@@ -29,7 +27,7 @@ var questionario = {
   async list(idEscola) {
     console.log("nem ajax" + idEscola);
     const data = await $.ajax({
-      url: API + `/escolas/escola/${idEscola}/questionariosAbertos`,
+      url: API_BASE_URL + `/escolas/escola/${idEscola}/questionariosAbertos`,
       type: "GET",
       success: (data) => {
         data.questionarios.forEach((element) => {
@@ -55,7 +53,7 @@ var agendas = {
   async list3(idQuestionarioCurrent) {
     $.ajax({
       url:
-        API +
+        API_BASE_URL +
         `/questionarios/questionario/${idQuestionarioCurrent}/respostas/agendas`,
       type: "GET",
       success: (data) => {
@@ -78,7 +76,7 @@ var progress = {
     let progressEixo = 0;
     const data = await $.ajax({
       url:
-        API +
+        API_BASE_URL +
         `/questionarios/questionario/${await questionario.list(
           sessionStorage.getItem("idEscola")
         )}/respostas/eixo/${eixo}`,
@@ -123,7 +121,8 @@ var eixos = {
     if (agenda == 0) {
       const data = await $.ajax({
         url:
-          API + `/questionarios/questionario/${idQuestionario}/respostas/eixos`,
+          API_BASE_URL +
+          `/questionarios/questionario/${idQuestionario}/respostas/eixos`,
         type: "GET",
       });
       for (i = 0; i < data.eixos.length; i++) {
@@ -181,7 +180,7 @@ var eixos = {
     } else {
       await $.ajax({
         url:
-          API +
+          API_BASE_URL +
           `/questionarios/questionario/${idQuestionario}/respostas/agendas/${agenda}/eixos`,
         type: "GET",
         success: async (data) => {
@@ -270,7 +269,7 @@ function finish() {
 async function questionarioDone() {
   try {
     await $.ajax({
-      url: API + "/questionarios/close",
+      url: API_BASE_URL + "/questionarios/close",
       type: "POST",
       data: { id: idQuestionario },
     });

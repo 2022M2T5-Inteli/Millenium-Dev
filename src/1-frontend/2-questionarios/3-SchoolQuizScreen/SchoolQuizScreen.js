@@ -1,5 +1,3 @@
-var port = 5000;
-var API = `http://127.0.0.1:${port}`;
 var nQuest = 0;
 var textoQuestao = {};
 var idQuestionario = sessionStorage.getItem("idQuestionario");
@@ -18,7 +16,7 @@ var schoolQuestion = {
     $.ajax({
       type: "GET",
       url:
-        API +
+        API_BASE_URL +
         `/questionarios/questionario/${idQuestionario}/respostas/eixo/` +
         idEixo,
       success: function (resultados) {
@@ -91,7 +89,7 @@ var respostas = {
   list(idQuestao) {
     $.ajax({
       type: "GET",
-      url: `${API}/opcoes/listByQustao/${idQuestao}`,
+      url: `${API_BASE_URL}/opcoes/listByQustao/${idQuestao}`,
       success: (data) => {
         document.getElementById("respostas").innerHTML = ``;
         nAlternativa = 0;
@@ -126,7 +124,7 @@ async function entregaAlternativa() {
     if (idQuestao) {
       await $.ajax({
         type: "POST",
-        url: `${API}/respostas/create`,
+        url: `${API_BASE_URL}/respostas/create`,
         data: {
           idQuestionario: idQuestionario,
           observacao: document.getElementById("w3review").value,
