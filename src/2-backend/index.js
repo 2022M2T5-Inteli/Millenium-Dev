@@ -6,7 +6,7 @@ const urlencodedParser = bodyParser.urlencoded({ extended: false });
 const app = express();
 
 const HOSTNAME = "127.0.0.1";
-const PORT = 5000;
+const PORT = 1234;
 
 /* Servidor aplicação */
 
@@ -33,7 +33,7 @@ app.use("/opcoes", urlencodedParser, opcoesRoute);
 app.use("/questoes", urlencodedParser, questoesRoute);
 app.use("/escolas", urlencodedParser, escolasRoute);
 app.use("/questionarios", urlencodedParser, questionariosRoute);
-app.use("/respostas", urlencodedParser, respostasRoute)
+app.use("/respostas", urlencodedParser, respostasRoute);
 app.use("/dominios", urlencodedParser, dominiosRoute);
 app.use("/agendas", urlencodedParser, agendasRoute);
 

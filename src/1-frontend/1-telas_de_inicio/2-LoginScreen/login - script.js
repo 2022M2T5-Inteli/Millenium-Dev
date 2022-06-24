@@ -1,82 +1,109 @@
 //Cria uma função para comparar o email inserido com o padrão
+sessionStorage.clear();
+
 function verify(input) {
-    let pattern = /\S+@\S+\.\S+/;
-    return pattern.test(input);
-  }
-  
+  let pattern = /\S+@\S+\.\S+/;
+  return pattern.test(input);
+}
+
 //Cria uma função para determinar qual ação tomar depois de verificar o email
 function show(param) {
-if (param) {
+  if (param) {
     var email = document.getElementById("floatingInput").value;
-    insertItemInSessionStorage("email", email);
-    
-}
-else {
+    var loginType = document.querySelector(
+      'input[name="schoolType"]:checked'
+    ).value;
+
+    console.log(loginType);
+    if (loginType == "escola") {
+      return LoginScreen.loginEscola(email);
+    }
+    if (loginType == "rede") {
+      return LoginScreen.loginRede(email);
+    }
+
+    if (loginType == "falconi") {
+      return LoginScreen.loginFalconi(email);
+    }
+  } else {
     Swal.fire({
-    icon: 'error',
-    title: 'Oops...',
-    text: 'Formato de email inválido',
-    })
+      icon: "error",
+      title: "Oops...",
+      text: "Formato de email inválido",
+    });
+  }
 }
-}
-  
+
 // Criar uma função para o botão proximo
 // Pega os valores do input e salva na sessionStorage do navegador
 function buttonEntrar() {
-let result = verify(document.getElementById("floatingInput").value);
-show(result);
+  let result = verify(document.getElementById("floatingInput").value);
+  show(result);
 }
 
-
-
-  var loginScreen = {
-    loginEscola(loginId) {
-      $.ajax({
-        type: "POST",
-        url:  API_BASE_URL + "/escola/login/" + loginId,
-        data: {'idLogin': idLogin },
-        success: function (resultados) {
-          resultados.login.forEach((login) => {
-            var element = `<id="floatingInput" placeholder="millenium@example.com">${login.loginId}`;
-            document.postElementById("list").innerHTML += element;
-            
-  
-
+var LoginScreen = {
+  loginEscola(email) {
+    $.ajax({
+      type: "POST",
+      url: API_BASE_URL + "/usuarios/escola/login",
+      data: { email: email },
+      success: function (resultados) {
+        if (resultados.data) {
+          if (resultados.data.idEscola) {
+            Swal.fire({
+              icon: "success",
+              title: "Usuário Logado com Sucesso!",
+              text: "Redirecionando...",
+            }).then((result) => {
+              sessionStorage.setItem("userId", resultados.data.id);
+              sessionStorage.setItem("idEscola", resultados.data.idEscola);
+              sessionStorage.setItem("userName", resultados.data.nome);
+              sessionStorage.setItem("nomeEscola", resultados.data.nomeEscola);
+              document.location.href = "../5-SchoolChooseActionScreen/";
+            });
+          }
+        }
+      },
+      error: function (err) {
+        console.log(err);
+      },
+    });
+  },
+  loginRede(email) {
+    $.ajax({
+      type: "POST",
+      url: API_BASE_URL + "/usuarios/rede/login",
+      data: { email: email },
+      success: function (resultados) {
+        if (resultados.data.id) {
+          Swal.fire({
+            icon: "success",
+            title: "Rede Logada com Sucesso!",
+            text: "Redirecionando...",
+          }).then((result) => {});
+        }
+      },
+    });
+  },
+  loginFalconi(email) {
+    $.ajax({
+      type: "POST",
+      url: API_BASE_URL + "/usuarios/falconi/login",
+      data: { email: email },
+      success: function (resultados) {
+        if (resultados.data.id) {
+          Swal.fire({
+            icon: "success",
+            title: "Usuário Logado com Sucesso!",
+            text: "Redirecionando...",
+          }).then((result) => {
+            sessionStorage.setItem("userId", resultados.data.id);
+            sessionStorage.setItem("userName", resultados.data.nome);
+            document.location.href =
+              "../../3-editar_questionario/1-EditQuizScreen/1-Agendas/";
           });
-        },
-      });
-    },
-    loginRede(loginId) {
-      $.ajax({
-        type: "POST",
-        url:  API_BASE_URL + "/rede/login/" + loginId,
-        data: {'idLogin': idLogin },
-        success: function (resultados) {
-          resultados.login.forEach((login) => {
-            var element = `<id="floatingInput" placeholder="millenium@example.com">${login.loginId}`;
-            document.postElementById("list").innerHTML += element;
-            
-  
-
-          });
-        },
-      });
-    },
-    loginFalconi(loginId) {
-      $.ajax({
-        type: "POST",
-        url:  API_BASE_URL + "/Falconi/login/" + loginId,
-        data: {'idLogin': idLogin },
-        success: function (resultados) {
-          resultados.login.forEach((login) => {
-            var element = `<id="floatingInput" placeholder="millenium@example.com">${login.loginId}`;
-            document.postElementById("list").innerHTML += element;
-            
-  
-
-          });
-        },
-      });
-    },
-  };
-  
+        }
+      },
+    });
+  },
+};

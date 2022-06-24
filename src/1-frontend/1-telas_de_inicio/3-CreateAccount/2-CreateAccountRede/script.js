@@ -6,7 +6,13 @@ var contaRede = {
       url: API_BASE_URL + "/usuarios/rede/create",
       data: { nome: nome, email: email },
       success: function (resultado) {
-        alert("Conta criada com Sucesso!");
+        Swal.fire({
+          icon: "success",
+          title: "Rede Criada com Sucesso!",
+          text: "Redirecionando...",
+        }).then((result) => {
+          document.location.href = "../../2-LoginScreen/";
+        });
       },
       error: function (err) {
         alert("Erro ao criar a conta!");
@@ -21,7 +27,7 @@ var inputChecked = false;
 
 //Cria uma função para comparar o email inserido com o padrão
 function verifyEmail(input) {
-  let pattern = new RegExp('[a-z0-9]+@[a-z]+\.[a-z]');
+  let pattern = new RegExp("[a-z0-9]+@[a-z]+.[a-z]");
   return pattern.test(input);
 }
 
@@ -29,13 +35,12 @@ function verifyEmail(input) {
 function showEmail(param) {
   if (param) {
     emailChecked = true;
-  }
-  else {
+  } else {
     Swal.fire({
-      icon: 'error',
-      title: 'Oops...',
-      text: 'Formato de email inválido.',
-    })
+      icon: "error",
+      title: "Oops...",
+      text: "Formato de email inválido.",
+    });
     emailChecked = false;
   }
 }
@@ -51,14 +56,12 @@ function cadastroClick() {
 
   if (nome == "" || email == "") {
     Swal.fire({
-      icon: 'error',
-      title: 'Oops...',
-      text: 'Campo de resposta vazio.',
-    })
+      icon: "error",
+      title: "Oops...",
+      text: "Campo de resposta vazio.",
+    });
     inputChecked = false;
-  }
-
-  else {
+  } else {
     inputChecked = true;
   }
 
@@ -69,9 +72,9 @@ function cadastroClick() {
   //Verifica se o email e o input estão incorretos para exibir o alerta
   if (emailChecked == false && inputChecked == false) {
     Swal.fire({
-      icon: 'error',
-      title: 'Oops...',
-      text: 'Formato de email inválido e campo de resposta vazio.',
-    })
+      icon: "error",
+      title: "Oops...",
+      text: "Formato de email inválido e campo de resposta vazio.",
+    });
   }
 }
