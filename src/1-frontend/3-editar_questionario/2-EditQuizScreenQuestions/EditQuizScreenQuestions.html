@@ -11,7 +11,7 @@
     integrity="sha384-ka7Sk0Gln4gmtz2MlQnikT1wXgYsOg+OMhuP+IlRH9sENBO0LRn5q+8nbTov4+1p"
     crossorigin="anonymous"></script>
 
-  
+
   <!--Font awesome-->
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.1.1/css/all.min.css"
     integrity="sha512-KfkfwYDsLkIlwQp6LFnl8zNdLGxu9YAA1QvwINks4PhcElQSvqcyVLLD9aMhXd13uQjoXtEKNosOWaZqXgel0g=="
@@ -33,6 +33,11 @@
   <!--jquery-->
   <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
   <script src="../../constants.js"></script>
+
+  <!--Modais de alerta-->
+  <script src="https://cdn.jsdelivr.net/npm/sweetalert2@10.10.1/dist/sweetalert2.all.min.js"></script>
+  <link rel='stylesheet' href='https://cdn.jsdelivr.net/npm/sweetalert2@10.10.1/dist/sweetalert2.min.css'>
+
   <link rel="stylesheet" href="./EditQuizScreenQuestions.css" />
   <title>Editar Questionário Questões Lista</title>
 </head>
@@ -45,22 +50,15 @@
     <div class="modal-dialog modal-dialog-centered modal-lg">
       <div class="modal-content">
         <div class="modal-header">
-          <select class="form-select" id="questionDominioSelect" aria-label="Seletor do domínio da questão">
-            <option selected>Domínio da questão</option>
-            <option value="1">Atrair e Interagir</option>
-            <option value="2">Sistema de Gestão</option>
-            <option value="3">Pessoas</option>
-            <option value="4">etc etc etc</option>
-
-          </select>
           <div class="col-4">
-            <select class="form-select" id="questionWeightSelect" aria-label="Seletor do peso da questão">
+            <!-- <select class="form-select" id="questionWeightSelect" aria-label="Seletor do peso da questão">
               <option selected>Peso da questão</option>
               <option value="1">Peso 1</option>
               <option value="2">Peso 2</option>
               <option value="3">Peso 3</option>
               <option value="4">Peso 4</option>
-            </select>
+            </select> -->
+            <label>Peso da Questão</label> <input type="number" class="input-group" id="questionWeightSelect">
           </div>
           <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
         </div>
@@ -85,7 +83,7 @@
 
                   <div class="row">
                     <div class="col-3">
-                      <select class="form-select" aria-label=".form-select-sm example">
+                      <select class="form-select" aria-label=".form-select-sm example" id="questionOptionPoints">
                         <option selected>Pontos</option>
                         <option value="1">1 ponto</option>
                         <option value="2">2 pontos</option>
@@ -147,7 +145,7 @@
       <div class="p-3 col-12 col-lg-4 justify-content-center justify-content-lg-start d-flex" id="leftSection">
         <!-- seção da esquerda -->
         <div class="d-flex justify-content-center align-items-center" id="backButton"
-          onclick="redirect('../1-EditQuizScreen/editQuizScreen.html')">
+          onclick="redirect('./../1-EditQuizScreen/3-Dominios')">
           <!-- seta voltar -->
           <i class="fa-solid fa-arrow-left-long"></i> <!-- ícone da seta -->
         </div>
@@ -186,11 +184,7 @@
           <h4>Número de Identificação</h4>
         </div>
 
-        <div class="col-lg-3 p-4">
-          <h4>Domínio</h4>
-        </div>
-
-        <div class="col-lg-3 p-4">
+        <div class="col-lg-6 p-4">
           <h4>Pergunta</h4>
         </div>
 

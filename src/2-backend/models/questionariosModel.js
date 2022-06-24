@@ -53,7 +53,7 @@ const createNewQuestionario = async (escolaId) => {
 };
 
 const closeQuestionario = async (id) => {
-  console.log(id)
+  console.log(id);
   let db = await Database.open(DBPATH);
   let sql = "UPDATE Questionario SET isComplete = 1 WHERE id = ?";
 
@@ -61,7 +61,7 @@ const closeQuestionario = async (id) => {
   let params = [];
 
   // add elements to the params list
-  console.log("aqui"+id)
+  console.log("aqui" + id);
   params.push(id);
   return await db.all(sql, params);
 };
@@ -114,6 +114,46 @@ const listQuestionarioRespostasByAgenda = async (questionarioId, idAgenda) => {
     resposta.idAlternativa ? answeredQuestions++ : unansweredQuestions++;
   });
   return { respostas, answeredQuestions, unansweredQuestions };
+};
+
+const listQuestionarioAgendas = async (questionarioId) => {
+  let db = await Database.open(DBPATH);
+  let sql =
+    "SELECT * From Agenda a WHERE a.id IN (SELECT e.idAgenda FROM Resposta r JOIN Questao q ON r.idQuestao=q.id JOIN Dominio d ON q.idDominio=d.id JOIN Eixo e ON d.idEixo = e.id WHERE r.idQuestionario = ?)";
+  let params = [];
+  params.push(questionarioId);
+
+  // verifies if the questionario exists
+  await getQuestionarioById(questionarioId);
+  const agendas = await db.all(sql, params);
+  return { agendas };
+};
+
+const listQuestionarioEixos = async (questionarioId) => {
+  let db = await Database.open(DBPATH);
+  let sql =
+    "SELECT * From Eixo e WHERE e.id IN (SELECT e.id FROM Resposta r JOIN Questao q ON r.idQuestao=q.id JOIN Dominio d ON q.idDominio=d.id JOIN Eixo e ON d.idEixo = e.id WHERE r.idQuestionario = ?)";
+  let params = [];
+  params.push(questionarioId);
+
+  // verifies if the questionario exists
+  await getQuestionarioById(questionarioId);
+  const eixos = await db.all(sql, params);
+  return { eixos };
+};
+
+const listQuestionarioEixosByAgenda = async (questionarioId, idAgenda) => {
+  let db = await Database.open(DBPATH);
+  let sql =
+    "SELECT * From Eixo e WHERE e.id IN (SELECT e.id FROM Resposta r JOIN Questao q ON r.idQuestao=q.id JOIN Dominio d ON q.idDominio=d.id JOIN Eixo e ON d.idEixo = e.id WHERE r.idQuestionario = ? AND e.idAgenda= ?)";
+  let params = [];
+  params.push(questionarioId);
+  params.push(idAgenda);
+
+  // verifies if the questionario exists
+  await getQuestionarioById(questionarioId);
+  const eixos = await db.all(sql, params);
+  return { eixos };
 };
 
 const listQuestionarioRespostasByEixo = async (questionarioId, eixoId) => {
@@ -263,4 +303,7 @@ module.exports = {
   listQuestionarioRespostasByEixo,
   listQuestionarioRespostasByAgenda,
   processQuestionarioResultado,
+  listQuestionarioAgendas,
+  listQuestionarioEixos,
+  listQuestionarioEixosByAgenda,
 };

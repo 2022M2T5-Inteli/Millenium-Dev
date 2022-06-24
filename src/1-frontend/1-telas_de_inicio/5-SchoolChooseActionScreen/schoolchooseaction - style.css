@@ -25,7 +25,7 @@ a:hover {
   color: inherit;
 }
 
-#button {
+.button-options {
   text-align: center;
   -webkit-box-shadow: 0px 0px 15px -5px rgba(0, 0, 0, 0.9);
   box-shadow: 0px 0px 10px -5px rgba(0, 0, 0, 0.9);
@@ -38,7 +38,7 @@ a:hover {
   color: #579a99;
 }
 
-#button:hover {
+.button-options:hover {
   background-color: #579a99;
   color: white;
   transform: scale(0.98, 0.98);

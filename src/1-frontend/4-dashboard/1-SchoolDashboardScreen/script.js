@@ -1,5 +1,5 @@
-var escolaId = 0;
-var userId = 1;
+var escolaId = sessionStorage.getItem("idEscola");
+var userId = sessionStorage.getItem("userId");
 
 var consolidatedAgendas = [];
 var nonconsolidatedAgendas = [];
