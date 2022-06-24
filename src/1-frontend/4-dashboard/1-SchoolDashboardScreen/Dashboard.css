@@ -1,6 +1,8 @@
 h1,
 h3 {
   font-family: "Inter", sans-serif;
+  color: #0e7e7a;
+  font-weight: bold;
 }
 
 h5,
@@ -8,6 +10,8 @@ h6,
 select,
 button {
   font-family: "Raleway", sans-serif;
+  color: #0e7e7a;
+
   font-weight: bold;
 }
 
@@ -15,6 +19,9 @@ button {
   background-color: #efefef;
   border-radius: 12px;
   font-family: "Raleway", sans-serif;
+  background-color: #7bbfbe5f !important;
+  color: #2b4b4c;
+  font-weight: bold;
 }
 
 .button-container {
@@ -25,7 +32,8 @@ button {
 }
 
 .button-container:hover {
-  background-color: #5c78a5;
+  background-color: #579a99;
+  cursor: pointer;
   color: white;
 }
 
@@ -60,8 +68,8 @@ button {
 }
 
 .grade-evaluate-table {
-  max-height: 34rem;
-  width: 55rem;
+  height: 34rem;
+  width: 50rem;
   margin-left: 2rem;
   margin-top: 1rem;
   margin-bottom: 1rem;
@@ -99,6 +107,7 @@ button {
   font-size: 1.6rem;
   box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2);
   transition: ease all 0.2s;
+  color: #4e8988;
 }
 
 #backButton:hover {

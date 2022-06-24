@@ -4,6 +4,9 @@ h1 {
   padding-bottom: 1rem;
   padding-top: 2rem;
   text-align: center;
+  color: #579a99;
+  font-weight: bold;
+
 }
 a,
 a:link,
@@ -15,6 +18,7 @@ a:hover {
 h6 {
   font-family: "Raleway", sans-serif;
   font-weight: bold;
+  color:#579a99;
 }
 
 #icone {
@@ -39,19 +43,17 @@ h6 {
   padding-right: 1rem;
 }
 
-.buttonCadastrar {
-  color: #579a99; 
-  background-color: #ffffff;
-  border-style: none;
-  border-radius: 12px;
-  border-style: none;
-  padding: 0.9rem 1.9rem;
-  font-family: "Inter", sans-serif;
+
+.buttonCadastrar{
+  border-radius: 5px;
+  font-family: "Raleway", sans-serif;
   font-weight: bold;
-  transition: ease all 0.2s;
-  padding: 5px 10px;
-  margin-top: 2rem;
+  border-style: none;
   box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2);
+  transition: ease all 0.2s;
+  padding: 0.5em;
+  color:#579a99;
+  margin-top: 3rem;
 }
 
 .buttonCadastrar:hover {
@@ -83,6 +85,7 @@ h6 {
   font-size: 1.6rem;
   box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2);
   transition: ease all 0.2s;
+  color:#579a99;
 }
 
 #backButton:hover {
@@ -93,3 +96,8 @@ h6 {
   color: white;
 }
 
+label{
+  color:#579a99;
+  font-weight: bold;
+  margin-top: 2rem;
+}

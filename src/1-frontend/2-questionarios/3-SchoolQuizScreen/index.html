@@ -29,56 +29,62 @@
   <!--adição no head*//-->
 </head>
 
-<body style="margin: 20px;">
-  <div class="container-fluid" id="topo-tela">
-    <div class="row m-auto">
-      <div class="col"><a href="../1-FollowQuizScreen/"><i class="fa-solid fa-arrow-left-long" id="icon"
-            type="button"></i></a></div>
-      <div class="col-7" id="n-pergunta">
-        <div class="container-fluid">
-          <div class="col-4">
-            <nav aria-label="Page navigation example" id="test123">
-              <ul id="paginas" class="pagination">
-
-              </ul>
-            </nav>
+<body >
+  <div class="container-fluid d-flex flex-column" id="mainContainer">
+    <div class="container-fluid" id="topo-tela">
+      <div class="row m-auto">
+        <div class="d-flex justify-content-start align-items-start" id="backButton">
+          <a href="../1-FollowQuizScreen/">
+          <i class="fa-solid fa-arrow-left-long" id="icon"
+              type="button"></i>
+            </a>
+          </div>
+        <div class="col-7" id="n-pergunta">
+          <div class="container-fluid">
+            <div class="col-4">
+            </div>
           </div>
         </div>
       </div>
     </div>
-  </div>
-  <div class="container-fluid d-flex justify-content-start">
-    <div class="row d-flex col-8" id="question-box">
-      <div class="col-12 d-flex align-items-center p-3" id="question-box-header">
-        <h5 class="m-0" id="titulo">
-          Sistema de Gestão
-        </h5>
-      </div>
-      <div class="col-12 d-flex flex-column p-2" id="question-box-body">
+    <div class="container-fluid d-flex flex-column justify-content-center align-items-center" id="content">
+      <nav aria-label="Page navigation example" id="test123">
+        <ul id="paginas" class="pagination">
+
+        </ul>
+      </nav>
+      <div class="row d-flex col-lg-6 col-12" id="question-box">
+        <div class="col-12 d-flex align-items-center p-3" id="question-box-header">
+          <h4 class="m-0" id="titulo">
+            Sistema de Gestão
+          </h4>
+        </div>
+        <div class="col-12 d-flex flex-column p-2" id="question-box-body">
 
 
-        <p class="col-11" id="pergunta" id="gray">
+          <h5 class="col-11" id="pergunta" id="gray">
 
+          </h5>
+          <div class="col-11" id="respostas">
+
+          </div>
+          <div style="width: 160px; height: 120px;">
+            <p class="w-44 h-12 text-2xl font-bold leading-10 text-center text-gray-400">Observações:</p>
+            <div class="bg-gray-200" style="width: 300px; margin-left: 2rem; height: 74px;" />
+            <div>
+              </p>
+              <textarea class="container-fluid" id="w3review" name="w3review" rows="4" cols="50"></textarea>
+              <br>
+              </form>
+            </div>
+            </label>
+          </div>
+        </div>
         </p>
-        <div class="col-11" id="respostas">
-
-        </div>
-        <div style="width: 160px; height: 120px;">
-          <p class="w-44 h-12 text-2xl font-bold leading-10 text-center text-gray-400">Observações:</p>
-          <div class="bg-gray-200" style="width: 300px; margin-left: 2rem; height: 74px;" />
-          <div>
-            </p>
-            <textarea class="container-fluid" id="w3review" name="w3review" rows="4" cols="50"></textarea>
-            <br>
-            </form>
-          </div>
-          </label>
-        </div>
       </div>
-      </p>
+      <p align="right">
+        <button id="button4" type="button4" onclick="entregaAlternativa()">Próxima</button>
     </div>
-    <p align="right">
-      <button id="button4" type="button4" onclick="entregaAlternativa()">Próxima</button>
   </div>
   </div>
   </div>

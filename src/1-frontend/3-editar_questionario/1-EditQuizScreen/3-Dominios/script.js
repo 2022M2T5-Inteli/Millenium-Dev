@@ -5,8 +5,17 @@ var dominios = [];
 
 // Cria um elemento Card e retorna o HTML deste elemento
 function createSectionCard(sectionId, sectionName, questionsAmount) {
-  let cardElement = `<div class="card col-12 col-lg-2 m-5 p-4 section-card" id="sectionCard${sectionId}">
-  <h3 class="section-name">${sectionName}</h3> <div><i class="fa-regular fa-pen-to-square" onclick="setDominioAndRedirect(${sectionId},'${sectionName}')"></i> <i class="bi bi-trash" onclick="disableDominio(${sectionId}, '${sectionName}')"></i></div> </div>`;
+  let cardElement = `
+  <div class="card col-12 col-lg-2 m-5 p-4 section-card" id="sectionCard${sectionId}">
+  <h3 class="section-name">${sectionName}</h3>
+  <div class="d-flex justify-content-center align-items-center">
+  <div><i class="fa-regular fa-pen-to-square icon" onclick="setDominioAndRedirect(${sectionId},'${sectionName}')"></i>
+  </div>
+  <div>
+  <i class="fa-solid fa-trash-can icon" onclick="disableDominio(${sectionId}, '${sectionName}')"></i>
+  </div>
+  </div>
+  </div>`;
   return cardElement;
 }
 
