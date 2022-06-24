@@ -3,7 +3,17 @@ var agendas = [];
 // Cria um elemento Card e retorna o HTML deste elemento
 function createSectionCard(sectionId, sectionName, questionsAmount) {
   let cardElement = `<div class="card col-12 col-lg-2 m-5 p-4 section-card" id="sectionCard${sectionId}">
-  <h3 class="section-name">${sectionName}</h3> <div><i class="fa-regular fa-pen-to-square" onclick="setAgendaAndRedirect(${sectionId},'${sectionName}')"></i> <i class="bi bi-trash" onclick="disableAgenda(${sectionId}, '${sectionName}')"></i></div> </div>`;
+  <h3 class="section-name">${sectionName}</h3>
+  <div>
+  <div class="d-flex justify-content-center align-items-center">
+  <div>
+  <i class="fa-regular fa-pen-to-square icon" onclick="setAgendaAndRedirect(${sectionId},'${sectionName}')"></i>
+  </div>
+  <div>
+  <i class="fa-solid fa-trash-can icon" onclick="disableAgenda(${sectionId}, '${sectionName}')"></i>
+  </div>
+  </div>
+  </div>`;
   return cardElement;
 }
 
