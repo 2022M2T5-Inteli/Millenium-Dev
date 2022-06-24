@@ -244,10 +244,11 @@ var questoes = {
         idEixo,
         id: idQuestao,
       },
-      success: (response) => {
+      success: async (response) => {
         console.log(texto);
-        opcoes.forEach((opcao) => {
-          opcoesQuestion.update(
+        for (i = 0; i < opcoes.length; i++) {
+          const opcao = opcoes[i];
+          await opcoesQuestion.update(
             opcao.texto,
             numeroQuestao,
             opcao.pontuacao,
@@ -256,15 +257,17 @@ var questoes = {
             idAutor,
             opcao.id
           );
-        });
-        createNewOptions.forEach((opcao) => {
-          opcoesQuestion.create(
+        }
+        for (i = 0; i < createNewOptions.length; i++) {
+          const opcao = createNewOptions[i];
+          await opcoesQuestion.create(
             opcao.texto,
             numeroQuestao,
             opcao.pontuacao,
             idAutor
           );
-        });
+        }
+        
         showSuccess("Questão Salva com Sucesso!");
         questionCards = [];
         currentQuestion = {};
@@ -305,17 +308,16 @@ var usuarioFalconi = {
 };
 
 var opcoesQuestion = {
-  update(texto, numeroQuestao, pontuacao, numeroAlt, idEixo, idAutor, idOpcao) {
-    console.log(
-      texto,
-      numeroQuestao,
-      pontuacao,
-      numeroAlt,
-      idEixo,
-      idAutor,
-      idOpcao
-    );
-    $.ajax({
+  async update(
+    texto,
+    numeroQuestao,
+    pontuacao,
+    numeroAlt,
+    idEixo,
+    idAutor,
+    idOpcao
+  ) {
+    await $.ajax({
       type: "POST",
       url: API_BASE_URL + "/opcoes/update",
       data: {
@@ -327,30 +329,23 @@ var opcoesQuestion = {
         idAutor,
         id: idOpcao,
       },
-    }).done(() => {
-      console.log(texto);
-      // toggleModal();
     });
   },
-  create(texto, numeroQuestao, pontuacao, idAutor) {
-    $.ajax({
+  async create(texto, numeroQuestao, pontuacao, idAutor) {
+    await $.ajax({
       type: "POST",
       url: API_BASE_URL + "/opcoes/create",
       data: { texto, numeroQuestao, pontuacao, idAutor },
-    }).done(() => {
-      console.log(texto);
-      // toggleModal();
     });
   },
-  disable(numeroAlt) {
-    $.ajax({
+  async disable(numeroAlt) {
+    await $.ajax({
       type: "POST",
       url: API_BASE_URL + "/opcoes/disable",
       data: { numeroAlt },
-    }).done(() => {
-      alert("Option Disabled!");
-      // toggleModal();
     });
+    alert("Option Disabled!");
+    // toggleModal();
   },
 };
 
