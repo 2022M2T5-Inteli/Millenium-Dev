@@ -53,9 +53,9 @@ exports.createOpcao = async (request, response) => {
   params.push(request.body.idAutor);
   // handles the api reponse status and body
   const rows = await db.all(sql, params);
+  await db.close();
   response.statusCode = 200;
   response.json({ rows });
-  db.close();
 };
 
 exports.updateOpcao = (request, response) => {
