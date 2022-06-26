@@ -11,16 +11,16 @@ h3 {
 
 h6 {
   font-family: "Raleway", sans-serif;
-  color:#82622d;
+  color: #82622d;
   font-weight: bold;
 }
 
-p{
-  color:#82622d;
-  font-weight:bold;
+p {
+  color: #82622d;
+  font-weight: bold;
 }
 
-#instructions{
+#instructions {
   font-weight: lighter;
 }
 
@@ -29,7 +29,7 @@ p{
   border-radius: 12px;
   font-family: "Raleway", sans-serif;
   padding: 16px;
-  color:#82622d;  
+  color: #82622d;
   font-weight: bold;
 }
 
@@ -41,7 +41,7 @@ p{
   font-size: 1.6rem;
   box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2);
   transition: ease all 0.2s;
-  color:#82622d;
+  color: #82622d;
 }
 
 #backButton:hover {
@@ -68,8 +68,7 @@ a:hover {
 #editBtn:hover {
   cursor: pointer;
   transform: scale(1.3, 1.3);
-  color:#82622d;
-
+  color: #82622d;
 }
 
 #trashBtn {
@@ -83,7 +82,7 @@ a:hover {
 #trashBtn:hover {
   cursor: pointer;
   transform: scale(1.3, 1.3);
-  color:#82622d;
+  color: #82622d;
 }
 
 #addBtn {
@@ -126,11 +125,10 @@ a:hover {
   color: white;
   margin-right: 10px;
   box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.1);
-
 }
 
 .add-button {
-  background-color: #0E7E7A;
+  background-color: #0e7e7a;
 }
 
 .operation-button:hover {
@@ -141,6 +139,10 @@ a:hover {
   background-color: #f0f0f0;
   border-radius: 10px;
   font-family: "Raleway", sans-serif;
+}
+
+.text-alternativa {
+  border: none;
 }
 
 #questionsWrapper {
@@ -190,13 +192,13 @@ h6 {
   margin: 0;
 }
 
-#questionOption0TextNew{
-  color:#ba9a48;
+#questionOption0TextNew {
+  color: #ba9a48;
 }
 
 .form-select {
   font-family: "Raleway", sans-serif;
-  color:#82622d;
+  color: #82622d;
 }
 
 ::-webkit-scrollbar {

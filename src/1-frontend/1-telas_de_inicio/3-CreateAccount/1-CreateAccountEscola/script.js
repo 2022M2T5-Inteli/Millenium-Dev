@@ -1,5 +1,5 @@
 $(document).ready(() => {
-  // Adiciona a função cadastroClick ao botão de cadastro
+  Rede.list();
 });
 
 //AJAX - criar conta Escola (Objeto responsável pelas requisições da conta usuário Escola)
@@ -69,6 +69,24 @@ var Escola = {
           text: "Erro ao criar a escola!",
         });
       },
+    });
+  },
+};
+
+var Rede = {
+  async list() {
+    const data = await $.ajax({
+      type: "GET",
+      url: API_BASE_URL + "/redes/list",
+    });
+    const redeSelector = document.getElementById("floatingInputRede");
+    redeSelector.innerHTML = `<option value="0" disabled selected>Selecione uma rede</option>
+    <option value="0">Não pertenço a nenhuma rede</option>`;
+    data.redes.forEach((rede) => {
+      const option = document.createElement("option");
+      option.value = rede.id;
+      option.textContent = `${rede.id} - ${rede.nome}`;
+      redeSelector.appendChild(option);
     });
   },
 };

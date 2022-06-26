@@ -192,6 +192,7 @@ function createQuestionarioCard(name, id) {
   cardContainer.append(buttonContainerElement);
   cardContainer.onclick = () => {
     clearPageContent();
+    idQuestionarioCurrent = id;
     Questionario.getResultado(id);
     document.getElementById(
       "pageResultadoHeader"
@@ -482,16 +483,22 @@ function createConsolidatedAgendaScreen(agendaObj) {
     );
 
     // Adiciona o resultado total do eixo
-    dominioLabelList.push("Total");
-    dominioValueList.push(eixo.nota);
+    let totalArray = [];
+    let totalValue = [];
+    // dominioLabelList.push("Total");
+    // dominioValueList.push(eixo.nota);
+
+    totalArray.push("Total");
+    totalValue.push(eixo.nota);
+
     maxGradeList.push(eixo.maxGrade);
     resultList.push(evaluateConsolidatedGrade(eixo.nota));
     const gradeTable = createGradeTable(
       eixo.nome,
       "Domínio",
-      dominioLabelList,
+      dominioLabelList.concat(totalArray),
       maxGradeList,
-      dominioValueList,
+      dominioValueList.concat(totalValue),
       resultList
     );
     document.getElementById("content-section").prepend(gradeTable);

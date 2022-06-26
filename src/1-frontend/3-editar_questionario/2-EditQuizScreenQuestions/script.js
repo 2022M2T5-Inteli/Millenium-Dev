@@ -75,13 +75,12 @@ function setQuestionModal(questionObj) {
 
   // Cria um elemento HTML para cada opcão
   questionOptionsList.forEach((questionOption) => {
-    console.log(questionOption);
     let radioButton = `<div class="p-2 d-flex" id="option${questionOption.id}Container">
     <div class="operation-button" id="removeOption0" onclick="removeOption(${questionOption.id},'${questionOption.texto}')"><i class="fa-solid fa-minus"></i></div>
     <div class="col-11">
       <input class="form-check-input" type="radio" name="flexRadioDefault" id="flexRadioOption${questionOption.id}">
-      <label class="form-check-label" contenteditable="true">
-        <p id="questionOption${questionOption.id}Text">${questionOption.texto}</p>
+      <label class="form-check-label row">
+        <textarea rows="2" id="questionOption${questionOption.id}Text" class="text-alternativa col-12">${questionOption.texto}</textarea>
       </label>
 
       <div class="row">
@@ -131,7 +130,6 @@ function openQuestion(questionId) {
     return obj.id == questionId;
   })[0];
   currentQuestion = questionObj;
-  console.log(questionObj);
   $.ajax({
     type: "GET",
     url: API_BASE_URL + `/questoes/questao/${currentQuestion.id}/opcoes`,
@@ -245,7 +243,6 @@ var questoes = {
         id: idQuestao,
       },
       success: async (response) => {
-        console.log(texto);
         for (i = 0; i < opcoes.length; i++) {
           const opcao = opcoes[i];
           await opcoesQuestion.update(
@@ -267,7 +264,7 @@ var questoes = {
             idAutor
           );
         }
-        
+
         showSuccess("Questão Salva com Sucesso!");
         questionCards = [];
         currentQuestion = {};
@@ -285,7 +282,6 @@ var questoes = {
       url: API_BASE_URL + "/questoes/disable",
       data: { numeroQuestao },
     }).done(() => {
-      console.log(`#question${numeroQuestao}`);
       $(`#question${numeroQuestao}`).remove();
       showSuccess("Questão Removida!");
       // toggleModal();
@@ -365,8 +361,8 @@ function addNewRawOption() {
     <div class="operation-button" id="removeOption0" onclick="removeNewOption(${newOption.id}, '${newOption.texto}')"><i class="fa-solid fa-minus"></i></div>
     <div class="col-11">
       <input class="form-check-input" type="radio" name="flexRadioDefault" id="flexRadioOption${newOption.id}New">
-      <label class="form-check-label" contenteditable="true">
-        <p id="questionOption${newOption.id}TextNew">Nova Opção ${newOption.id}</p>
+      <label class="form-check-label row">
+      <textarea rows="2" id="questionOption${newOption.id}TextNew" class="text-alternativa col-12">Nova Opção ${newOption.id}</textarea>
       </label>
 
       <div class="row">
@@ -386,13 +382,14 @@ function addNewRawOption() {
 // de uma pergunta
 function updateCurrentQuestionOptions() {
   currentQuestion.opcoes.forEach((opcao) => {
-    let texto = $(`#questionOption${opcao.id}Text`).text();
+    let texto = $(`#questionOption${opcao.id}Text`).val();
+    console.log(texto)
     let pontuacao = $(`#flexRadioOption${opcao.id}Select`).val();
     opcao.texto = texto;
     opcao.pontuacao = pontuacao;
   });
   createNewOptions.forEach((opcao) => {
-    let texto = $(`#questionOption${opcao.id}TextNew`).text();
+    let texto = $(`#questionOption${opcao.id}TextNew`).val();
     let pontuacao = $(`#flexRadioOption${opcao.id}SelectNew`).val();
     opcao.texto = texto;
     opcao.pontuacao = pontuacao;
