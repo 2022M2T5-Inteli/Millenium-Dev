@@ -34,13 +34,13 @@ function show(param) {
   }
 }
 
-// Criar uma função para o botão proximo
+// Cria uma função para o botão proximo
 // Pega os valores do input e salva na sessionStorage do navegador
 function buttonEntrar() {
   let result = verify(document.getElementById("floatingInput").value);
   show(result);
 }
-
+// Login Escola
 var LoginScreen = {
   loginEscola(email) {
     $.ajax({
@@ -69,6 +69,7 @@ var LoginScreen = {
       },
     });
   },
+// Login Rede
   loginRede(email) {
     $.ajax({
       type: "POST",
@@ -85,6 +86,7 @@ var LoginScreen = {
       },
     });
   },
+// Login Falconi
   loginFalconi(email) {
     $.ajax({
       type: "POST",

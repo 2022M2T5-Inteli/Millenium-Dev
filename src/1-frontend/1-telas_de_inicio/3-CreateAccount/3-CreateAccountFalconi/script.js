@@ -3,6 +3,7 @@ $(document).ready(() => {
   // contaFalconi.create();
 });
 
+//AJAX - criar conta Falconi (Objeto responsável pelas requisições da conta usuário Falconi)
 var contaFalconi = {
   create(nome, email) {
     $.ajax({
@@ -38,7 +39,7 @@ var contaFalconi = {
   },
 };
 
-//Retorna falso se o preenchimento estiver incorreto e verdadeiro se estiver correto
+//Retorna falso se o email preenchido estiver incorreto e verdadeiro se estiver correto
 var emailChecked = false;
 var inputChecked = false;
 
@@ -62,6 +63,7 @@ function showEmail(param) {
   }
 }
 
+//Cria uma função para o botão cadastrar
 function falconiClick() {
   var nome = document.getElementById("floatingInputName").value;
   var email = document.getElementById("floatingInputEmail").value;

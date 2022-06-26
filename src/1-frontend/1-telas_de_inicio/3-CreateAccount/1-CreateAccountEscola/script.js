@@ -2,7 +2,7 @@ $(document).ready(() => {
   // Adiciona a função cadastroClick ao botão de cadastro
 });
 
-// Objeto responsável pelas requisições da conta usuário Escola
+//AJAX - criar conta Escola (Objeto responsável pelas requisições da conta usuário Escola)
 var contaEscola = {
   create(nome, email, cargo, idEscola) {
     console.log(nome, email, cargo, idEscola);

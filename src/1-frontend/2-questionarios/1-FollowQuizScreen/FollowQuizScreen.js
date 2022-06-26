@@ -6,6 +6,7 @@ let idQuestionario = Number(0);
 let eixoDone = 0;
 let eixoNDone = 0;
 
+//AJAX 
 $(document).ready(async () => {
   sessionStorage.removeItem("idProximaQuestao");
   idQuestionario = await questionario.list(sessionStorage.getItem("idEscola"));
