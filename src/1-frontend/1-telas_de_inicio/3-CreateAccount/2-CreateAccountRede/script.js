@@ -1,4 +1,4 @@
-//AJAX criar conta Rede
+//AJAX - criar conta Rede (Objeto responsável pelas requisições da conta usuário Rede)
 var contaRede = {
   create(nome, email) {
     $.ajax({
@@ -21,7 +21,7 @@ var contaRede = {
   },
 };
 
-//Retorna falso se o preenchimento estiver incorreto e verdadeiro se estiver correto
+//Retorna falso se o email preenchido estiver incorreto e verdadeiro se estiver correto
 var emailChecked = false;
 var inputChecked = false;
 
@@ -45,12 +45,12 @@ function showEmail(param) {
   }
 }
 
-//criar uma função para o botão cadastrar
+//Cria uma função para o botão cadastrar
 function cadastroClick() {
   var nome = document.getElementById("floatingInputName").value;
   var email = document.getElementById("floatingInputEmail").value;
 
-  //Verifica se é necessário mostrar alerta de formato errado de email
+  //Verifica se é necessário mostrar alerta de formato de email inválido
   let result = verifyEmail(document.getElementById("floatingInputEmail").value);
   showEmail(result);
 
