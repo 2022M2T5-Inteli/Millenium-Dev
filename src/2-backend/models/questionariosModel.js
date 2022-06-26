@@ -52,8 +52,7 @@ const createNewQuestionario = async (escolaId) => {
   }
 };
 
-const closeQuestionario = async (id) => {
-  console.log(id);
+const closeQuestionario = async (questionarioId) => {
   let db = await Database.open(DBPATH);
   let sql = "UPDATE Questionario SET isComplete = 1 WHERE id = ?";
 
@@ -61,8 +60,7 @@ const closeQuestionario = async (id) => {
   let params = [];
 
   // add elements to the params list
-  console.log("aqui" + id);
-  params.push(id);
+  params.push(request.body.questionarioId);
   return await db.all(sql, params);
 };
 
@@ -83,7 +81,7 @@ const getQuestionarioById = async (questionarioId) => {
 const listQuestionarioRespostas = async (questionarioId) => {
   let db = await Database.open(DBPATH);
   let sql =
-    "SELECT r.id, r.idQuestao, q.texto as textoQuestao, r.idAlternativa, a.texto as textoAlternativa, q.idDominio, d.idEixo, e.idAgenda, r.observacao, r.nota FROM Resposta r JOIN Questao q ON r.idQuestao=q.id JOIN Dominio d ON q.idDominio=d.id JOIN Eixo e ON d.idEixo = e.id LEFT JOIN Alternativa a ON r.idAlternativa=a.id WHERE r.idQuestionario = ?";
+    "SELECT r.id, r.idQuestao, q.texto as textoQuestao, r.idAlternativa, q.idEixo, r.observacao, r.nota FROM Resposta r JOIN Questao q ON r.idQuestao=q.id WHERE r.idQuestionario = ?";
   let params = [];
   params.push(questionarioId);
 
@@ -96,70 +94,12 @@ const listQuestionarioRespostas = async (questionarioId) => {
     resposta.idAlternativa ? answeredQuestions++ : unansweredQuestions++;
   });
   return { respostas, answeredQuestions, unansweredQuestions };
-};
-
-const listQuestionarioRespostasByAgenda = async (questionarioId, idAgenda) => {
-  let db = await Database.open(DBPATH);
-  let sql =
-    "SELECT r.id, r.idQuestao, q.texto as textoQuestao, r.idAlternativa, a.texto as textoAlternativa, q.idDominio, d.idEixo, e.idAgenda, r.observacao, r.nota FROM Resposta r JOIN Questao q ON r.idQuestao=q.id JOIN Dominio d ON q.idDominio=d.id JOIN Eixo e ON d.idEixo = e.id LEFT JOIN Alternativa a ON r.idAlternativa=a.id WHERE r.idQuestionario = ? AND e.idAgenda = ?";
-  let params = [];
-  params.push(questionarioId, idAgenda);
-
-  // verifies if the questionario exists
-  await getQuestionarioById(questionarioId);
-  const respostas = await db.all(sql, params);
-  let answeredQuestions = 0;
-  let unansweredQuestions = 0;
-  respostas.map((resposta) => {
-    resposta.idAlternativa ? answeredQuestions++ : unansweredQuestions++;
-  });
-  return { respostas, answeredQuestions, unansweredQuestions };
-};
-
-const listQuestionarioAgendas = async (questionarioId) => {
-  let db = await Database.open(DBPATH);
-  let sql =
-    "SELECT * From Agenda a WHERE a.id IN (SELECT e.idAgenda FROM Resposta r JOIN Questao q ON r.idQuestao=q.id JOIN Dominio d ON q.idDominio=d.id JOIN Eixo e ON d.idEixo = e.id WHERE r.idQuestionario = ?)";
-  let params = [];
-  params.push(questionarioId);
-
-  // verifies if the questionario exists
-  await getQuestionarioById(questionarioId);
-  const agendas = await db.all(sql, params);
-  return { agendas };
-};
-
-const listQuestionarioEixos = async (questionarioId) => {
-  let db = await Database.open(DBPATH);
-  let sql =
-    "SELECT * From Eixo e WHERE e.id IN (SELECT e.id FROM Resposta r JOIN Questao q ON r.idQuestao=q.id JOIN Dominio d ON q.idDominio=d.id JOIN Eixo e ON d.idEixo = e.id WHERE r.idQuestionario = ?)";
-  let params = [];
-  params.push(questionarioId);
-
-  // verifies if the questionario exists
-  await getQuestionarioById(questionarioId);
-  const eixos = await db.all(sql, params);
-  return { eixos };
-};
-
-const listQuestionarioEixosByAgenda = async (questionarioId, idAgenda) => {
-  let db = await Database.open(DBPATH);
-  let sql =
-    "SELECT * From Eixo e WHERE e.id IN (SELECT e.id FROM Resposta r JOIN Questao q ON r.idQuestao=q.id JOIN Dominio d ON q.idDominio=d.id JOIN Eixo e ON d.idEixo = e.id WHERE r.idQuestionario = ? AND e.idAgenda= ?)";
-  let params = [];
-  params.push(questionarioId);
-  params.push(idAgenda);
-
-  // verifies if the questionario exists
-  await getQuestionarioById(questionarioId);
-  const eixos = await db.all(sql, params);
-  return { eixos };
 };
 
 const listQuestionarioRespostasByEixo = async (questionarioId, eixoId) => {
   let db = await Database.open(DBPATH);
   let sql =
-    "SELECT r.id, r.idQuestao, q.texto as textoQuestao, r.idAlternativa, a.texto as textoAlternativa, q.idEixo, r.observacao, r.nota FROM Resposta r JOIN Questao q ON r.idQuestao=q.id LEFT JOIN Alternativa a ON r.idAlternativa=a.id WHERE r.idQuestionario = ? AND q.idEixo = ?";
+    "SELECT r.id, r.idQuestao, q.texto as textoQuestao, r.idAlternativa, q.idEixo, r.observacao, r.nota FROM Resposta r JOIN Questao q ON r.idQuestao=q.id WHERE r.idQuestionario = ? AND q.idEixo = ?";
   let params = [];
   params.push(questionarioId);
   params.push(eixoId);
@@ -239,20 +179,14 @@ const processQuestionarioResultado = async (questionarioId) => {
     formatedResultado.agenda[idAgenda].eixo[idEixo].divisionFactor +=
       resultado.peso;
 
-    let dominioNota =
+    formatedResultado.agenda[idAgenda].eixo[idEixo].dominio[idDominio].nota =
       formatedResultado.agenda[idAgenda].eixo[idEixo].dominio[idDominio]
         .pontuacao /
       formatedResultado.agenda[idAgenda].eixo[idEixo].dominio[idDominio]
         .divisionFactor;
-    formatedResultado.agenda[idAgenda].eixo[idEixo].dominio[idDominio].nota =
-      parseFloat(dominioNota.toFixed(1));
-    let eixoNota =
+    formatedResultado.agenda[idAgenda].eixo[idEixo].nota =
       formatedResultado.agenda[idAgenda].eixo[idEixo].pontuacao /
       formatedResultado.agenda[idAgenda].eixo[idEixo].divisionFactor;
-
-    formatedResultado.agenda[idAgenda].eixo[idEixo].nota = parseFloat(
-      eixoNota.toFixed(1)
-    );
     formatedResultado.agenda[idAgenda].eixo[idEixo].oportunidade =
       formatedResultado.agenda[idAgenda].eixo[idEixo].maxGrade -
       formatedResultado.agenda[idAgenda].eixo[idEixo].nota;
@@ -301,9 +235,5 @@ module.exports = {
   getQuestionarioById,
   listQuestionarioRespostas,
   listQuestionarioRespostasByEixo,
-  listQuestionarioRespostasByAgenda,
   processQuestionarioResultado,
-  listQuestionarioAgendas,
-  listQuestionarioEixos,
-  listQuestionarioEixosByAgenda,
 };

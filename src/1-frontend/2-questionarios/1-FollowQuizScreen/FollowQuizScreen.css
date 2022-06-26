@@ -1,18 +1,18 @@
-h1 {
-  color: #579a99;
-  font-weight: bold;
-}
-
-h6 {
-  color: #579a99;
-  font-weight: bold;
-}
-
 #topo-tela {
   margin-top: 1%;
   margin-bottom: 1%;
   margin-left: 0%;
   margin-right: 10px;
+}
+
+#caixa-usuario {
+  text-align: justify;
+  background-color: lightgray;
+  border-radius: 14px;
+  vertical-align: middle;
+  padding: 15px;
+  width: fit-content;
+  margin-left: 5rem;
 }
 
 #card-quiz {
@@ -35,20 +35,18 @@ h6 {
 }
 
 #profileBox {
+  background-color: #efefef;
   border-radius: 12px;
   font-family: "Raleway", sans-serif;
-  background-color: #7bbfbe5f !important;
-  color: #2c4b4d;
-  font-weight: bold;
 }
 
 #backButton {
-  padding: 1.4rem;
+  padding: 1.2rem;
   width: 3.4rem;
   height: 3.4rem;
   border-radius: 50px;
   font-size: 1.6rem;
-  color: #4e8988;
+
   transition: ease all 0.2s;
 }
 
@@ -279,27 +277,4 @@ div[role="progressbar0"] {
 div[role="progressbar0"]::before {
   counter-reset: percentage var(--value);
   content: "Iniciar";
-}
-
-#done {
-  align-self: center;
-  margin: auto;
-  margin-bottom: 3%;
-  align-content: center;
-  align-items: center;
-  text-align: center;
-  background-color: rgb(255, 255, 255);
-  border-radius: 10px;
-  padding: 10px;
-  border: 0px;
-  box-shadow: 0px 2px 8px 0px rgba(0, 0, 0, 0.2);
-  transition: ease all 0.2s;
-}
-
-#done:hover {
-  cursor: pointer;
-  transform: scale(1.1, 1.1);
-  box-shadow: 0 6px 8px 0 rgba(0, 0, 0, 0.2);
-  background-color: #2c4b4d;
-  color: whitesmoke;
 }

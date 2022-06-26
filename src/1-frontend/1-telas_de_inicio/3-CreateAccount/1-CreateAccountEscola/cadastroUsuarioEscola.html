@@ -28,13 +28,10 @@
   integrity="sha512-KfkfwYDsLkIlwQp6LFnl8zNdLGxu9YAA1QvwINks4PhcElQSvqcyVLLD9aMhXd13uQjoXtEKNosOWaZqXgel0g=="
   crossorigin="anonymous" referrerpolicy="no-referrer" />
 
-  <!--Modais de alerta-->
-  <script src="https://cdn.jsdelivr.net/npm/sweetalert2@10.10.1/dist/sweetalert2.all.min.js"></script>
-  <link rel='stylesheet' href='https://cdn.jsdelivr.net/npm/sweetalert2@10.10.1/dist/sweetalert2.min.css'>
-
   <!--Script Create Usuario Escola-->
   <script src="https://code.jquery.com/jquery-3.6.0.min.js"
   integrity="sha256-/xUj+3OJU5yExlq6GSYGSHk7tPXikynS7ogEvDej/m4=" crossorigin="anonymous"></script>
+  <script src="script.js"></script>
 
 </head>
 
@@ -47,34 +44,32 @@
             <!-- seção da esquerda -->
             <div class="d-flex justify-content-center align-items-center" id="backButton">
             <!-- seta voltar -->
-            <a href="../../4-ChooseProfileScreen/chooseprofilescreen - index.html"> <i class="fa-solid fa-arrow-left-long"></i></a> <!-- ícone da seta -->
+            <a href="cadastroUsuarioEscola.html"> <i class="fa-solid fa-arrow-left-long"></i></a> <!-- ícone da seta -->
             </div>
         </div>
-        <!-- título e subtítulo -->
+        <!-- seção do meio -->
         <div class="p-3 col-12 col-lg-4 text-center" id="centerSection">
-            <h1>Crie sua conta!</h1>
-            <h6>Cadastre seus dados abaixo:</h6>
+            <h1>Crie sua conta</h1>
+            <h6>Cadastre seus dados abaixo</h6>
         </div>
-        <!-- seção do meio - inserir dados -->
+        <!-- seção do meio -->
         <div class="col-sm-4">
         </div>
         <div class="row center">
           <div class="col-sm-4 offset-sm-4 register">
-            <label for="floatingInputName">Insira seu nome completo:</label>
-            <input type="nome" class="form-control" id="floatingInputName" placeholder="nome">
+            <label for="floatingInputName">Insira seu nome:</label>
+            <input type="nome" class="form-control" id="floatingInputName" placeholder="Nome Sobrenome">
             <label for="floatingInputEmail">Insira seu email:</label>
             <input type="email" class="form-control" id="floatingInputEmail" placeholder="name@example.com">
-            <label for="floatingInputCargo">Insira seu cargo na Escola:</label>
-            <input type="cargo" class="form-control" id="floatingInputCargo" placeholder="exemplo: diretor">
+            <label for="floatingInputCargo">Insira seu Cargo na Escola:</label>
+            <input type="cargo" class="form-control" id="floatingInputCargo" placeholder="">
           </div>
         </div>
-        <!-- botão "próximo" -->
         <div class="container" style="text-align:center;"> 
           <a ><input type="button" class="buttonCadastrar" value="Próximo" onclick="proximoClick()"></a>
         </div>
     </div>
   </div>
-  <script src="script.js"></script>
 </body>
 
 </html> 

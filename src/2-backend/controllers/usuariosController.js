@@ -1,3 +1,4 @@
+
 const sqlite3 = require("sqlite3").verbose();
 const DBPATH = "./Database/mainDB.db";
 
@@ -39,8 +40,7 @@ exports.getUsuarioEscola = (request, response) => {
   let params = [];
   params.push(request.params.usuarioId);
 
-  let sql =
-    "SELECT a.*, e.nome as nomeEscola FROM Account a JOIN Escola e ON a.idEscola=e.codeEscola WHERE id=?";
+  let sql = "SELECT * FROM Account WHERE id=?";
   db.all(sql, params, (err, rows) => {
     response.statusCode = err ? 500 : 200;
     response.json({ user: rows[0], err });
@@ -109,10 +109,11 @@ exports.createUsuarioFalconi = (request, response) => {
   db.close();
 };
 
+
 exports.loginRede = (request, response) => {
-  response.setHeader("Access-Control-Allow-Origin", "*");
+  response.setHeader("Acces-Control-Allow-Origin","*");
   let db = new sqlite3.Database(DBPATH);
-  let sql = "SELECT  nome, id FROM Rede WHERE  email= ?";
+  let sql = "SELECT  nome, id FROM Rede WHERE  email= ?"
   // add query params
   let params = [];
   params.push(request.body.email);
@@ -120,15 +121,15 @@ exports.loginRede = (request, response) => {
   // execute query
   db.all(sql, params, (err, rows) => {
     response.statusCode = 200;
-    response.json({ data: rows[0] });
+    response.json({data:rows[0]});
   });
   db.close();
 };
 
 exports.loginFalconi = (request, response) => {
-  response.setHeader("Access-Control-Allow-Origin", "*");
+  response.setHeader("Acces-Control-Allow-Origin","*");
   let db = new sqlite3.Database(DBPATH);
-  let sql = "SELECT nome, id FROM AdminFalconi WHERE email= ?";
+  let sql = "SELECT nome, id FROM AdminFalconi WHERE email= ?"
   // add query params
   let params = [];
   params.push(request.body.email);
@@ -136,16 +137,17 @@ exports.loginFalconi = (request, response) => {
   // execute query
   db.all(sql, params, (err, rows) => {
     response.statusCode = 200;
-    response.json({ data: rows[0] });
+    response.json({data: rows[0]});
+
   });
   db.close();
 };
+
 
 exports.loginEscola = (request, response) => {
-  response.setHeader("Access-Control-Allow-Origin", "*");
+  response.setHeader("Acces-Control-Allow-Origin","*");
   let db = new sqlite3.Database(DBPATH);
-  let sql =
-    "SELECT a.nome, a.id, a.idEscola, e.nome as nomeEscola FROM Account a JOIN Escola e ON a.idEscola = e.codeEscola WHERE email= ?";
+  let sql = "SELECT nome, id, idEscola FROM Account WHERE email= ?"
   // add query params
   let params = [];
   params.push(request.body.email);
@@ -153,7 +155,9 @@ exports.loginEscola = (request, response) => {
   // execute query
   db.all(sql, params, (err, rows) => {
     response.statusCode = 200;
-    response.json({ data: rows[0] });
+    response.json({data:rows[0]});
+
   });
   db.close();
 };
+

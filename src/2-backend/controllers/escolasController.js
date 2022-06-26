@@ -41,42 +41,6 @@ exports.listEscolaQuestionarios = (request, response) => {
   db.close();
 };
 
-exports.listEscolaQuestionariosAbertos = (request, response) => {
-  response.setHeader("Access-Control-Allow-Origin", "*");
-
-  let db = new sqlite3.Database(DBPATH);
-  let sql = "SELECT * FROM Questionario WHERE idEscola = ? AND isComplete = 0";
-
-  // params list, replaces "?"
-  let params = [];
-
-  // add elements to the params list
-  params.push(request.params.idEscola);
-  db.all(sql, params, (err, rows) => {
-    response.statusCode = 200;
-    response.json({ questionarios: rows });
-  });
-  db.close();
-};
-
-exports.listEscolaQuestionariosConcluidos = (request, response) => {
-  response.setHeader("Access-Control-Allow-Origin", "*");
-
-  let db = new sqlite3.Database(DBPATH);
-  let sql = "SELECT * FROM Questionario WHERE idEscola = ? AND isComplete = 1";
-
-  // params list, replaces "?"
-  let params = [];
-
-  // add elements to the params list
-  params.push(request.params.idEscola);
-  db.all(sql, params, (err, rows) => {
-    response.statusCode = 200;
-    response.json({ questionarios: rows });
-  });
-  db.close();
-};
-
 exports.createEscola = (request, response) => {
   response.setHeader("Access-Control-Allow-Origin", "*");
   let db = new sqlite3.Database(DBPATH);

@@ -1,103 +1,83 @@
 h1 {
-  font-family: "Inter", sans-serif;
-  font-size: 3rem;
-  padding-bottom: 1rem;
-  padding-top: 2rem;
-  text-align: center;
-  color: #ba9948;
-  font-weight: bold;
-
-}
-a,
-a:link,
-a:hover {
-  text-decoration: none;
-  color: inherit;
-}
-
-h6 {
-  font-family: "Raleway", sans-serif;
-  font-weight: bold;
-  color:#ba9948;
-}
-
-#icone {
-  border-radius: 50%;
-  padding: 15px;
-  border: #efefef;
-  background-color: #efefef;
-  color: #ba9948;
-  margin-left: 23px;
-  margin-top: 35px;
-  box-shadow: 0px 2px 8px 0px rgba(0, 0, 0, 0.2);
-  transition: ease all 0.2s;
-}
-
-#icone:hover {
-  background-color: rgb(240, 240, 240);
-  transform: scale(0.98, 0.98);
-  box-shadow: 0px 1px 8px 0px rgba(0, 0, 0, 0.2);
-}
-
-.buttonVoltar {
-  padding-right: 1rem;
-}
-
-
-.buttonCadastrar{
-  border-radius: 5px;
-  font-family: "Raleway", sans-serif;
-  font-weight: bold;
-  border-style: none;
-  box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2);
-  transition: ease all 0.2s;
-  padding: 0.5em;
-  color:#ba9948;
-  margin-top: 3rem;
-}
-
-.buttonCadastrar:hover {
-  background-color: #ba9948;
-  font-weight: bold;
-  color:#fcfbf9;
-  transform: scale(1.1,1.1);
-  box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2);
-}
-
-.back {
-  padding-top: 0.8rem;
-}
-
-.next {
-  padding-top: 3rem;
-  align-items: center;
-}
-
-.register {
-  padding-top: 2.75rem;
-}
-
-#backButton {
-  padding: 1.2rem;
-  width: 3.4rem;
-  height: 3.4rem;
-  border-radius: 50px;
-  font-size: 1.6rem;
-  box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2);
-  transition: ease all 0.2s;
-  color:#ba9948;
-}
-
-#backButton:hover {
-  cursor: pointer;
-  transform: scale(1.1, 1.1);
-  box-shadow: 0 6px 8px 0 rgba(0, 0, 0, 0.2);
-  background-color: #ba9948;
-  color: white;
-}
-
-label{
-  color:#ba9948;
-  font-weight: bold;
-  margin-top: 2rem;
-}
+    font-family: "Inter", sans-serif;
+    font-size: 3rem;
+    padding-bottom: 1rem;
+    padding-top: 2rem;
+    text-align: center;
+  }
+  
+  #icone {
+    border-radius: 50%;
+    padding: 15px;
+    border: #efefef;
+    background-color: #efefef;
+    color: #579a99;
+    margin-left: 23px;
+    margin-top: 35px;
+    box-shadow: 0px 2px 8px 0px rgba(0, 0, 0, 0.2);
+    transition: ease all 0.2s;
+  }
+  
+  #icone:hover {
+    background-color: rgb(240, 240, 240);
+    transform: scale(0.98, 0.98);
+    box-shadow: 0px 1px 8px 0px rgba(0, 0, 0, 0.2);
+  }
+  
+  .buttonVoltar {
+    padding-right: 1rem;
+  }
+  
+  .buttonCadastrar {
+    padding: 5px 10px;
+    color: #ffffff;
+    background-color: #579a99;
+    border-color: #579a99;
+    border-radius: 12px;
+    border-style: solid;
+    font-family: "Inter", sans-serif;
+    text-align: center;
+    margin-top: 2rem;
+  }
+  
+  .back {
+    padding-top: 0.8rem;
+  }
+  
+  .next {
+    padding-top: 3rem;
+    align-items: center;
+  }
+  
+  .register {
+    padding-top: 2.75rem;
+  }
+  
+  #backButton {
+    padding: 1.2rem;
+    width: 3.4rem;
+    height: 3.4rem;
+    border-radius: 50px;
+    font-size: 1.6rem;
+    box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2);
+    transition: ease all 0.2s;
+  }
+  
+  #backButton:hover {
+    cursor: pointer;
+    transform: scale(1.1, 1.1);
+    box-shadow: 0 6px 8px 0 rgba(0, 0, 0, 0.2);
+  }
+  
+  a,
+  a:link,
+  a:hover {
+    text-decoration: none;
+    color: inherit;
+  }
+  
+  h6 {
+    font-family: "Raleway", sans-serif;
+    font-weight: bold;
+  }
+  

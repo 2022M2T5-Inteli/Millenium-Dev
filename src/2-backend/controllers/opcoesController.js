@@ -1,4 +1,3 @@
-const DatabaseAsync = require("sqlite-async");
 const sqlite3 = require("sqlite3").verbose();
 const DBPATH = "./Database/mainDB.db";
 
@@ -15,32 +14,12 @@ exports.listOpcoes = (request, response) => {
   db.close();
 };
 
-exports.listOpcoesByQuestao = (request, response) => {
+exports.createOpcao = (request, response) => {
   response.setHeader("Access-Control-Allow-Origin", "*");
 
   let db = new sqlite3.Database(DBPATH);
-  let sql = "SELECT * FROM Alternativa WHERE ativada=1 AND idQuestao = ?";
-
-  let params = [];
-  params.push(request.params.idQuestao);
-
-  db.all(sql, params, (err, rows) => {
-    response.statusCode = 200;
-    response.json({ opcoes: rows });
-  });
-  db.close();
-};
-
-exports.createOpcao = async (request, response) => {
-  response.setHeader("Access-Control-Allow-Origin", "*");
-
-  let db = await DatabaseAsync.open(DBPATH);
-  let lastNumberSql =
-    "SELECT numeroAlt FROM Alternativa ORDER BY numeroAlt DESC";
-  let lastNumber = await db.all(lastNumberSql, []);
-  lastNumber = lastNumber[0] ? Number(lastNumber[0].numeroAlt) + 1 : 1;
   let sql =
-    "INSERT INTO Alternativa (texto, idQuestao, pontuacao, numeroAlt, versao, idAutor) VALUES (?,  (SELECT id FROM Questao WHERE numeroQuestao = ? ORDER BY id DESC), ?, ?, 1, ?)";
+    "INSERT INTO Alternativa (texto, idQuestao, pontuacao, numeroAlt, versao, idAutor) VALUES (?,  (SELECT id FROM Questao WHERE numeroQuestao = ? ORDER BY id DESC), ?, (SELECT (numeroAlt + 1) FROM Alternativa ORDER BY numeroAlt DESC), 1, ?)";
 
   // creates a list with elements that will replace the "?"
   let params = [];
@@ -49,13 +28,13 @@ exports.createOpcao = async (request, response) => {
   params.push(request.body.texto);
   params.push(request.body.numeroQuestao);
   params.push(request.body.pontuacao);
-  params.push(lastNumber);
   params.push(request.body.idAutor);
   // handles the api reponse status and body
-  const rows = await db.all(sql, params);
-  await db.close();
-  response.statusCode = 200;
-  response.json({ rows });
+  db.all(sql, params, (err, rows) => {
+    response.statusCode = 200;
+    response.json({ rows });
+  });
+  db.close();
 };
 
 exports.updateOpcao = (request, response) => {
