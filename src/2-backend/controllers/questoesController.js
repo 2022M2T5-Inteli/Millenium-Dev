@@ -1,3 +1,4 @@
+const DatabaseAsync = require("sqlite-async");
 const sqlite3 = require("sqlite3").verbose();
 const DBPATH = "./Database/mainDB.db";
 
@@ -29,6 +30,37 @@ exports.listQuestoesByEixo = (request, response) => {
 
   // add elements to the params list
   params.push(request.params.idEixo);
+  db.all(sql, params, (err, rows) => {
+    response.statusCode = 200;
+    let hashmap = {};
+    let questoesFiltered = [];
+    rows.forEach((questao) => {
+      hashmap[questao.numeroQuestao]
+        ? hashmap[questao.numeroQuestao].push(questao)
+        : (hashmap[questao.numeroQuestao] = [questao]);
+    });
+    Object.keys(hashmap).forEach((key) => {
+      let lastQuestionVersion = hashmap[key].reduce((prev, curr) => {
+        return curr.versao > prev.versao ? curr : prev;
+      });
+      questoesFiltered.push(lastQuestionVersion);
+    });
+
+    response.json({ questoes: questoesFiltered, err });
+  });
+  db.close();
+};
+
+exports.listQuestoesByDominio = (request, response) => {
+  response.setHeader("Access-Control-Allow-Origin", "*");
+
+  let db = new sqlite3.Database(DBPATH);
+  let sql = "SELECT * FROM Questao WHERE idDominio = ? AND ativada=1";
+  // params list, replaces "?"
+  let params = [];
+
+  // add elements to the params list
+  params.push(request.params.idDominio);
   db.all(sql, params, (err, rows) => {
     response.statusCode = 200;
     let hashmap = {};
@@ -102,28 +134,33 @@ exports.getQuestaoOpcoes = (request, response) => {
   db.close();
 };
 
-exports.createQuestao = (request, response) => {
+exports.createQuestao = async (request, response) => {
   response.setHeader("Access-Control-Allow-Origin", "*");
 
-  let db = new sqlite3.Database(DBPATH);
-  let sql =
-    "INSERT INTO Questao (texto, numeroQuestao, peso, idDominio, idAutor, idEixo, versao) VALUES(?, (SELECT (numeroQuestao + 1) FROM Questao ORDER BY numeroQuestao DESC), ?, ?, ?, ?, 1)";
+  let db = await DatabaseAsync.open(DBPATH);
 
+  let sql =
+    "INSERT INTO Questao (texto, numeroQuestao, peso, idDominio, idAutor, idEixo, versao) VALUES(?, ?, ?, ?, ?, ?, 1)";
+
+  let lastNumberSql =
+    "SELECT numeroQuestao FROM Questao ORDER BY numeroQuestao DESC";
   // params list, replaces "?"
+
+  let lastNumber = await db.all(lastNumberSql, []);
+  lastNumber = lastNumber[0] ? Number(lastNumber[0].numeroQuestao) + 1 : 1;
   let params = [];
 
   // add elements to the params list
   params.push(request.body.texto);
-  // params.push(request.body.numeroQuestao);
+  params.push(lastNumber);
   params.push(request.body.peso);
   params.push(request.body.idDominio);
   params.push(request.body.idAutor);
   params.push(request.body.idEixo);
 
-  db.all(sql, params, (err, rows) => {
-    response.statusCode = 200;
-    response.json({ questoes: rows });
-  });
+  const rows = await db.all(sql, params);
+  response.statusCode = 200;
+  response.json({ questoes: rows });
   db.close();
 };
 

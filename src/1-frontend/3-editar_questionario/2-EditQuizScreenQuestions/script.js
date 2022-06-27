@@ -1,10 +1,15 @@
 // Carrega dados do sessionStorage em variáveis
-let usuarioFalconiId = sessionStorage.getItem("usuarioFalconiId") || 1;
+let usuarioFalconiId = sessionStorage.getItem("userId") || 1;
 let currentIdEixo = sessionStorage.getItem("currentEixoId") || 1;
 let currentIdDominio = sessionStorage.getItem("currentDominioId") || 1;
 let currentEixoNome =
-  sessionStorage.getItem("currentEixoNome") || "Perguntas do eixo";
+  `Seção ` + sessionStorage.getItem("currentDominioNome") ||
+  "Perguntas da seção";
 
+let optionsBodyDefault = ``;
+
+let currentEixoMaxGrade = sessionStorage.getItem("currentEixoMaxGrade") || 4;
+currentEixoMaxGrade = Number(currentEixoMaxGrade);
 // Variável responsável por guardar todas as
 // questões da página
 let questionCards = [];
@@ -28,23 +33,14 @@ let questionModal = new bootstrap.Modal(
 
 // Retorna um elemento HTML contendo informações de uma questão
 // em forma de linha
-function createQuestionCard(
-  questionId,
-  questionNumber,
-  questionDomain,
-  question
-) {
+function createQuestionCard(questionId, questionNumber, question) {
   let newQuestionCard = `<div class="row col-12 text-center align-items-center m-2 questions" id="question${questionNumber}">
   <!--linha das questões-->
   <div class="col-lg-3 p-4">
     <h6>${questionNumber}</h6>
   </div>
 
-  <div class="col-lg-3 p-4">
-    <h6>${questionDomain}</h6>
-  </div>
-
-  <div class="col-lg-3 p-4">
+  <div class="col-lg-6 p-4">
     <h6>${question.substring(0, 46) + "..."}</h6>
   </div>
 
@@ -72,30 +68,25 @@ function setQuestionModal(questionObj) {
   $("#questionNumberText").text(questionObj.numeroQuestao + ".");
   $("#questionModalTitle").text(questionObj.idDominio);
   $("#questionModalText").text(questionObj.texto);
-  $("#questionWeightSelect").prop("selectedIndex", questionObj.peso);
-  $("#questionDominioSelect").prop("selectedIndex", questionObj.idDominio);
+  $("#questionWeightSelect").val(questionObj.peso);
 
   // Adiciona as opçõoes da questão
   const questionOptionsList = questionObj.opcoes || [];
 
   // Cria um elemento HTML para cada opcão
   questionOptionsList.forEach((questionOption) => {
-    console.log(questionOption);
     let radioButton = `<div class="p-2 d-flex" id="option${questionOption.id}Container">
     <div class="operation-button" id="removeOption0" onclick="removeOption(${questionOption.id},'${questionOption.texto}')"><i class="fa-solid fa-minus"></i></div>
     <div class="col-11">
       <input class="form-check-input" type="radio" name="flexRadioDefault" id="flexRadioOption${questionOption.id}">
-      <label class="form-check-label" contenteditable="true">
-        <p id="questionOption${questionOption.id}Text">${questionOption.texto}</p>
+      <label class="form-check-label row">
+        <textarea rows="2" id="questionOption${questionOption.id}Text" class="text-alternativa col-12">${questionOption.texto}</textarea>
       </label>
 
       <div class="row">
         <div class="col-3">
           <select class="form-select" aria-label=".form-select-sm example" id="flexRadioOption${questionOption.id}Select">
-            <option value="0" selected>Pontos</option>
-            <option value="1">1 ponto</option>
-            <option value="2">2 pontos</option>
-            <option value="3">3 pontos</option>
+          ${optionsBodyDefault}
           </select>
         </div>
       </div>
@@ -139,7 +130,6 @@ function openQuestion(questionId) {
     return obj.id == questionId;
   })[0];
   currentQuestion = questionObj;
-  console.log(questionObj);
   $.ajax({
     type: "GET",
     url: API_BASE_URL + `/questoes/questao/${currentQuestion.id}/opcoes`,
@@ -155,14 +145,12 @@ function openQuestion(questionId) {
           currentQuestion.peso = document.getElementById(
             "questionWeightSelect"
           ).value;
-          currentQuestion.idDominio = document.getElementById(
-            "questionDominioSelect"
-          ).value;
+          currentQuestion.idDominio = currentIdDominio;
           questoes.update(
             currentQuestion.texto,
             currentQuestion.numeroQuestao,
             currentQuestion.peso,
-            currentQuestion.idDominio,
+            currentIdDominio,
             usuarioFalconiId,
             currentIdEixo,
             currentQuestion.opcoes,
@@ -180,15 +168,33 @@ function openQuestion(questionId) {
 $(document).ready(function () {
   $("#pageTitle").text(currentEixoNome);
   usuarioFalconi.list(usuarioFalconiId);
-  questoes.list(currentIdEixo);
+  loadOptionSelectPoints(currentEixoMaxGrade);
+  questoes.list(currentIdDominio);
 });
+
+function loadOptionSelectPoints(maxPoint) {
+  let optionsHTML = ``;
+  const mainOption = document.createElement("option");
+  mainOption.textContent = "Pontuação";
+  mainOption.selected = true;
+  mainOption.disabled = true;
+  optionsHTML += mainOption.outerHTML;
+  $("#questionOptionsPoints").append(mainOption);
+  for (let i = 0; i <= maxPoint; i++) {
+    const option = document.createElement("option");
+    option.value = i;
+    option.textContent = i;
+    optionsHTML += option.outerHTML;
+  }
+  optionsBodyDefault = optionsHTML;
+}
 
 // Objeto reponsável por requisições Questoes
 var questoes = {
-  list(eixoId) {
+  list(dominioId) {
     $.ajax({
       type: "GET",
-      url: API_BASE_URL + "/questoes/eixo/" + eixoId,
+      url: API_BASE_URL + "/questoes/dominio/" + dominioId,
       success: (response) => {
         questionCards = response.questoes;
         $("#questionsWrapper").empty();
@@ -196,7 +202,6 @@ var questoes = {
           let newQuestionCard = createQuestionCard(
             question.id,
             question.numeroQuestao,
-            question.idDominio,
             question.texto
           );
           $("#questionsWrapper").append(newQuestionCard);
@@ -210,8 +215,8 @@ var questoes = {
       url: API_BASE_URL + "/questoes/create",
       data: { texto, peso, idDominio, idAutor, idEixo },
     }).done(() => {
-      alert("Sucesso!");
-      questoes.list(currentIdEixo);
+      showSuccess("Questão criada com sucesso!");
+      questoes.list(currentIdDominio);
       // toggleModal();
     });
   },
@@ -237,10 +242,10 @@ var questoes = {
         idEixo,
         id: idQuestao,
       },
-      success: (response) => {
-        console.log(texto);
-        opcoes.forEach((opcao) => {
-          opcoesQuestion.update(
+      success: async (response) => {
+        for (i = 0; i < opcoes.length; i++) {
+          const opcao = opcoes[i];
+          await opcoesQuestion.update(
             opcao.texto,
             numeroQuestao,
             opcao.pontuacao,
@@ -249,21 +254,23 @@ var questoes = {
             idAutor,
             opcao.id
           );
-        });
-        createNewOptions.forEach((opcao) => {
-          opcoesQuestion.create(
+        }
+        for (i = 0; i < createNewOptions.length; i++) {
+          const opcao = createNewOptions[i];
+          await opcoesQuestion.create(
             opcao.texto,
             numeroQuestao,
             opcao.pontuacao,
             idAutor
           );
-        });
-        alert("Questão Salva com Sucesso!");
+        }
+
+        showSuccess("Questão Salva com Sucesso!");
         questionCards = [];
         currentQuestion = {};
         createNewOptions = [];
         questionsToBeRemoved = [];
-        questoes.list(currentIdEixo);
+        questoes.list(currentIdDominio);
         toggleModal();
         // questoes.list(currentIdEixo);
       },
@@ -275,9 +282,8 @@ var questoes = {
       url: API_BASE_URL + "/questoes/disable",
       data: { numeroQuestao },
     }).done(() => {
-      console.log(`#question${numeroQuestao}`);
       $(`#question${numeroQuestao}`).remove();
-      alert("Questão Removida!");
+      showSuccess("Questão Removida!");
       // toggleModal();
     });
   },
@@ -298,17 +304,16 @@ var usuarioFalconi = {
 };
 
 var opcoesQuestion = {
-  update(texto, numeroQuestao, pontuacao, numeroAlt, idEixo, idAutor, idOpcao) {
-    console.log(
-      texto,
-      numeroQuestao,
-      pontuacao,
-      numeroAlt,
-      idEixo,
-      idAutor,
-      idOpcao
-    );
-    $.ajax({
+  async update(
+    texto,
+    numeroQuestao,
+    pontuacao,
+    numeroAlt,
+    idEixo,
+    idAutor,
+    idOpcao
+  ) {
+    await $.ajax({
       type: "POST",
       url: API_BASE_URL + "/opcoes/update",
       data: {
@@ -320,30 +325,23 @@ var opcoesQuestion = {
         idAutor,
         id: idOpcao,
       },
-    }).done(() => {
-      console.log(texto);
-      // toggleModal();
     });
   },
-  create(texto, numeroQuestao, pontuacao, idAutor) {
-    $.ajax({
+  async create(texto, numeroQuestao, pontuacao, idAutor) {
+    await $.ajax({
       type: "POST",
       url: API_BASE_URL + "/opcoes/create",
       data: { texto, numeroQuestao, pontuacao, idAutor },
-    }).done(() => {
-      console.log(texto);
-      // toggleModal();
     });
   },
-  disable(numeroAlt) {
-    $.ajax({
+  async disable(numeroAlt) {
+    await $.ajax({
       type: "POST",
       url: API_BASE_URL + "/opcoes/disable",
       data: { numeroAlt },
-    }).done(() => {
-      alert("Option Disabled!");
-      // toggleModal();
     });
+    alert("Option Disabled!");
+    // toggleModal();
   },
 };
 
@@ -363,17 +361,14 @@ function addNewRawOption() {
     <div class="operation-button" id="removeOption0" onclick="removeNewOption(${newOption.id}, '${newOption.texto}')"><i class="fa-solid fa-minus"></i></div>
     <div class="col-11">
       <input class="form-check-input" type="radio" name="flexRadioDefault" id="flexRadioOption${newOption.id}New">
-      <label class="form-check-label" contenteditable="true">
-        <p id="questionOption${newOption.id}TextNew">Nova Opção ${newOption.id}</p>
+      <label class="form-check-label row">
+      <textarea rows="2" id="questionOption${newOption.id}TextNew" class="text-alternativa col-12">Nova Opção ${newOption.id}</textarea>
       </label>
 
       <div class="row">
         <div class="col-3">
           <select class="form-select" aria-label=".form-select-sm example" id="flexRadioOption${createNewOptions.length}SelectNew">
-            <option value="0" selected>Pontos</option>
-            <option value="1">1 ponto</option>
-            <option value="2">2 pontos</option>
-            <option value="3">3 pontos</option>
+           ${optionsBodyDefault}
           </select>
         </div>
       </div>
@@ -387,13 +382,14 @@ function addNewRawOption() {
 // de uma pergunta
 function updateCurrentQuestionOptions() {
   currentQuestion.opcoes.forEach((opcao) => {
-    let texto = $(`#questionOption${opcao.id}Text`).text();
+    let texto = $(`#questionOption${opcao.id}Text`).val();
+    console.log(texto)
     let pontuacao = $(`#flexRadioOption${opcao.id}Select`).val();
     opcao.texto = texto;
     opcao.pontuacao = pontuacao;
   });
   createNewOptions.forEach((opcao) => {
-    let texto = $(`#questionOption${opcao.id}TextNew`).text();
+    let texto = $(`#questionOption${opcao.id}TextNew`).val();
     let pontuacao = $(`#flexRadioOption${opcao.id}SelectNew`).val();
     opcao.texto = texto;
     opcao.pontuacao = pontuacao;
@@ -402,56 +398,82 @@ function updateCurrentQuestionOptions() {
 
 // Função responsável por remover uma opção do modal editar Questão
 function removeOption(optionId, optionName) {
-  let shouldRemove = confirm(
-    `Você tem certeza de que deseja remover a opção "${optionName}"?`
-  );
-  if (shouldRemove) {
-    currentQuestion.opcoes = currentQuestion.opcoes.filter((opcao) => {
-      if (opcao.id == optionId) {
-        questionsToBeRemoved.push(opcao);
-        return false;
-      }
-      return opcao;
-    });
-    $(`#option${optionId}Container`).remove();
-  }
+  Swal.fire({
+    icon: "warning",
+    title: `Você tem certeza de que deseja remover a opção "${optionName}"?`,
+    showCancelButton: true,
+    confirmButtonText: "Remover",
+    cancelButtonText: "Cancelar",
+  }).then((result) => {
+    /* Read more about isConfirmed, isDenied below */
+    if (result.isConfirmed) {
+      currentQuestion.opcoes = currentQuestion.opcoes.filter((opcao) => {
+        if (opcao.id == optionId) {
+          questionsToBeRemoved.push(opcao);
+          return false;
+        }
+        return opcao;
+      });
+      $(`#option${optionId}Container`).remove();
+    }
+  });
 }
 
 // Função responsável por remover uma opção recem criada,
 // do modal editar Questão
 function removeNewOption(optionId, optionName) {
-  let shouldRemove = confirm(
-    `Você tem certeza de que deseja remover a opção "${optionName}"?`
-  );
-  if (shouldRemove) {
-    createNewOptions = createNewOptions.filter((opcao) => {
-      return !opcao.id == optionId;
-    });
-    $(`#option${optionId}ContainerNew`).remove();
-  }
+  Swal.fire({
+    icon: "warning",
+    title: `Você tem certeza de que deseja remover a opção "${optionName}"?`,
+    showCancelButton: true,
+    confirmButtonText: "Remover",
+    cancelButtonText: "Cancelar",
+  }).then((result) => {
+    /* Read more about isConfirmed, isDenied below */
+    if (result.isConfirmed) {
+      createNewOptions = createNewOptions.filter((opcao) => {
+        return !opcao.id == optionId;
+      });
+      $(`#option${optionId}ContainerNew`).remove();
+    }
+  });
 }
 
 // Desativa uma Pergunta
 function removeQuestion(numeroQuestao) {
-  let shouldRemove = confirm(
-    `Você tem certeza de que deseja remover a questão "${numeroQuestao}"?`
-  );
-  if (shouldRemove) {
-    questoes.disable(numeroQuestao);
-  }
+  Swal.fire({
+    icon: "warning",
+    title: `Você tem certeza de que deseja remover a questão número ${numeroQuestao}?`,
+    showCancelButton: true,
+    confirmButtonText: "Remover",
+    cancelButtonText: "Cancelar",
+  }).then((result) => {
+    /* Read more about isConfirmed, isDenied below */
+    if (result.isConfirmed) {
+      questoes.disable(numeroQuestao);
+    }
+  });
 }
 
 // Cria uma nova Pergunta
 function createNewQuestion() {
-  let shouldCreate = confirm(`Deseja criar uma nova pergunta?`);
-  shouldCreate &&
-    questoes.create(
-      "Nova questão",
-      0,
-      currentIdDominio,
-      usuarioFalconiId,
-      currentIdEixo
-    );
+  Swal.fire({
+    title: "Criar nova pergunta?",
+    showCancelButton: true,
+    confirmButtonText: "Criar",
+    cancelButtonText: "Cancelar",
+  }).then((result) => {
+    /* Read more about isConfirmed, isDenied below */
+    if (result.isConfirmed) {
+      questoes.create(
+        "Nova questão",
+        1,
+        currentIdDominio,
+        usuarioFalconiId,
+        currentIdEixo
+      );
+    }
+  });
 }
 
 // Redireciona a página para um caminho definido
