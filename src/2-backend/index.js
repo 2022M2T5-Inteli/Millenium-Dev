@@ -25,6 +25,7 @@ const dominiosRoute = require("./routes/v1/dominios");
 const agendasRoute = require("./routes/v1/agendas");
 
 // Application middlewares
+app.use(express.static("../1-front-end"));
 app.use(express.json());
 
 // Application Paths
