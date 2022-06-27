@@ -1,3 +1,32 @@
+h1 {
+  font-family: "Inter", sans-serif;
+  font-size: 3rem;
+  text-align: center;
+  padding-bottom: 1rem;
+  padding-top: 2rem;
+  color:#82622d;
+}
+
+h6 {
+  font-family: "Raleway", sans-serif;
+  font-weight: bold;
+  color:#82622d;
+}
+
+p {
+  text-align: center;
+  font-size: small;
+  font-family: "Inter", sans-serif;
+  padding-top: 10px;
+}
+
+a,
+a:link,
+a:hover {
+  text-decoration: none;
+  color: inherit;
+}
+
 .input {
   margin: 0;
   position: absolute;
@@ -6,24 +35,33 @@
   transform: translate(-50%, -50%);
   text-align: center;
   padding-top: 10rem;
+  color:#82622d;
 }
 
-#buttonVoltar {
-  padding-right: 1rem;
+
+#createLink{
+  color:#ba9a48;
+  text-decoration:underline;
 }
 
-.buttonEntrar {
-  padding-top: 100px;
+.buttonLogin{
+  border-radius: 5px;
+  font-family: "Raleway", sans-serif;
+  font-weight: bold;
+  border-style: none;
+  box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2);
+  transition: ease all 0.2s;
+  padding: 0.5em;
+  color:#82622d;
+  margin-top: 2rem;
 }
 
-.buttonLogin {
-  color: #ffffff;
-  background-color: #579a99;
-  border-color: #579a99;
-  border-radius: 12px;
-  border-style: solid;
-  font-family: "Inter", sans-serif;
-  padding: 5px 10px;
+.buttonLogin:hover {
+  background-color: #ba9a48;
+  font-weight: bold;
+  color:#fcfbf9;
+  transform: scale(1.1,1.1);
+  box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2);
 }
 
 #backButton {
@@ -34,29 +72,15 @@
   font-size: 1.6rem;
   box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2);
   transition: ease all 0.2s;
+  color: #82622d;
 }
 
 #backButton:hover {
   cursor: pointer;
   transform: scale(1.1, 1.1);
   box-shadow: 0 6px 8px 0 rgba(0, 0, 0, 0.2);
-  background-color: #579a99;
+  background-color:#82622d;
   color: white;
-}
-
-h1 {
-  font-family: "Inter", sans-serif;
-  font-size: 3rem;
-  text-align: center;
-  padding-bottom: 1rem;
-  padding-top: 2rem;
-}
-
-p {
-  text-align: center;
-  font-size: small;
-  font-family: "Inter", sans-serif;
-  padding-top: 10px;
 }
 
 #floatingInput {
@@ -74,17 +98,11 @@ p {
 }
 
 #iconEnvelope {
-  color: #579a99;
+  color: #ba9a48;
+  margin-bottom: 0.5rem;
 }
 
-a,
-a:link,
-a:hover {
-  text-decoration: none;
-  color: inherit;
-}
-
-h6 {
-  font-family: "Raleway", sans-serif;
-  font-weight: bold;
+.form-control{
+  color:#82622d;
+  margin-bottom: 1rem;
 }

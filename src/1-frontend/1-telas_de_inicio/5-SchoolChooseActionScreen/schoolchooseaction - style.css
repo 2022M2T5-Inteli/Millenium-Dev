@@ -2,6 +2,8 @@ h1 {
   font-family: "Inter", sans-serif;
   font-size: 2.8rem;
   text-align: center;
+  font-weight: bold;
+  color:#579a99;
 }
 
 h2 {
@@ -13,25 +15,35 @@ h2 {
 h6 {
   font-family: "Raleway", sans-serif;
   font-weight: bold;
+  color:#579a99;
 }
 
-#button {
+a,
+a:link,
+a:hover {
+  text-decoration: none;
+  color: inherit;
+}
+
+.button-options {
   text-align: center;
-  -webkit-box-shadow: 0px 0px 15px -5px rgba(0, 0, 0, 0.69);
-  box-shadow: 0px 0px 10px -5px rgba(0, 0, 0, 0.69);
+  -webkit-box-shadow: 0px 0px 15px -5px rgba(0, 0, 0, 0.9);
+  box-shadow: 0px 0px 10px -5px rgba(0, 0, 0, 0.9);
   transition: ease all 0.2s;
-  padding-top: 5%;
-  margin-top: 15%;
+  padding: 2rem;
+  margin: 1rem;
   height: 80%;
+  width: 100%;
   border-radius: 1rem;
   color: #579a99;
 }
 
-#button:hover {
+.button-options:hover {
   background-color: #579a99;
   color: white;
   transform: scale(0.98, 0.98);
-  box-shadow: 0px 0px 8px -5px rgba(0, 0, 0, 0.5);
+  box-shadow: 0px 0px 8px -5px rgba(0, 0, 0, 0.8);
+  cursor: pointer;
 }
 
 #icon {
@@ -47,6 +59,7 @@ h6 {
   font-size: 1.6rem;
   box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2);
   transition: ease all 0.2s;
+  color:#579a99
 }
 
 #backButton:hover {
@@ -55,11 +68,4 @@ h6 {
   box-shadow: 0 6px 8px 0 rgba(0, 0, 0, 0.2);
   background-color: #579a99;
   color: white;
-}
-
-a,
-a:link,
-a:hover {
-  text-decoration: none;
-  color: inherit;
 }

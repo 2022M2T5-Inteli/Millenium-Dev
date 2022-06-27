@@ -13,4 +13,16 @@ const createNewDominio = async (nome, idEixo) => {
   return { success: true };
 };
 
-module.exports = { createNewDominio };
+const deleteNewDominio = async (id) => {
+  const db = await Database.open(DBPATH);
+  const sql = "DELETE FROM Dominio WHERE id = ? "
+
+  const params = [];
+  params.push(id);
+  await db.all(sql, params);
+  return { success: true };
+};
+
+module.exports = { deleteNewDominio, createNewDominio };
+
+
